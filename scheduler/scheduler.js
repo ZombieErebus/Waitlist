@@ -55,7 +55,7 @@ class Scheduler {
             let job = this.jobs[i];
 
             if(job.canRun()) {
-                console.log("Running Task - " + task.name)
+                console.log("Running Task - " + job.name)
                 // let ms0 = performance.now();
                 job.run();
                 // let ms1 = performance.now();

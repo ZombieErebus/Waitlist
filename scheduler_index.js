@@ -4,7 +4,7 @@ import Scheduler from './scheduler/Scheduler';
 import database from './dbHandler';
 import { data } from './setup';
 import log from './logger';
-import momenttz from 'moment-timezone'
+import momenttz from 'moment-timezone';
 
 // Set global timezone for application
 momenttz.tz.setDefault("Etc/UTC");
@@ -12,6 +12,7 @@ momenttz.tz.setDefault("Etc/UTC");
 database.connect(() => {
     const wlog = require('./models/wlog');
     const db = database.db;
+    const users = require('./models/users')(data);
 
     let scheduler = new Scheduler(1000);
     
@@ -57,6 +58,10 @@ database.connect(() => {
         }
 
         wlog.clean();
+    });
+    scheduler.every("Test", 5, () => {
+        users.getFCList((list) => {
+        });
     });
     
     scheduler.process();
