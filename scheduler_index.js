@@ -1,5 +1,8 @@
 'use strict'
 
+// Include dotenv
+require('dotenv').config();
+
 import Scheduler from './scheduler/Scheduler';
 import database from './dbHandler';
 import { data } from './setup';
