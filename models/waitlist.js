@@ -23,7 +23,7 @@ module.exports = function (setup) {
             cb(docs);
 		})
 	}
-
+    
     /*
     * Adds a pilot to the waitlist
     * @params
@@ -194,42 +194,6 @@ module.exports = function (setup) {
         }
 
     }
-
-/* Temp Code  =>  MOVE TO THE SCHEDULER */
-	module.timers = function () {
-		//TODO: Replace this with a proper fleet lookup method that uses the expiry and checks for errors
-		//TODO: Error checking doesn't work due to how ESI module handles errors
-		setTimeout(lookup, 10*1000)
-
-		function lookup() {
-				db.find().forEach(function (doc) {
-                    user.isOnline(Number(doc.characterID), function(online){
-                        if(online){
-                            //unset offlineCounter
-                            db.updateOne({ '_id': doc._id }, { $unset: {"offline": 0} }, function(err){
-                                if (err) log.error("waitlist.isOnline: Error unsetting offline flag", { "Pilot": doc.name, "Error": err });
-                            })
-                        } else {
-                            db.updateOne({ '_id': doc._id }, { $set: {
-                                "offline": (doc.offline > -1) ? doc.offline + 1 : 0
-                            } }, function(err){
-                                if (err) log.error("waitlist.isOnline: Error unsetting offline flag", { "Pilot": doc.name, "Error": err });
-                            })
-                        }
-
-                    });
-                    
-
-					user.getLocation(doc, function(location) {
-						db.updateOne({ '_id': doc._id }, { $set: { "location": location } }, function (err) {
-                            if (err) log.error("waitlist.getLocation: Error updating location", { "Pilot": doc.name, "Error": err });
-						});
-					})
-				})
-			module.timers();
-		}
-
-	}
 
     return module;
 }

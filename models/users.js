@@ -65,7 +65,6 @@ module.exports = function (setup) {
 				//Get Alliance Info
 				cache.get(allianceID, day, function(alliance){
 					var alliance = {"allianceID": alliance.id, "name": alliance.name};
-					
 					cb(alliance, corporation);
 				})
 			})
