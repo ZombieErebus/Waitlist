@@ -51,8 +51,8 @@ database.connect(function () {
 			
 	/* Force HTTPS On Production */
 	if(process.env.production.toLocaleLowerCase() == "true"){
-		const forceHTTPS = require("expressjs-force-https").forceHTTPS;
-		app.use(forceHTTPS);
+		const sslRedirect = require('heroku-ssl-redirect');
+		app.use(sslRedirect);
 	}
 	
 	/* Middleware Checks */
