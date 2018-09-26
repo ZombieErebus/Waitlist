@@ -33,6 +33,9 @@ database.connect(function () {
 
 	//Start timers
 	fleets.timers();
+    /* Force HTTPS On Production */
+    const sslRedirect = require('heroku-ssl-redirect');
+    app.use(sslRedirect());
 
 	app.use(session({
 		store: new mongoStore({ db: database.db }),
@@ -49,11 +52,6 @@ database.connect(function () {
 	app.use(passport.session());
 	app.use(bodyParser.urlencoded({ extended: true }));
 			
-	/* Force HTTPS On Production */
-	if(process.env.production.toLocaleLowerCase() == "true"){
-		const sslRedirect = require('heroku-ssl-redirect');
-		app.use(sslRedirect);
-	}
 	
 	/* Middleware Checks */
 	app.use('/includes', express.static('public/includes'));//Exempt
