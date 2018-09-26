@@ -52,7 +52,6 @@ database.connect(function () {
 	app.use(passport.session());
 	app.use(bodyParser.urlencoded({ extended: true }));
 			
-	
 	/* Middleware Checks */
 	app.use('/includes', express.static('public/includes'));//Exempt
 	app.use(/\/((?!auth).)*/, require('./middleware/userSession.js')(setup).refresh);
