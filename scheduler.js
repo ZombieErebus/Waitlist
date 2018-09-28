@@ -3,7 +3,7 @@
 // Include dotenv
 require('dotenv').config();
 
-const Scheduler = require('./scheduler/Scheduler');
+const Scheduler = require('./scheduler/scheduler');
 const database = require('./dbHandler');
 const { data } = require('./setup');
 const log = require('./logger');
