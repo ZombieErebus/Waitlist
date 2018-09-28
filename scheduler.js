@@ -16,6 +16,7 @@ database.connect(() => {
     const wlog = require('./models/wlog');
     const db = database.db;
     const users = require('./models/users')(data);
+    const user = require('./models/user')(data);
 
     let scheduler = new Scheduler(1000);  
 
@@ -59,11 +60,52 @@ database.connect(() => {
                 try{
                     collection.updateOne({"_id": pilot._id}, {$set:{"alliance": alliance, "corporation":corporation}});
                 } catch (err) {
+                    console.log("Scheduler - Updating " + pilot.name + "s affiliation: ", err);
                     //log.error("Scheduler - Updating " + pilot.name + "s affiliation: ", err);
                 }
             });
         })
     });
     
+
+    /**
+     * Updates the waitlist for online/offline & Location.
+     */
+    scheduler.every("Waitlist Backend Task", 10, ()=>{
+        let collection = db.collection('waitlist');
+
+        collection.find({}).forEach((waitingPilot)=> {
+            //Updates online/offline
+            user.isOnline(Number(waitingPilot.characterID), (online)=>{
+                if(online){
+
+                    try{
+                        collection.updateOne({ '_id': waitingPilot._id }, { $unset: {"offline": 0} });
+                    } catch (error) {
+                        console.log("Scheduler - Updating " + waitingPilot.name + "s online state: ", err)
+                    }                       
+                } else {
+                    
+                    try{
+                        collection.updateOne({"_id": waitingPilot._id}, { $set: {
+                            "offline": (waitingPilot.offline > -1) ? waitingPilot.offline + 1 : 0
+                        } });
+                    } catch (error) {
+                        console.log("Scheduler - Updating " + waitingPilot.name + "s online state: ", err)
+                    }  
+                }
+            });
+
+            //Updates Location
+            user.getLocation(waitingPilot, (location)=> {
+                try{
+                    collection.updateOne({"_id": waitingPilot._id}, {$set: {"location": location}});
+                } catch (err){
+                    console.log("Scheduler - Updating " + pilot.name + "s location: ", err)
+                }
+            });
+        })
+    });
+
     scheduler.process();
 });
