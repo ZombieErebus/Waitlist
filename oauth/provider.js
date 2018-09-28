@@ -1,7 +1,6 @@
 // import log from '../logger';
 
 const setup = require('../setup');
-console.log(`Setup ClientId: ${setup.oauth.clientID}`);
 const url = require('url');
 const request = require('request');
 const passport = require('passport');

@@ -3,11 +3,11 @@
 // Include dotenv
 require('dotenv').config();
 
-import Scheduler from './scheduler/Scheduler';
-import database from './dbHandler';
-import { data } from './setup';
-import log from './logger';
-import momenttz from 'moment-timezone';
+const Scheduler = require('./scheduler/Scheduler');
+const database = require('./dbHandler');
+const { data } = require('./setup');
+const log = require('./logger');
+const momenttz = require('moment-timezone');
 
 // Set global timezone for application
 momenttz.tz.setDefault("Etc/UTC");
