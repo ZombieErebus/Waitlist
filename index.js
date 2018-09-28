@@ -29,10 +29,7 @@ database.connect(function () {
 
 	//Custom imports
 	require('./oauth/provider');
-	const fleets = require('./models/fleets.js')(setup);
 
-	//Start timers
-	fleets.timers();
     /* Force HTTPS On Production */
     const sslRedirect = require('heroku-ssl-redirect');
     app.use(sslRedirect());

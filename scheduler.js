@@ -17,6 +17,7 @@ database.connect(() => {
     const db = database.db;
     const users = require('./models/users')(data);
     const user = require('./models/user')(data);
+    const fleets = require('./models/fleets')(data);
 
     let scheduler = new Scheduler(1000);  
 
@@ -105,6 +106,13 @@ database.connect(() => {
                 }
             });
         })
+    });
+
+    /**
+     * Updates the fleet information
+     */
+    scheduler.every("Fleets Backend Task", 10, ()=>{
+        fleets.timer();
     });
 
     scheduler.process();

@@ -217,9 +217,6 @@ module.exports = function (setup) {
     }
 
 
-/* TEMP FLEET WORKER => MOVE TO SCHEDULER */
-
-
 module.revokeFC = function(id, cb){
     db.updateOne({'id': id}, {$set: {fc: {}}}, function(err, result) {
         if (typeof cb === "function") cb();
@@ -249,60 +246,52 @@ module.checkForDuplicates = function () {
     })
 }
 
-module.timers = function () {
-    //TODO: Replace this with a proper fleet lookup method that uses the expiry and checks for errors
-    //TODO: Error checking doesn't work due to how ESI module handles errors
-    setTimeout(lookup, 10*1000)
-
-    function lookup() {
-        var checkCache = [];
-        db.find().forEach(function (doc) {
-            /*
-            * Check to see if we have an FC object.
-            * If there is no FC the waitlist is in manual mode.
-            * Skip and check the next.
-            */
+module.timer = function lookup() {
+    var checkCache = [];
+    db.find().forEach(function (doc) {
+        /*
+        * Check to see if we have an FC object.
+        * If there is no FC the waitlist is in manual mode.
+        * Skip and check the next.
+        */
             
-            if(doc.fc.characterID){
-                module.getMembers(doc.fc.characterID, doc.id, doc, function (members, fleetid, fullDoc) {
-                    if (members == null) {
-                        fleetHasErrored();
-                    } else {
-                        db.updateOne({ 'id': fleetid }, { $set: { "members": members, "errors": 0 } }, function (err, result) {
-                            if (err) log.error("fleet.timers: Error for db.updateOne", { err, fleetid });
-                            module.checkForDuplicates();
-                        });
-                        //Won't work because we can't hit the endpoint anymore, oops
-                        members.forEach(function (member, i) {
-                            checkCache.push(member.ship_type_id);
-                            if (i == members.length - 1) {
-                                cache.massQuery(checkCache);
-                            }
-                        });
-
-                        user.getLocation(doc.fc, function(location) {
-                            db.updateOne({ 'id': doc.id }, { $set: { "location": location } }, function (err, result) {//{$set: {backseat: user}}
-                                if (err) log.error("fleet.getLocation: Error for db.updateOne", { err });
-                            });
-                        })
-                    }
-
-                    function fleetHasErrored() {
-                        if (doc.errors < 10) {
-                            log.warn(`Fleet under ${fullDoc.fc.name} caused an error.`);
-                            db.updateOne({ 'id': fleetid }, { $set: { "errors": fullDoc.errors + 1 || 1 } });
-                        } else {
-                            log.warn(`Fleet under ${fullDoc.fc.name} has been put into ESI Offline mode. ${fullDoc.fc.name} is no longer the listed FC.`);
-                            db.updateOne({ 'id': fleetid }, { $set: { "errors": 0 } });
-                            module.revokeFC(fleetid);
+        if(doc.fc.characterID){
+            module.getMembers(doc.fc.characterID, doc.id, doc, function (members, fleetid, fullDoc) {
+                if (members == null) {
+                    fleetHasErrored();
+                } else {
+                    db.updateOne({ 'id': fleetid }, { $set: { "members": members, "errors": 0 } }, function (err, result) {
+                        if (err) log.error("fleet.timers: Error for db.updateOne", { err, fleetid });
+                        module.checkForDuplicates();
+                    });
+                    //Won't work because we can't hit the endpoint anymore, oops
+                    members.forEach(function (member, i) {
+                        checkCache.push(member.ship_type_id);
+                        if (i == members.length - 1) {
+                            cache.massQuery(checkCache);
                         }
-                    }
-                });
-            }
-        })
-        module.timers();
-    }
+                    });
 
+                    user.getLocation(doc.fc, function(location) {
+                        db.updateOne({ 'id': doc.id }, { $set: { "location": location } }, function (err, result) {//{$set: {backseat: user}}
+                            if (err) log.error("fleet.getLocation: Error for db.updateOne", { err });
+                        });
+                    })
+                }
+
+                function fleetHasErrored() {
+                    if (doc.errors < 10) {
+                        log.warn(`Fleet under ${fullDoc.fc.name} caused an error.`);
+                        db.updateOne({ 'id': fleetid }, { $set: { "errors": fullDoc.errors + 1 || 1 } });
+                    } else {
+                        log.warn(`Fleet under ${fullDoc.fc.name} has been put into ESI Offline mode. ${fullDoc.fc.name} is no longer the listed FC.`);
+                        db.updateOne({ 'id': fleetid }, { $set: { "errors": 0 } });
+                        module.revokeFC(fleetid);
+                    }
+                }
+            });
+        }
+    })
 }
 
 
