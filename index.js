@@ -80,8 +80,14 @@ database.connect(function () {
 		next();
     });	
     
+    // Due to limitations on heroku, we will run the scheduler in the same process as the web server
+    if (!!process.env.USE_INLINE_SCHEDULER) {
+        log.info("Running Scheduler inline with web process!");
+        const scheduler = require('./scheduler');
+    }
+
 	//Configure Express webserver
 	app.listen(setup.settings.port, function listening() {
 		log.info('Express online and accepting connections');
-	});
+    });
 });

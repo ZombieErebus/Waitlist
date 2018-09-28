@@ -1,19 +1,14 @@
 'use strict'
 
-import moment from 'moment';
+const moment = require('moment');
 
-class Job {
-    constructor(hours, minutes, name, func) {
-        this.hours = hours;
-        this.minutes = minutes;
-        this.name = name;
-        this.func = func;
+function Job(hours, minutes, name, func) {
+    this.hours = hours;
+    this.minutes = minutes;
+    this.name = name;
+    this.func = func;
 
-        this.determineNextRun();
-        this.lastRan = moment();
-    }
-
-    determineNextRun() {
+    this.determineNextRun = () => {
         this.nextRun = moment();
         this.nextRun.hours(this.hours);
         this.nextRun.minutes(this.minutes)
@@ -24,11 +19,11 @@ class Job {
         }
     }
 
-    canRun() {
+    this.canRun = () => {
         return moment() >= this.nextRun;
     }
 
-    async run() {
+    this.run = () => {
         this.lastRan = moment(); // hack to protect from reentry, might need a state on this class
         try {
             this.func();
@@ -39,6 +34,10 @@ class Job {
             this.determineNextRun();
         }
     }
+
+    
+    this.determineNextRun();
+    this.lastRan = moment();
 }
 
-export default Job;
+module.exports = Job;
