@@ -17,12 +17,14 @@ database.connect(() => {
     const db = database.db;
     const users = require('./models/users')(data);
 
-    let scheduler = new Scheduler(1000);
-    
-    // scheduler.every("Test", 10, () => {
-    //     console.log("I'm doing something important right now");
-    // });
-    
+    let scheduler = new Scheduler(1000);  
+
+    /**
+     * Clears the waitlist and fleet tables.
+     * Cleaning the waitlist for next use
+     * 
+     * @time 11:00GMT -- Downtime 
+     */
     scheduler.scheduled(11, 0, "Waitlist Cleanup", () => {
         const collections = ['waitlist', 'fleets'];
 
@@ -31,40 +33,36 @@ database.connect(() => {
 
             collection.remove({}, (err, docCount) => {
                 if(!!err) {
-                    console.log("This ran with an error!");
+                    console.log("scheduler.WaitlistCleanup: ", err);
                     return;
                     // log.debug("scheduler.WaitlistCleanup: ", err);
                 }
 
-                console.log("Everything was fine.");
+                console.log("Waitlist and Fleet Table was cleaned.");
             });
         }
 
         wlog.clean();
     });
 
-    scheduler.scheduled(11, 30, "Waitlist Cleanup", () => {
-        const collections = ['users'];
-
-        for(let i = 0; i < collections.length; i++) {
-            let collection = db.collection(collections[i]);
-
-            collection.remove({}, (err, docCount) => {
-                if(!!err) {
-                    console.log("This ran with an error!");
-                    return;
-                    // log.debug("scheduler.WaitlistCleanup: ", err);
+   
+    /**
+     * Updates the corporation and alliance of every pilot
+     * 
+     * @time 10:30GMT
+     */
+    scheduler.scheduled(10, 30, "Test", () => {
+        let collection = db.collection('users');
+        
+        collection.find({}).forEach((pilot)=>{
+            users.getPilotAffiliation(pilot.characterID, (alliance, corporation)=>{
+                try{
+                    collection.updateOne({"_id": pilot._id}, {$set:{"alliance": alliance, "corporation":corporation}});
+                } catch (err) {
+                    //log.error("Scheduler - Updating " + pilot.name + "s affiliation: ", err);
                 }
-
-                console.log("Everything was fine.");
             });
-        }
-
-        wlog.clean();
-    });
-    scheduler.every("Test", 5, () => {
-        users.getFCList((list) => {
-        });
+        })
     });
     
     scheduler.process();
