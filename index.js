@@ -18,80 +18,22 @@ process.on('uncaughtException', function(exception) {
 process.setMaxListeners(0);
 
 database.connect(function () {
-	const db = database.db;
 	const express = require('express');
 	const passport = require('passport');
 	const app = express();
-	const OAuth2Strategy = require('passport-oauth2');
-	const refresh = require('passport-oauth2-refresh');
 	const bodyParser = require('body-parser');
-	const request = require('request');
-	const url = require('url');
 	const session = require('express-session');
 	const mongoStore = require('connect-mongo')(session);
 	const cookieParser = require('cookie-parser');
 	const flash = require('req-flash');
 
 	//Custom imports
+	require('./oauth/provider');
 
-	const users = require('./models/users.js')(setup);
-	const customSSO = require('./customSSO.js')(refresh, setup, request, url);
-	const fleets = require('./models/fleets.js')(setup);
-	const waitlist = require('./models/waitlist.js')(setup);
+    /* Force HTTPS On Production */
+    const sslRedirect = require('heroku-ssl-redirect');
+    app.use(sslRedirect());
 
-	//Start timers
-	fleets.timers();
-	waitlist.timers();
-
-	//Configure Passport's oAuth
-	var oauthStrategy = new OAuth2Strategy({
-			authorizationURL: `https://${setup.oauth.baseSSOUrl}/oauth/authorize`,
-			tokenURL: `https://${setup.oauth.baseSSOUrl}/oauth/token`,
-			clientID: setup.oauth.clientID,
-			clientSecret: setup.oauth.secretKey,
-			callbackURL: setup.oauth.callbackURL,
-			passReqToCallback: true
-		},
-		function (req, accessToken, refreshToken, profile, done) {
-			//Get Character Details
-			customSSO.verifyReturnCharacterDetails(refreshToken, function (success, response, characterDetails) {
-				if (success) {
-					users.findOrCreateUser(users, refreshToken, characterDetails, function (user, err) {
-						if(req.isAuthenticated())
-						{	
-							//Link the alt to the users main account
-							users.linkPilots(req.user, characterDetails, function(result){
-								req.flash("content", {"class": result.type, "title":"Account Linked", "message": result.message});
-								done(null, req.user);
-							})
-						} else {
-							//Normal login flow  - Log them in.
-							if (user === false) {
-								done(err);
-							} else {
-								done(null, user);
-							}
-						}
-						
-					})
-				} else {
-					log.info(`Character ID request failed for token ${refreshToken}`);
-					done(success);
-				}
-			});
-		});
-
-	passport.serializeUser(function (user, done) {
-		done(null, user);
-	});
-
-	passport.deserializeUser(function (user, done) {
-		done(null, user);
-	});
-
-	//Extend some stuff
-	passport.use('provider', oauthStrategy);
-	refresh.use('provider', oauthStrategy);
 	app.use(session({
 		store: new mongoStore({ db: database.db }),
 		secret: setup.data.sessionSecret,
@@ -120,7 +62,7 @@ database.connect(function () {
 	});
 
 	//Routes
-	require('./oAuthRoutes.js')(app, passport, setup);
+	require('./oauth/oAuthRoutes.js')(app, passport, setup);
 	var routeListen = require('./routes.js');
 	app.use(routeListen)
 
@@ -134,8 +76,14 @@ database.connect(function () {
 		next();
     });	
     
+    // Due to limitations on heroku, we will run the scheduler in the same process as the web server
+    if (!!process.env.USE_INLINE_SCHEDULER) {
+        log.info("Running Scheduler inline with web process!");
+        const scheduler = require('./scheduler');
+    }
+
 	//Configure Express webserver
 	app.listen(setup.settings.port, function listening() {
 		log.info('Express online and accepting connections');
-	});
+    });
 });
