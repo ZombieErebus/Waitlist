@@ -272,7 +272,7 @@ module.timer = function lookup() {
                         }
                     });
 
-                    user.getLocation(doc.fc, function(location) {
+                    user.getLocation(doc.fc.characterID, doc.fc.name, function(location) {
                         db.updateOne({ 'id': doc.id }, { $set: { "location": location } }, function (err, result) {//{$set: {backseat: user}}
                             if (err) log.error("fleet.getLocation: Error for db.updateOne", { err });
                         });

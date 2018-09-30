@@ -11,14 +11,14 @@ module.exports = function() {
     * @params: {user}
     * @return: location{system_id, system_name}
     */
-    module.getLocation = function (user, cb) {
-		module.getRefreshToken(user.characterID, function(accessToken){
+    module.getLocation = function (charID, name, cb) {
+		module.getRefreshToken(Number(charID), function(accessToken){
 			if(!!!accessToken){
-				log.warn("user.getLocation: Could not get an accessToken", {pilot: user.name})
+				log.warn("user.getLocation: Could not get an accessToken", {pilot: name})
 				cb({id: 0, name: "unknown", lastcheck: Date.now()});
 				return;
 			}
-			esi.characters(user.characterID, accessToken).location().then(function (locationResult) {
+			esi.characters(Number(charID), accessToken).location().then(function (locationResult) {
 				cache.get(locationResult.solar_system_id, null, function(systemObject){
 					var location = {
 						systemID: systemObject.id,
