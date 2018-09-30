@@ -1,6 +1,14 @@
 language: node_js
 node_js:
-  - "8"
+- '8'
 script:
-  - npm test
-  - npm run build:js
+- npm test
+- npm run build:js
+deploy:
+  provider: heroku
+  api_key:
+    secure: mjPRTuPlAjbqAlNg3gnEVZ7sCgiu3xUSOGMRlOXwT38OaN/UXLkT8VGlOcwLL6jTafsoQm8gbgoAI0wQ+AALs+LcllKuf+vLf43LNNG+6kEPxBXKd+GVuc5F85p5t5EHCQ1puehIoUq+iLdrQsD6Ps2ZP9Qm4zGNUjAWyIJPCnUJvzBtE0CF1vH6cUBjLqHUAf1EH710VsuKUTRnwqM4NuDFuU5/60BCHcIXEcc16LNz4LWGh+ej4fvP36k1mar5aAg0WT98+Vgi/cOV98nz6rqNlagc+Afn52sZmuhB8CCkmeA+0jneMT0VnDF6r5NyS0kugSvkRpwgGZagUzfu3cNQ9X8H+J/JbySRTIORGxLvEN8MhLI5S7iTAYaUVHA/DjNBezCoFzWPK6p48QGfhwODiTZym84LLSaAiyNHOxf4KYKUOwvIazWz1brWVR1zdaDH2qN9lYL5NV5wsz97H+KnAxHvNJRiZYSOYFjc3toULqgv4EIt91L3OMONXTTip7AxdHisXgwcJ0e4HL9nUGB2HCgVg0TpeFHoCS7JMu+f1G3OgKdO9Cf8etZAFBLqphOlBhjlgZjthxZm7zdjZTS5Zwy2HgFi6uCn4juFz6wte09kIMcSHQoCjkt7/GLtA3U6feR5ar80XeII4ZdwjU5LQadrqk6xh0TOf1FIg6Y=
+  app:
+    master: imperium-incursion-waitlist
+    development: incursion-waitlist-staging
+  skip_cleanup: true
