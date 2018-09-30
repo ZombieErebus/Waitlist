@@ -98,11 +98,11 @@ database.connect(() => {
             });
 
             //Updates Location
-            user.getLocation(waitingPilot, (location)=> {
+            user.getLocation(waitingPilot.characterID, waitingPilot.name, (location)=> {
                 try{
                     collection.updateOne({"_id": waitingPilot._id}, {$set: {"location": location}});
                 } catch (err){
-                    console.log("Scheduler - Updating " + pilot.name + "s location: ", err)
+                    console.log("Scheduler - Updating " + waitingPilot.name + "s location: ", err)
                 }
             });
         })
