@@ -1,6 +1,7 @@
 {% include "./partials/header.njk" -%}
 {% include "./partials/nav.njk" %}
-				
+        <div id="react-fleet-attach"></div>
+
 		<!-- Page Content -->
 		<div class="page-content {{ "active" if userProfile.settings.smSideNav == true }}">
 			<div class="page-header noselect">
@@ -115,4 +116,7 @@ $(document).ready(function() {
 	}, 5000); //Every 5 seconds
 });
 </script>
+
+<script src="/compiled-react/waitlist.js"></script>
+
 {%- include "./partials/footer.njk" %}
