@@ -1,23 +1,14 @@
 {% include "./partials/header.njk" -%}
 {% include "./partials/nav.njk" %}
-        <div id="react-fleet-attach"></div>
+        
 
 		<!-- Page Content -->
 		<div class="page-content {{ "active" if userProfile.settings.smSideNav == true }}">
-			<div class="page-header noselect">
-				<div class="container-fluid">
-					<h2 class="h5 no-margin-bottom"><strong class="text-primary">THE</strong><strong>WAITLIST</strong></h2>
-				</div>
-			</div>
+			<div id="react-fleet-attach"></div>
+
 			<!-- Banner Message -->
-			<section>
+			{# <section>
 				<div id="alertarea">
-					{% if banner %}
-					<div id="topbanner" role="alert" class="alert alert-primary {{ banner.class }} noselect mb-4">
-						<strong><i class="fas fa-info-circle"></i></strong> {{ banner.text }}
-						<p class="mt-0 mb-0" style="font-size:small;">Message set by: {{ banner.admin.name }}. {% if userProfile.role.numeric > 0 %}| <a href="#" class="font-weight-bold" style="color:white!important;" onclick="hideBanner('{{banner._id}}')">admin delete</a>{% endif %}</p>
-					</div>
-					{% endif %}
 					<div id="noFleetBanner" role="alert" class="alert alert-primary global-banner-inactive noselect hide">
 						<strong>Waitlist Inactive:</strong> There is either no fleets, or the waitlist is not being used. Check our in-game channel for more information!
 					</div>
@@ -89,29 +80,20 @@
 								</div><!-- End Alt Waitlist -->
 							</div><!-- End Waitlist Up Block -->
 						</div><!-- End Waitlist Panel -->
-						
-						<!-- Fleet Info -->
-						<div class="col-lg-8 col-md-6 col-sm-12">
-							<div id="fleetInfoCards" class="row">
-								
-							</div>
-						</div>
 					</div><!-- End Fleet Info -->
 				</div>
 			</div> 
-		</section>
+		</section> #}
 	</footer>
 </div>
 
 <script>
 //On page load
 $(document).ready(function() {
-	getFleetList();
 	pilotState({{ userProfile.characterID }});
 
 	//Start Timer
 	setInterval(function() {
-		getFleetList();
 		pilotState({{ userProfile.characterID }});
 	}, 5000); //Every 5 seconds
 });

@@ -3,6 +3,10 @@
 	display: none;
 }
 
+.banner {
+	color: white!important;
+}
+
 /* Strike out */
 .strike{
 	text-decoration: line-through;
