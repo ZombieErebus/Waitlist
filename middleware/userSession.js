@@ -6,11 +6,14 @@ module.exports = function (setup) {
 	var module = {};
 	//This nested if stuff is kinda unpleasant and I'd like to fix it
 	module.refresh = function (req, res, next) {
+		console.log(req.originalUrl.split('/')[2])
 		if (!req.session.passport || !req.session.passport.user) {
-			
-			if(req.originalUrl.split('/')[1] == 'internal-api' || req.originalUrl.split('/')[1] == 'api'){
-				res.status(401).send("Not authorised please login to continue. <a href='/auth/provider'>Login</a>");
-				return;
+			let uri = req.originalUrl.split('/');
+			if(uri.length >= 1) {
+				if(uri[1] == 'internal-api' || uri[1] == 'api'){
+					res.status(401).send("Not authorised please login to continue. <a href='/auth/provider'>Login</a>");
+					return;
+				}
 			}
 
 			res.render("statics/login.html");
