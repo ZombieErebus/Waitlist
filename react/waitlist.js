@@ -97,18 +97,19 @@ class Waitlist extends React.Component {
 
         let fleets;
         if(!!this.getFleets()) {
+            console.log(!!this.getFleets)
             fleets = this.getFleets().map((fleet, index) => {
                 return <FleetInfo fleet={fleet} key={index}></FleetInfo >
             });
         }
         
         let waitlistQueue;
-        if(!!this.getWaitlistQueue()) {
+        if(!!this.getWaitlistQueue() && this.hasFleets()) {
             waitlistQueue = <WaitlistQueue queue={this.getWaitlistQueue()} main={this.getWaitlistMain()} />
         }
 
         let joinWaitlist;
-        if(!!this.getJoinWaitlist()) {
+        if(!!this.getJoinWaitlist() && this.hasFleets()) {
             joinWaitlist = <JoinWaitlist pilots={this.getWaitlistMain()} waitlistMain={this.getPilots()}/>
         }
 
