@@ -6,7 +6,6 @@ module.exports = function (setup) {
 	var module = {};
 	//This nested if stuff is kinda unpleasant and I'd like to fix it
 	module.refresh = function (req, res, next) {
-		console.log(req.originalUrl.split('/')[2])
 		if (!req.session.passport || !req.session.passport.user) {
 			let uri = req.originalUrl.split('/');
 			if(uri.length >= 1) {
