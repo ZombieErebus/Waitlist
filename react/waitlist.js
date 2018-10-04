@@ -117,15 +117,17 @@ class Waitlist extends React.Component {
                 <Header />
                 {banner}
                 
-                <section>
-                    <div className="row">
-                        <div className="col-lg-4 col-md-6 col-sm-12">
-                            {waitlistQueue}
-                            {joinWaitlist}
-                        </div>
-                        <div className="col-lg-8 col-md-6 col-sm-12">
-                            <div className="row">
-                                {fleets}
+                <section className="no-padding-top padding-bottom noselect">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <div className="col-lg-4 col-md-6 col-sm-12">
+                                {waitlistQueue}
+                                {joinWaitlist}
+                            </div>
+                            <div className="col-lg-8 col-md-6 col-sm-12">
+                                <div id="fleetInfoCards" className="row">
+                                    {fleets}
+                                </div>
                             </div>
                         </div>
                     </div>
