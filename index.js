@@ -38,8 +38,8 @@ database.connect(function () {
 		store: new mongoStore({ db: database.db }),
 		secret: setup.data.sessionSecret,
 		cookie: { maxAge: 604800 * 1000 }, //Week long cookies for week long incursions!
-    resave: true,
-    saveUninitialized: true
+		resave: true,
+		saveUninitialized: true
 	}))
 
 	app.use(cookieParser());

@@ -2,7 +2,10 @@ import React from 'react';
 import Header from 'components/header';
 import Banner from 'components/banner';
 import FleetInfo from 'components/fleetInfo';
+import WaitlistQueue from 'components/queue';
+import JoinWaitlist from 'components/joinWaitlist';
 import ReactDOM from 'react-dom';
+
 
 const WaitlistEndpoint = "/internal-api/v2/waitlist"
 const MaxFailures = 10;
@@ -12,7 +15,7 @@ class Waitlist extends React.Component {
         super(props)
 
         this.state = {
-            failures: 0,
+            failures: 0,    
             backingOff: false,
             waitlistData: {}
         }
@@ -63,18 +66,34 @@ class Waitlist extends React.Component {
         return this.state.waitlistData.fleets;
     }
 
+    hasFleets() {
+        let fleets = this.getFleets();
+
+        return !!fleets && fleets.length;
+    }
+
+    getPilots() {
+        return !! this.state.waitlistData.pilots;
+    }
+
+    getWaitlistQueue() {
+        return this.state.waitlistData.queue;
+    }
+
+    getWaitlistMain() {
+        return this.state.waitlistData.pilots;
+    }
+
+    getJoinWaitlist() {
+        return this.state.waitlistData.pilots;
+    }
+
     render() {
         let banner;
 
         if(!!this.getBanner()) {
-            banner = <Banner banner={this.getBanner()} />
+            banner = <Banner banner={this.getBanner()} hasFleets={this.hasFleets()} />
         }
-
-        // let fleets;
-
-        // if(!!this.getFleetInfo()) {
-        //     fleets = <FleetInfo fleetInfo={this.getFleetInfo()} />
-        // }
 
         let fleets;
         if(!!this.getFleets()) {
@@ -82,19 +101,35 @@ class Waitlist extends React.Component {
                 return <FleetInfo fleet={fleet} key={index}></FleetInfo >
             });
         }
+        
+        let waitlistQueue;
+        if(!!this.getWaitlistQueue()) {
+            waitlistQueue = <WaitlistQueue queue={this.getWaitlistQueue()} main={this.getWaitlistMain()} />
+        }
+
+        let joinWaitlist;
+        if(!!this.getJoinWaitlist()) {
+            joinWaitlist = <JoinWaitlist pilots={this.getWaitlistMain()} waitlistMain={this.getPilots()}/>
+        }
 
         return(
             <div>
                 <Header />
                 {banner}
-
-                <div className="row">
-                    <div className="col-lg-4 col-md-6 col-sm-12">
+                
+                <section>
+                    <div className="row">
+                        <div className="col-lg-4 col-md-6 col-sm-12">
+                            {waitlistQueue}
+                            {joinWaitlist}
+                        </div>
+                        <div className="col-lg-8 col-md-6 col-sm-12">
+                            <div className="row">
+                                {fleets}
+                            </div>
+                        </div>
                     </div>
-                    <div className="col-lg-8 col-md-6 col-sm-12">
-                        {fleets}
-                    </div>
-                </div>
+                </section>
             </div>
         );
     }

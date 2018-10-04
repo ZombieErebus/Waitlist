@@ -19,28 +19,6 @@
 				<div class="container-fluid">
 					<div class="row">
 						<div id="waitlistCards" class="col-lg-4 col-md-6 col-sm-12">
-							<div id="queueInfo" class="statistic-block block noselect">
-								<div class="title">                    
-									<strong>Queue Info</strong>
-								</div>
-								<!-- Your Position Table -->
-								<table class="table table-striped table-sm noselect">
-									<tbody>
-										<tr>
-											<td class="tw60per"><i class="fas fa-info-circle" data-toggle="tooltip" data-title="This indicator does not include alts."></i> Your Position:</td>
-											<td id="queueInfoYourPos"></td>
-										</tr>
-										<tr>
-											<td class="tw60per"><i class="fas fa-info-circle" data-toggle="tooltip" data-title="This indicator does not include alts."></i> People Waiting:</td>
-											<td id="queueInfoQueueSize"></td>
-										</tr>										
-										<tr>
-											<td><i class="fas fa-info-circle" data-toggle="tooltip" data-title="The FC sees you as your first pilot on the waitlist."></i> Your Main:</td>
-											<td id="queueInfoYourMain"></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
 							<div id="joinMain" class="statistic-block block">
 								<!-- Main Waitlist Panel -->
 								<strong>Join the Waitlist!</strong>
@@ -86,18 +64,6 @@
 		</section> #}
 	</footer>
 </div>
-
-<script>
-//On page load
-$(document).ready(function() {
-	pilotState({{ userProfile.characterID }});
-
-	//Start Timer
-	setInterval(function() {
-		pilotState({{ userProfile.characterID }});
-	}, 5000); //Every 5 seconds
-});
-</script>
 
 <script src="/compiled-react/waitlist.js"></script>
 

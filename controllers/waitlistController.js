@@ -62,10 +62,10 @@ exports.signup = function(req, res){
         });
 
         promise.then(function(waitlistMain) {
+            console.log(`Pilot CharacterID: ${waitlistMain["characterID"]}`)
             waitlist.add(waitlistMain, pilot, req.body.ship, contact, req.user.newbee, function(result){
                 wlog.joinWl(pilot);
-                req.flash("content", {"class": result.class, "title": result.title, "message": result.message});
-                res.redirect(`/`);
+                res.status(result).send();
             });
         }).catch(function(err){
             log.error(err);

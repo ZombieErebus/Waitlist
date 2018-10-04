@@ -6,9 +6,16 @@ class SetWaypoint extends Component {
         super(props)
     }
 
+    esiSetWapoint(){
+        $.ajax({
+            type: "POST",
+            url: "/esi/ui/waypoint/" + this.props.system.systemID
+        });
+    }
+
     render(){
         return(
-            <a href="javascript:void()" onclick="setWaypoint({this.props.system.systemID})">{this.props.system.name}</a>
+            <a href="javascript:void()" onClick={this.esiSetWapoint.bind(this)}>{this.props.system.name}</a>
         );
     }
 }

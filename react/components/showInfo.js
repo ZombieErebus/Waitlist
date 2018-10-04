@@ -6,9 +6,16 @@ class ShowInfo extends Component {
         super(props)
     }
 
+    esiShowInfo(){
+        $.ajax({
+            type: "POST",
+            url: "/esi/ui/info/" + this.props.entity.characterID
+          });
+    }
+
     render(){
         return(
-            <a href="javascript:void()" onclick="showInfo('{this.props.entity.characterID}')">{this.props.entity.name}</a>
+            <a href="#" onClick={this.esiShowInfo.bind(this)}>{this.props.entity.name}</a>
         );
     }
 }

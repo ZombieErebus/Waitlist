@@ -52,13 +52,18 @@ class Alert extends Component {
             </div>
         }
 
+        let noFleetsBanner;
+        if(!this.props.hasFleets) {
+            noFleetsBanner = <div id="noFleetBanner" role="alert" className="alert alert-primary global-banner-inactive noselect">
+                <strong>Waitlist Inactive:</strong> There is either no fleets, or the waitlist is not being used. Check our in-game channel for more information!
+            </div>;
+        }
+
         return(
             <section>
                 <div id="alertarea">
                     {alertBanner}
-                    <div id="noFleetBanner" role="alert" className="alert alert-primary global-banner-inactive noselect hide">
-                        <strong>Waitlist Inactive:</strong> There is either no fleets, or the waitlist is not being used. Check our in-game channel for more information!
-                    </div>
+                    {noFleetsBanner}
                 </div>
             </section>
         );

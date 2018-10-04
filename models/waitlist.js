@@ -32,15 +32,15 @@ module.exports = function (setup) {
     module.add = function(waitlistMain, pilot, fits, contact, newbee, cb){
         module.isUserPresent(pilot.characterID, function(result){
             if(result){
-                cb({"class": "error", "title": "Woops", "message": pilot.name + " is already on the waitlist."})
+                cb(400, "You are already on the waitlist");
                 return;
             }
 
             users.getMain(waitlistMain.characterID, function(userObject){
                 var disciplinary = false;
-
+                console.log(waitlistMain.characterID)
                 for(let i = 0; i < userObject.notes.length; i++){
-                    if (userObject.notes[i].isDisciplinary){
+                    if (userObject.notes[i] && userObject.notes[i].isDisciplinary){
                         var disciplinary = true;
                         break;
                     }
@@ -62,9 +62,10 @@ module.exports = function (setup) {
 
                 db.insert(waitlist, function (err) {
                     if (err) log.error("waitlist.add: Error for db.insert", { err, name: pilot.name });
-                    if (!err) cb({"class": "success", "title": "Success", "message": pilot.name + " was added to the waitlist."});
+                    if (!err) cb(200);
                 });
             })
+
         })
     }
 
