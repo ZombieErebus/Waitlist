@@ -7,6 +7,8 @@ class JoinWaitlist extends Component {
         super(props);
 
         this.shipInputs = {}
+        this.state = {};
+        this.selectRef = React.createRef();
     }
 
     getPilotSelect() {
@@ -26,10 +28,33 @@ class JoinWaitlist extends Component {
                 ship: ship
             }
         }).done(function(){
-            pilotState(pilotID);
+            // pilotState(pilotID);
         }).fail(function(error){
             console.log(error);
         })
+    }
+
+    joinAsMain(e) {
+        e.preventDefault();
+
+        let ship = "test";
+
+        $.ajax({
+            type: "POST",
+            url: "/join/main",
+            data: {
+                pilot: this.selectRef.current.value,
+                ship: ship
+            }
+        }).done(function() {
+
+        }).fail(function(error){
+            console.log(error);
+        });
+    }
+
+    onMainSelectionChanged(e) {
+        this.setState({ selectedMain: e.target.value });
     }
 
     onShipRef(element, characterID) {
@@ -64,12 +89,15 @@ class JoinWaitlist extends Component {
 
         let selectMain;
         let selectAlts;
-        if(!this.props.waitlistMain){
+        if(!this.props.waitlistMain || $.isEmptyObject(this.props.waitlistMain)) {
+            let defaultValue = this.state.selectedMain || this.props.pilots.other[0].characterID;
+        
+            console.log(defaultValue);
             selectMain = 
-            <form method="post" action="/join/main">
+            <form onSubmit={this.joinAsMain.bind(this)}>
                 <div class="form-group">
                     <label for="selectMain">Select your main</label>
-                    <select className="form-control mb-0" name="pilot" id="selectMain">
+                    <select defaultValue={defaultValue} onChange={this.onMainSelectionChanged} ref={this.selectRef} className="form-control mb-0" name="pilot">
                         {pilots}
                     </select>
                     <small className="text-muted">This is the name the FC will see you as.</small>

@@ -73,7 +73,7 @@ class Waitlist extends React.Component {
     }
 
     getPilots() {
-        return !! this.state.waitlistData.pilots;
+        return this.state.waitlistData.pilots;
     }
 
     getWaitlistQueue() {
@@ -81,7 +81,7 @@ class Waitlist extends React.Component {
     }
 
     getWaitlistMain() {
-        return this.state.waitlistData.pilots;
+        return this.state.waitlistData.pilots.main;
     }
 
     getJoinWaitlist() {
@@ -110,7 +110,7 @@ class Waitlist extends React.Component {
 
         let joinWaitlist;
         if(!!this.getJoinWaitlist() && this.hasFleets()) {
-            joinWaitlist = <JoinWaitlist pilots={this.getWaitlistMain()} waitlistMain={this.getPilots()}/>
+            joinWaitlist = <JoinWaitlist pilots={this.getPilots()} waitlistMain={this.getWaitlistMain()}/>
         }
 
         return(
