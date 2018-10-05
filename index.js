@@ -38,8 +38,8 @@ database.connect(function () {
 		store: new mongoStore({ db: database.db }),
 		secret: setup.data.sessionSecret,
 		cookie: { maxAge: 604800 * 1000 }, //Week long cookies for week long incursions!
-    resave: true,
-    saveUninitialized: true
+		resave: true,
+		saveUninitialized: true
 	}))
 
 	app.use(cookieParser());
@@ -50,7 +50,8 @@ database.connect(function () {
 	app.use(bodyParser.urlencoded({ extended: true }));
 			
 	/* Middleware Checks */
-	app.use('/includes', express.static('public/includes'));//Exempt
+    app.use('/includes', express.static('public/includes'));//Exempt
+    app.use('/compiled-react', express.static('compiled-react'));//Exempt
 	app.use(/\/((?!auth).)*/, require('./middleware/userSession.js')(setup).refresh);
 	app.use(/\/((?!auth).)*/, require('./middleware/ban.js')(setup).check);
 	app.use(/\/((?!auth).)*/, require('./middleware/whitelist.js')(setup).check);

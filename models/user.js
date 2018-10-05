@@ -27,7 +27,7 @@ module.exports = function() {
 					cb(location);
 				})
 			}).catch(function(err) {
-				log.error("user.getLocation: Error GET /characters/{character_id}/location/", {pilot: user.name, err});
+				log.error("user.getLocation: Error GET /characters/{character_id}/location/", {pilot: name, err});
 				cb({id: 0, name: "unknown", lastcheck: Date.now()});
 			})
 		}) 

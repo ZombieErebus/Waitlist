@@ -4,6 +4,7 @@ node_js:
 script:
 - npm test
 - npm run build:js
+- npm run webpack
 deploy:
   provider: heroku
   api_key:

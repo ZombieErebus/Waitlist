@@ -37,8 +37,7 @@ function (req, accessToken, refreshToken, profile, done) {
                     } else {
                         done(null, user);
                     }
-                }
-                
+                }      
             })
         } else {
             log.info(`Character ID request failed for token ${refreshToken}`);

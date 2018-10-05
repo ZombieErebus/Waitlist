@@ -11,7 +11,8 @@
     "start:docker": "docker run -it -v ${PWD}:/opt/goon_waitlist -v /opt/goon_waitlist/node_modules -p 3000:3000 --rm waitlist",
     "start:dockercmp": "docker-compose up",
     "test": "jest",
-    "webpack": "cross-env NODE_ENV=development webpack --config webpack.config.js"
+    "webpack": "cross-env NODE_ENV=development webpack --config webpack.config.js",
+    "webpack-watch": "cross-env NODE_ENV=development webpack --config webpack.config.js --watch"
   },
   "keywords": [
     "eve",
@@ -22,6 +23,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "classnames": "^2.2.6",
     "connect-mongo": "^2.0.1",
     "cookie-parser": "^1.4.3",
     "dotenv": "^6.0.0",
@@ -49,11 +51,14 @@
     "url": "https://github.com/Makeshift/eve-goons-waitlist.git"
   },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-stage-2": "^6.24.1",
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.4",
     "cross-env": "^5.2.0",
     "jest": "^23.6.0",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
     "webpack": "^4.20.2",
     "webpack-cli": "^3.1.1",
     "webpack-dev": "^1.1.1"

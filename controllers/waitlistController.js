@@ -64,8 +64,7 @@ exports.signup = function(req, res){
         promise.then(function(waitlistMain) {
             waitlist.add(waitlistMain, pilot, req.body.ship, contact, req.user.newbee, function(result){
                 wlog.joinWl(pilot);
-                req.flash("content", {"class": result.class, "title": result.title, "message": result.message});
-                res.redirect(`/`);
+                res.status(result).send();
             });
         }).catch(function(err){
             log.error(err);
@@ -144,6 +143,76 @@ exports.clearWaitlist = function(req, res) {
         res.status(200).send();
     })        
 }
+
+/**
+ * Returns a waitlist state for the user
+ * Including:
+ * Banner{}
+ * Fleets[]
+ * Queue{}
+ * Pilots{}
+ */
+exports.pilotWaitlistState = (req, res) => {
+    if(!users.isRoleNumeric(req.user, 0)){
+        res.status(401).send("Not Authorised");
+        return;
+    }
+
+    var payload = {
+        "banner": {},
+        "fleets": [],
+        "queue": {},
+        "pilots": []
+    }
+
+    var payloadPromise = [];
+
+    //Return the active banner || null
+    banner.getLast((activeBanner) => {
+        payload.banner = activeBanner;
+        
+        if(!!payload.banner)
+            payload.banner.isAdmin = (req.user.role.numeric > 0)? true: false;
+
+        //Returns all of the active fleets
+        fleets.getFleetList((fleetList) => {
+            for(let i = 0; i < fleetList.length; i++){
+                if(fleetList[i].status !== "Not Listed"){
+                    payload.fleets.push({
+                        "fc": {
+                            "name": fleetList[i].fc.name || "",
+                            "characterID": fleetList[i].fc.characterID || null
+                        },
+                        "backseat": {
+                            "name": fleetList[i].backseat.name || "",
+                            "characterID": fleetList[i].backseat.characterID || null
+                        },
+                        "type": fleetList[i].type,
+                        "status": fleetList[i].status,
+                        "size": fleetList[i].members.length,
+                        "location": {
+                            "name": (fleetList[i].location)? fleetList[i].location.name : "",
+                            "systemID": (fleetList[i].location)? fleetList[i].location.systemID : 0,
+                        },
+                        "comms": {
+                            "link": fleetList[i].comms.name || "",
+                            "resource": fleetList[i].comms.url || null
+                        }
+                    });
+                }
+            }
+
+            module.getWaitlistState(req.user.characterID, (pilotStates) => {
+                module.getQueuePos(pilotStates.main.characterID, (theNumbers) => {
+                    payload.pilots =  pilotStates;
+                    payload.queue = theNumbers;
+                    res.status(200).send(payload);
+                });
+            });   
+        });
+    });
+}
+
 
 /*
 * Returns an object of a users known alts (On waitlist or fleet or else)
