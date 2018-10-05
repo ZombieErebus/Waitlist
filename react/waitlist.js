@@ -90,8 +90,8 @@ class Waitlist extends React.Component {
 
     render() {
         let banner;
-
-        if(!!this.getBanner()) {
+        
+        if(!!this.getBanner() || !this.hasFleets()) {
             banner = <Banner banner={this.getBanner()} hasFleets={this.hasFleets()} />
         }
 

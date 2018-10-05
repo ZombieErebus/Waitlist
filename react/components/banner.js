@@ -39,12 +39,12 @@ class Alert extends Component {
     render() {
         // TOOD: Consider breaking this down more
         let adminDeleteElement;
-        if(this.isUserAdmin()) {
+        if(!!this.props.banner && this.isUserAdmin()) {
             adminDeleteElement = <span>| <a href="#" class="font-weight-bold banner" onClick={this.hideBanner.bind(this, this.getBannerId())}>admin delete</a></span>;
         }
 
         let alertBanner;
-        if(!!this.getBannerMessage()) {
+        if(!!this.props.banner && !!this.getBannerMessage()) {
             const classes = classNames("alert alert-primary noselect mb-4", this.getBannerClass());
             alertBanner = <div id="topbanner" role="alert" className={classes}>
                 <strong><i className="fas fa-info-circle"></i></strong> {this.getBannerMessage()}
