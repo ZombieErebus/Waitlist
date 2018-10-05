@@ -1,6 +1,6 @@
 'use strict'
 
-import Scheduler from '../scheduler/scheduler';
+const Scheduler = require('../scheduler/scheduler');
 
 var scheduler = null;
 
