@@ -41,7 +41,7 @@ class Queue extends Component {
                     <tbody>
                         <tr>
                             <td class="tw60per"><i class="fas fa-info-circle" data-toggle="tooltip" data-title="This indicator does not include alts."></i> Your Position:</td>
-                            <td>{this.props.queue.mainPos - 1}</td>
+                            <td>{this.props.queue.mainPos}</td>
                         </tr>
                         <tr>
                             <td class="tw60per"><i class="fas fa-info-circle" data-toggle="tooltip" data-title="This indicator does not include alts."></i> People Waiting:</td>
