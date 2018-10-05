@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames'; 
 import ShowInfo from 'components/showInfo';
-import LeaveWaitlist from 'components/LeaveWaitlist';
+import LeaveWaitlist from 'components/leaveWaitlist';
 
 class Queue extends Component {
     constructor(props) {
