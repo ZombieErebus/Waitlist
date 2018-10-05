@@ -76,7 +76,7 @@ class JoinWaitlist extends Component {
         let pilots = this.props.pilots.other.map((pilot, index) => {
             return <option value={pilot.characterID} key={index}>{pilot.name}</option>;
         });
-
+        
         let pilotsOther = this.props.pilots.other.map((pilot, index) => {          
             if(!pilot.onWaitlist) {
                 return (
@@ -156,13 +156,22 @@ class JoinWaitlist extends Component {
                 </table>
             </div>
         }
+        
+        let noAlts;
+        if(this.props.pilots.other.length <= 0) {
+            noAlts =
+                <p>Looks like you don't have any alts.
+                <a href="/my-settings">You can add some here</a>.</p>
+        }
 
         return (
             <div>
                 <div id="queueInfo" class="statistic-block block noselect">
                     <div class="title"><strong>Waitlist for Fleet</strong></div>
+                    {noAlts}
                     {selectMain}
                     {selectAlts}
+                    
                 </div>
             </div>
         );
