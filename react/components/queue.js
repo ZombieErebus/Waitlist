@@ -1,13 +1,39 @@
 import React, { Component } from 'react';
 import classNames from 'classnames'; 
 import ShowInfo from 'components/showInfo';
+import LeaveWaitlist from 'components/LeaveWaitlist';
 
 class Queue extends Component {
     constructor(props) {
         super(props)
     }
 
-    render(){
+    hasCharactersInWaitlist() {
+        if(!$.isEmptyObject(this.props.main)) {
+            return true;
+        }
+
+        if(!this.props.pilots) {
+            return false;
+        }
+
+        // Otherwise, we need to loop through the other pilots and see if there is something marked as on the waitlist
+        for(let i = 0; i < this.props.pilots.length; i++) { 
+            let pilot = this.props.pilots[i];
+            if(pilot.onWaitlist) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    render() {
+        let leaveWaitlist;
+        if(this.hasCharactersInWaitlist()) {
+            leaveWaitlist = <LeaveWaitlist characterID={this.props.main.characterID} onForceUpdate={this.props.onForceUpdate} />;
+        }
+
         return(
             <div id="queueInfo" class="statistic-block block noselect">
                 <div class="title"><strong>Waitlist Queue</strong></div>
@@ -27,6 +53,8 @@ class Queue extends Component {
                         </tr>
                     </tbody>
                 </table>
+
+                {leaveWaitlist}
             </div>
         );
     }

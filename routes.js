@@ -22,7 +22,7 @@ const fleetsController = require('./controllers/fleetController.js');
 
 	//Waitlist Routes
 	router.post('/join/:type', waitlistController.signup);
-	router.delete('/remove/:type/:characterID', waitlistController.selfRemove)
+	router.post('/remove/:type/:characterID', waitlistController.selfRemove)
 
 
 	//Pilot Settings

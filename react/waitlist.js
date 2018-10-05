@@ -2,7 +2,7 @@ import React from 'react';
 import Header from 'components/header';
 import Banner from 'components/banner';
 import FleetInfo from 'components/fleetInfo';
-import WaitlistQueue from 'components/queue';
+import Queue from 'components/queue';
 import JoinWaitlist from 'components/joinWaitlist';
 import ReactDOM from 'react-dom';
 
@@ -97,7 +97,6 @@ class Waitlist extends React.Component {
 
         let fleets;
         if(!!this.getFleets()) {
-            console.log(!!this.getFleets)
             fleets = this.getFleets().map((fleet, index) => {
                 return <FleetInfo fleet={fleet} key={index}></FleetInfo >
             });
@@ -105,12 +104,12 @@ class Waitlist extends React.Component {
         
         let waitlistQueue;
         if(!!this.getWaitlistQueue() && this.hasFleets()) {
-            waitlistQueue = <WaitlistQueue queue={this.getWaitlistQueue()} main={this.getWaitlistMain()} />
+            waitlistQueue = <Queue queue={this.getWaitlistQueue()} main={this.getWaitlistMain()} pilots={this.getPilots()} onForceUpdate={this.waitlistUpdate.bind(this)}/>
         }
 
         let joinWaitlist;
         if(!!this.getJoinWaitlist() && this.hasFleets()) {
-            joinWaitlist = <JoinWaitlist pilots={this.getPilots()} waitlistMain={this.getWaitlistMain()}/>
+            joinWaitlist = <JoinWaitlist pilots={this.getPilots()} waitlistMain={this.getWaitlistMain()} onForceUpdate={this.waitlistUpdate.bind(this)}/>
         }
 
         return(

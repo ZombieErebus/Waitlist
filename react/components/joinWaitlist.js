@@ -19,6 +19,7 @@ class JoinWaitlist extends Component {
 
     joinAsAlt(pilotID) {
         let ship = this.shipInputs[pilotID].value;
+        let updateCallback = this.props.onForceUpdate;
 
         $.ajax({
             type: "POST",
@@ -28,8 +29,21 @@ class JoinWaitlist extends Component {
                 ship: ship
             }
         }).done(function(){
-            // pilotState(pilotID);
+            updateCallback();
         }).fail(function(error){
+            console.log(error);
+        })
+    }
+
+    removeAlt(pilotID) {
+        let updateCallback = this.props.onForceUpdate;
+
+        $.ajax({
+            type: "POST",
+            url: "/remove/character/" + pilotID
+        }).done(() => {
+            updateCallback();
+        }).fail((error) => {
             console.log(error);
         })
     }
@@ -38,6 +52,7 @@ class JoinWaitlist extends Component {
         e.preventDefault();
 
         let ship = "test";
+        let updateCallback = this.props.onForceUpdate;
 
         $.ajax({
             type: "POST",
@@ -47,14 +62,10 @@ class JoinWaitlist extends Component {
                 ship: ship
             }
         }).done(function() {
-
+            updateCallback();
         }).fail(function(error){
             console.log(error);
         });
-    }
-
-    onMainSelectionChanged(e) {
-        this.setState({ selectedMain: e.target.value });
     }
 
     onShipRef(element, characterID) {
@@ -66,38 +77,55 @@ class JoinWaitlist extends Component {
             return <option value={pilot.characterID} key={index}>{pilot.name}</option>;
         });
 
-        let pilotsOther = this.props.pilots.other.map((pilot, index) => {
-            return (
-                <tr>
-                    <td>
-                        <img src={`https://image.eveonline.com/Character/${pilot.characterID}_32.jpg`} />
-                    </td>
-                    <td>
-                        {pilot.name}
-                    </td>
-                    <td>
-                        <input type="text" className="form-control" name="pilot" ref={ element => {
-                            this.onShipRef(element, pilot.characterID);
-                        }} />
-                    </td>
-                    <td>
-                        <button className="btn btn-success btn-sm" onClick={this.joinAsAlt.bind(this, pilot.characterID)}><i className="fas fa-plus"></i></button>
-                    </td>
-                </tr>
-            );
+        let pilotsOther = this.props.pilots.other.map((pilot, index) => {          
+            if(!pilot.onWaitlist) {
+                return (
+                    <tr>
+                        <td>
+                            <img src={`https://image.eveonline.com/Character/${pilot.characterID}_32.jpg`} />
+                        </td>
+                        <td>
+                            {pilot.name}
+                        </td>
+                        <td>
+                            <input type="text" className="form-control" name="pilot" ref={ element => {
+                                this.onShipRef(element, pilot.characterID);
+                            }} />
+                        </td>
+                        <td>
+                            <button className="btn btn-success btn-sm" onClick={this.joinAsAlt.bind(this, pilot.characterID)}><i className="fas fa-check-circle"></i></button>
+                        </td>
+                    </tr>
+                );
+            } else {
+                return (
+                    <tr>
+                        <td>
+                            <img src={`https://image.eveonline.com/Character/${pilot.characterID}_32.jpg`} />
+                        </td>
+                        <td>
+                            {pilot.name}
+                        </td>
+                        <td>
+                            <input type="text" className="form-control" name="pilot" disabled/>
+                        </td>
+                        <td>
+                            <button className="btn btn-danger btn-sm" onClick={this.removeAlt.bind(this, pilot.characterID)}><i className="fas fa-check-circle"></i></button>
+                        </td>
+                    </tr>
+                );
+            }
         });
 
         let selectMain;
         let selectAlts;
         if(!this.props.waitlistMain || $.isEmptyObject(this.props.waitlistMain)) {
             let defaultValue = this.state.selectedMain || this.props.pilots.other[0].characterID;
-        
-            console.log(defaultValue);
             selectMain = 
             <form onSubmit={this.joinAsMain.bind(this)}>
                 <div class="form-group">
                     <label for="selectMain">Select your main</label>
-                    <select defaultValue={defaultValue} onChange={this.onMainSelectionChanged} ref={this.selectRef} className="form-control mb-0" name="pilot">
+                    <select defaultValue={defaultValue} ref={this.selectRef} className="form-control mb-0" name="pilot">
                         {pilots}
                     </select>
                     <small className="text-muted">This is the name the FC will see you as.</small>

@@ -62,7 +62,6 @@ exports.signup = function(req, res){
         });
 
         promise.then(function(waitlistMain) {
-            console.log(`Pilot CharacterID: ${waitlistMain["characterID"]}`)
             waitlist.add(waitlistMain, pilot, req.body.ship, contact, req.user.newbee, function(result){
                 wlog.joinWl(pilot);
                 res.status(result).send();

@@ -38,7 +38,6 @@ module.exports = function (setup) {
 
             users.getMain(waitlistMain.characterID, function(userObject){
                 var disciplinary = false;
-                console.log(waitlistMain.characterID)
                 for(let i = 0; i < userObject.notes.length; i++){
                     if (userObject.notes[i] && userObject.notes[i].isDisciplinary){
                         var disciplinary = true;
