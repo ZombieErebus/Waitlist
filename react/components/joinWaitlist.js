@@ -9,6 +9,7 @@ class JoinWaitlist extends Component {
         this.shipInputs = {}
         this.state = {};
         this.selectRef = React.createRef();
+        this.ship = React.createRef();
     }
 
     getPilotSelect() {
@@ -51,7 +52,6 @@ class JoinWaitlist extends Component {
     joinAsMain(e) {
         e.preventDefault();
 
-        let ship = "test";
         let updateCallback = this.props.onForceUpdate;
 
         $.ajax({
@@ -59,7 +59,7 @@ class JoinWaitlist extends Component {
             url: "/join/main",
             data: {
                 pilot: this.selectRef.current.value,
-                ship: ship
+                ship: this.ship.current.value
             }
         }).done(function() {
             updateCallback();
@@ -125,10 +125,15 @@ class JoinWaitlist extends Component {
             <form onSubmit={this.joinAsMain.bind(this)}>
                 <div class="form-group">
                     <label for="selectMain">Select your main</label>
-                    <select defaultValue={defaultValue} ref={this.selectRef} className="form-control mb-0" name="pilot">
+                    <select id="selectMain" defaultValue={defaultValue} ref={this.selectRef} className="form-control mb-0" name="pilot">
                         {pilots}
                     </select>
                     <small className="text-muted">This is the name the FC will see you as.</small>
+                </div>
+                <div class="form-group">
+                    <label for="selectShip">What ships can you bring?</label>
+                    <input id="selectShip" ref={this.ship} className="form-control mb-0" name="ship" />
+                    <small className="text-muted">Temporary system, list hull names separated by a comma.</small>
                 </div>
 
                 <button className="btn btn-success btn-block">Sign Up</button>
