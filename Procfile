@@ -1,1 +1,1 @@
-web: node index.js
+web: npm run webpack && node index.js

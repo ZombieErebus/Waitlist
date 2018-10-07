@@ -2,68 +2,10 @@
 {% include "./partials/nav.njk" %}
         
 
-		<!-- Page Content -->
-		<div class="page-content {{ "active" if userProfile.settings.smSideNav == true }}">
-			<div id="react-fleet-attach"></div>
-
-			<!-- Banner Message -->
-			{# <section>
-				<div id="alertarea">
-					<div id="noFleetBanner" role="alert" class="alert alert-primary global-banner-inactive noselect hide">
-						<strong>Waitlist Inactive:</strong> There is either no fleets, or the waitlist is not being used. Check our in-game channel for more information!
-					</div>
-				</div>
-			</section>
-			<!-- Main Content -->
-			<section class="no-padding-top padding-bottom noselect">
-				<div class="container-fluid">
-					<div class="row">
-						<div id="waitlistCards" class="col-lg-4 col-md-6 col-sm-12">
-							<div id="joinMain" class="statistic-block block">
-								<!-- Main Waitlist Panel -->
-								<strong>Join the Waitlist!</strong>
-								<form class="pb-5" method="post" action="/join/main">
-									<div class="form-group">
-										<i class="fas fa-info-circle" data-toggle="tooltip" data-title="Add pilots to your account using the Settings window in the My Account nav bar."></i>												
-										<label for="character">Select Your Main:</label>
-										<select id="character" class="form-control" name="pilot">
-											<option value="" required>Choose</option>
-											{% for pilot in userProfile.account.pilots %}
-											<option value="{{ pilot.characterID }}">{{ pilot.name }}</option>
-											{% endfor %}
-										</select>
-									</div>
-
-									<div class="form-group">
-										<i class="fa fa-info-circle" data-toggle="tooltip" data-title="This is a temporary system, type your ship type (Example: Nyx)"></i>
-										<label for="ship">Ship Type: </label>
-										<input id="ship" class="form-control" type="text" name="ship" required>
-									</div>
-
-									<span class="font-italic"><i class="fas fa-exclamation-circle"></i> Join our in game channel 'imperium.incursions' and Mumble.</span>
-									<button class="btn btn-success float-right mt-3" type="submit"><i class="fa fa-check"></i> Join the Waitlist</button>										
-								</form>
-							</div><!-- End Main Waitlist -->
-							<div id="joinAlts" class="statistic-block block hide">
-								<button class="btn btn-danger float-right mt-3" onclick="remove('all', {{ userProfile.characterID }})"><i class="fas fa-exclamation-triangle"></i> Leave the Waitlist</button>
-								<!-- Alt Waitlist -->
-								<div class="mt-2">
-									<strong>Add Your Alts</strong>
-									<span><a href="/my-settings">You can link alts here</a>.</span>
-
-									<table class="table table-responsive table-sm">
-										<tbody id="altsWaitlistTable">
-										</body>
-									</table>											
-								</div><!-- End Alt Waitlist -->
-							</div><!-- End Waitlist Up Block -->
-						</div><!-- End Waitlist Panel -->
-					</div><!-- End Fleet Info -->
-				</div>
-			</div> 
-		</section> #}
-	</footer>
-</div>
+	<!-- Page Content -->
+	<div class="page-content {{ "active" if userProfile.settings.smSideNav == true }}">
+		<div id="react-fleet-attach"></div>
+	</div>
 
 <script src="/compiled-react/waitlist.js"></script>
 
