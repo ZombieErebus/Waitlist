@@ -1,16 +1,33 @@
 const path = require('path');
 
+const createSrcPath = (pathname) => path.resolve(__dirname, 'react', pathname);
+
 module.exports = {
-    entry: './resources/js/index.js',
-    output: {
-        path: path.resolve(__dirname, 'public/includes/js'),
-        filename: 'waitlist-app.min.js'
+    entry: {
+        waitlist: './react/waitlist.js'
     },
-    devtool: 'source-map'
-    // module: {
-    //     rules: [
-    //       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
-    //       { test: /\.jsx$/, loader: 'babel-loader', exclude: /node_modules/ },
-    //     ]
-    // }
+    output: {    
+        path: path.resolve(__dirname, 'compiled-react'),
+        filename: '[name].js'
+    },
+    resolve: {
+        alias: {
+            components: createSrcPath('components')
+        }
+    },
+    devtool: 'source-map',
+    module: {
+        rules: [
+            {
+                test: /\.m?js$/,
+                exclude: /(node_modules)/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-react']
+                    }
+                }
+            }
+        ]
+    }
 };

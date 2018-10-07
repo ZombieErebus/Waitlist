@@ -4,8 +4,6 @@ const fleets = require('../models/fleets.js')(setup);
 const user = require('../models/user.js')(setup);
 const users = require('../models/users.js')(setup);
 const banner = require('../models/waitlistBanner.js')(setup);
-const wlog = require('../models/wlog');
-const api = require('./apiController');
 
 exports.waypoint = function(req, res) {
     if (req.isAuthenticated() && typeof req.params.systemID !== "undefined") {
@@ -43,9 +41,9 @@ exports.fleetAtAGlance = function(req, res) {
             var ships = [];
             
             var counter = 0;
-            for(var i = 0; i < fleet.members.length; i++) { //where the fuck is shipID coming from? I'm bad
+            for(var i = 0; i < fleet.members.length; i++) {
                 cache.get(fleet.members[i].ship_type_id, null, function(ship) {
-                ships.push(ship); //<<<<<
+                    ships.push(ship); //<<<<<
                 counter++;
                     if(counter === fleet.members.length) {
                         module.createShipsHTML(ships, req.params.filter, res);

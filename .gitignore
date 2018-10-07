@@ -70,3 +70,4 @@ typings/
 # For any scratch files to run little tests
 scratch/
 *.json
+compiled-react/

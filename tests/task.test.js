@@ -1,6 +1,6 @@
 'use strict'
 
-import Task from '../scheduler/task';
+const Task = require('../scheduler/task');
 
 const name = "test";
 const interval = 10;

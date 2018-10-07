@@ -1,10 +1,10 @@
 'use strict'
 
-import moment from 'moment';
-import momenttz from 'moment-timezone';
+const moment = require('moment');
+const momenttz = require('moment-timezone');
 momenttz.tz.setDefault("Etc/UTC");
 
-import Job from '../scheduler/job';
+const Job = require('../scheduler/job');
 
 // should they go here?
 const hour = 1;

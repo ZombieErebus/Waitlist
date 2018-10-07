@@ -5,9 +5,16 @@ const users = require('../models/users.js')(setup);
 module.exports = function (setup) {
 	var module = {};
 	//This nested if stuff is kinda unpleasant and I'd like to fix it
-	//TODO: Make middleware for session, isBanned? isWhitelisted?
 	module.refresh = function (req, res, next) {
 		if (!req.session.passport || !req.session.passport.user) {
+			let uri = req.originalUrl.split('/');
+			if(uri.length >= 1) {
+				if(uri[1] == 'internal-api' || uri[1] == 'api'){
+					res.status(401).send("Not authorised please login to continue. <a href='/auth/provider'>Login</a>");
+					return;
+				}
+			}
+
 			res.render("statics/login.html");
 			return;
 		}
@@ -31,9 +38,9 @@ module.exports = function (setup) {
 						req.session.save(function (err) {
 							if (err) log.error("updateUserSession: Error for session.save", { err, 'characterID': user.characterID });
 							next();
-						})	
-					})//End Session Change
-				})
+						});
+					});
+				});
 			}
 		});
 	}
