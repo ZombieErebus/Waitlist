@@ -1,5 +1,6 @@
 /* ESI */
 function showInfo(targetID) {
+    console.warn("299 - showInfo")
     $.ajax({
       type: "POST",
       url: "/esi/ui/info/"+targetID
@@ -7,6 +8,7 @@ function showInfo(targetID) {
 }
 
 function setWaypoint(systemID) {
+    console.warn("299 - setWaypoint")
     $.ajax({
         type: "POST",
         url: "/esi/ui/waypoint/"+systemID
@@ -14,6 +16,7 @@ function setWaypoint(systemID) {
 }
 
 function openMarket(targetID) {
+    console.warn("299 - openMarket")
     $.ajax({
         type: "POST",
         url: "/esi/ui/market/"+targetID
@@ -69,51 +72,6 @@ function sideNav() {
     }).fail(function(err){
         console.log('Error updating side bar: ' + err);
     });
-}
-
-/* Notifications */
-function enableNotifications() {
-    if (Notify.needsPermission && Notify.isSupported()) {
-       Notify.requestPermission(function(){
-           $( "#noNotify" ).hide();
-           if(payloadData !== null) 
-               showNotification(payloadData);
-       }, function(){
-           console.warn('Permission has been denied by the user');
-       });
-   } 
-}
-
-//Inform user that they don't get notifications.
-$(document).ready(function () {
-    if (Notify.needsPermission && Notify.isSupported()) {
-        var noNotify = '<div role="alert" id="noNotify" class="alert alert-primary global-banner-inactive">'
-        noNotify += '<i class="fas fa-bell-slash"></i> Notifications disabled: this means you may miss your invite. Click <span style="text-decoration:underline" onclick="enableNotifications()">HERE</span> to enable them.'
-      noNotify += '</div>'
-        $( "#alertarea" ).prepend( noNotify );
-    }
-   
-})
-
-function showNotification(payload) {
-    var cNotification = new Notify(payload.data.appName, {
-        body: payload.data.message,
-        icon: payload.data.imgUrl,
-        tag: payload.data.target.id,
-        timeout: 30,
-        notifyClick: cClick,
-        notifyShow: cShow
-    });
-
-    cNotification.show();
-        
-    function cShow() {
-        var audio = new Audio(payload.data.sound);
-        audio.play();
-    }
-    function cClick() {
-        window.location.assign(payload.data.comms.url);
-    }
 }
 
 /*  WAITLIST FC MANAGE
