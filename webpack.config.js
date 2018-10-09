@@ -4,7 +4,8 @@ const createSrcPath = (pathname) => path.resolve(__dirname, 'react', pathname);
 
 module.exports = {
     entry: {
-        waitlist: './react/waitlist.js'
+        waitlist: './react/waitlist.js',
+        skillsManagment: './react/skillsManagment.js'
     },
     output: {    
         path: path.resolve(__dirname, 'compiled-react'),

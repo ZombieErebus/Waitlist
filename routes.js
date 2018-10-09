@@ -10,6 +10,7 @@ const fc_tools_controller = require('./controllers/fcToolsController.js');
 const statsController = require('./controllers/statisticsController.js');
 const waitlistController = require('./controllers/waitlistController.js');
 const fleetsController = require('./controllers/fleetController.js');
+const skills_controller = require('./controllers/skillsController.js');
 
 	//Public Pages
 	router.get('/', waitlistController.index);
@@ -69,6 +70,8 @@ const fleetsController = require('./controllers/fleetController.js');
 	//Admin - FC Management
 	router.get('/admin/commanders', admin_fcs_controller.index);
 	router.post('/admin/commanders/update', admin_fcs_controller.updateUser);
+	//Admin - Skills Managment
+	router.get('/admin/skills', skills_controller.managementIndex);
 
 	//Admin - Whitelist Management
 	router.get('/admin/whitelist', admin_whitelist_controller.index);
