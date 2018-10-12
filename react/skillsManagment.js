@@ -2,6 +2,7 @@ import React from 'react';
 import SkillCategoryMenu from './components/SkillCategoryMenu';
 import SkillSettings from './components/skillSettings';
 import ReactDOM from 'react-dom';
+import Dialog from 'components/Dialog';
 
 const skillManagmentEndpoint = "/internal-api/v2/skills-managment"
 const MaxFailures = 10;
@@ -84,39 +85,27 @@ class SkillsManagment extends React.Component {
                     </div>
                 </section>
 
-                <div role="dialog" tabIndex="-1" className="modal fade" id="newSkillSet">
-                    <div className="modal-dialog" role="document">
-                        <div className="modal-content">
-                            <div className="modal-header">
-                                <h4 className="modal-title">Add a new Skill Set</h4>
-                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                            </div>
-                            <div className="modal-body">
-                                <form onSubmit={this.addNewSkillSet.bind(this)}>
-                                    <div className="form-group">
-                                        <label htmlFor="skillSetName">Skill set name</label>
-                                        <input type="text" name="skillSetName" id="skillSetName" className="form-control" placeholder="Vindicator" ref={this.SkillSetName}/>
-                                        <small className="text-muted">Thsese will be sorted in alphabetical order.</small>
-                                    </div>
-                                    <div className="form-group">
-                                        <label htmlFor="skillSetType">Skill Set Type</label>
-                                        <select name="skillSetType" id="skillSetType" className="form-control mb-0" ref={this.SkillSetType} required>
-                                            <option value="Capitals">Capitals</option>
-                                            <option value="DPS">DPS</option>
-                                            <option value="Logistics &amp; Support">Logistics and Support</option>
-                                            <option value="Snipers">Snipers</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                        <small className="text-muted">Categories that can be used to view similiar skill types</small>
-                                    </div>
-                                    <button className="btn btn-success"><i className="fas fa-check-circle"></i> Save</button>
-                                </form>
-                            </div>
+                <Dialog title="Add a new Skill Set" id="newSkillSet">
+                    <form onSubmit={this.addNewSkillSet.bind(this)}>
+                        <div className="form-group">
+                            <label htmlFor="skillSetName">Skill set name</label>
+                            <input type="text" name="skillSetName" id="skillSetName" className="form-control" placeholder="Vindicator" ref={this.SkillSetName}/>
+                            <small className="text-muted">Thsese will be sorted in alphabetical order.</small>
                         </div>
-                    </div>
-                </div>
+                        <div className="form-group">
+                            <label htmlFor="skillSetType">Skill Set Type</label>
+                            <select name="skillSetType" id="skillSetType" className="form-control mb-0" ref={this.SkillSetType} required>
+                                <option value="Capitals">Capitals</option>
+                                <option value="DPS">DPS</option>
+                                <option value="Logistics &amp; Support">Logistics and Support</option>
+                                <option value="Snipers">Snipers</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <small className="text-muted">Categories that can be used to view similiar skill types</small>
+                        </div>
+                        <button className="btn btn-success"><i className="fas fa-check-circle"></i> Save</button>
+                    </form>
+                </Dialog>
             </div>
         );
     }
