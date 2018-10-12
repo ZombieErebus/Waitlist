@@ -58,13 +58,12 @@ class SkillsManagment extends React.Component {
     }
 
     updateSelectedSkillSet(index) {
-        console.log(index)
         this.setState({ selectedSkillSet: index });
     }
 
     getSelectedSkillSet() {
         let index = this.state.selectedSkillSet
-        if(!index && !!this.state.skillsData) {
+        if(index != undefined && !!this.state.skillsData) {
             return this.state.skillsData.list[index];
         }
 
@@ -85,24 +84,24 @@ class SkillsManagment extends React.Component {
                     </div>
                 </section>
 
-                <div role="dialog" tabindex="-1" class="modal fade" id="newSkillSet">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h4 class="modal-title">Add a new Skill Set</h4>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div role="dialog" tabIndex="-1" className="modal fade" id="newSkillSet">
+                    <div className="modal-dialog" role="document">
+                        <div className="modal-content">
+                            <div className="modal-header">
+                                <h4 className="modal-title">Add a new Skill Set</h4>
+                                <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">
+                            <div className="modal-body">
                                 <form onSubmit={this.addNewSkillSet.bind(this)}>
-                                    <div class="form-group">
-                                        <label for="skillSetName">Skill set name</label>
+                                    <div className="form-group">
+                                        <label htmlFor="skillSetName">Skill set name</label>
                                         <input type="text" name="skillSetName" id="skillSetName" className="form-control" placeholder="Vindicator" ref={this.SkillSetName}/>
-                                        <small class="text-muted">Thsese will be sorted in alphabetical order.</small>
+                                        <small className="text-muted">Thsese will be sorted in alphabetical order.</small>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="skillSetType">Skill Set Type</label>
+                                    <div className="form-group">
+                                        <label htmlFor="skillSetType">Skill Set Type</label>
                                         <select name="skillSetType" id="skillSetType" className="form-control mb-0" ref={this.SkillSetType} required>
                                             <option value="Capitals">Capitals</option>
                                             <option value="DPS">DPS</option>
@@ -110,7 +109,7 @@ class SkillsManagment extends React.Component {
                                             <option value="Snipers">Snipers</option>
                                             <option value="Other">Other</option>
                                         </select>
-                                        <small class="text-muted">Categories that can be used to view similiar skill types</small>
+                                        <small className="text-muted">Categories that can be used to view similiar skill types</small>
                                     </div>
                                     <button className="btn btn-success"><i className="fas fa-check-circle"></i> Save</button>
                                 </form>

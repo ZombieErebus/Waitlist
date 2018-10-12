@@ -6,9 +6,16 @@ class SkillSettings extends Component {
         super(props)
     }
 
+    getSetName() {
+        if(!!this.props.set) {
+            return this.props.set.name;
+        }
+    }
+
     render() {
         return(
             <div className="statistic-block block">
+                <h1>{this.getSetName()}</h1>
             </div>
         )
     }

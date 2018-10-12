@@ -10,18 +10,22 @@ class SkillCategoryMenu extends Component {
         return this.props.skillList;
     }
 
+    onViewSelected(index) {
+        this.props.onSetSelected(index)
+    }
+
     render() {
         let skillNav;
         if(!!this.getSkillNav()) {
             skillNav = this.getSkillNav().map((skills, index) => {
-                return <SkillCategory skill={skills} key={index} onView={this.props.onSetSelected.bind(index)} />
+                return <SkillCategory skill={skills} key={index} onView={this.onViewSelected.bind(this, index)} />
             });
         }
 
         return(
             <div className="statistic-block block">
-                <table class="table table-striped table-hover table-sm table-responsive">
-                    <thead class="thead-inverted">
+                <table className="table table-striped table-hover table-sm table-responsive">
+                    <thead className="thead-inverted">
                         <tr>
                             <th>Plan Name</th>
                             <th></th>
