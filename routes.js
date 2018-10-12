@@ -70,8 +70,7 @@ const skills_controller = require('./controllers/skillsController.js');
 	//Admin - FC Management
 	router.get('/admin/commanders', admin_fcs_controller.index);
 	router.post('/admin/commanders/update', admin_fcs_controller.updateUser);
-	//Admin - Skills Managment
-	router.get('/admin/skills', skills_controller.managementIndex);
+	
 
 	//Admin - Whitelist Management
 	router.get('/admin/whitelist', admin_whitelist_controller.index);
@@ -95,6 +94,11 @@ const skills_controller = require('./controllers/skillsController.js');
 	router.get('/internal-api/fleet/:fleetID/members', fleetsController.getMembersJson);
 
 	router.get('/internal-api/v2/waitlist', waitlistController.pilotWaitlistState);
+
+	//Admin Skills
+	router.get('/admin/skills', skills_controller.managementIndex);
+	router.post('/internal-api/v2/skills-managment', skills_controller.newSkillSet);
+	router.get('/internal-api/v2/skills-managment', skills_controller.getManagmentState);
 	
 	//External - APIs
 	router.get('/api/sstats/members', statsController.getMemberList);
