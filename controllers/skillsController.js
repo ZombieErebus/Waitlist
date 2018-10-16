@@ -51,6 +51,19 @@ exports.getManagmentState = (req, res) => {
     })
 }
 
+exports.updateSettings = (req, res) => {
+    if(!users.isRoleNumeric(req.user, 4)){
+        res.status(403).send("Not Authorised");
+        return;
+    }
+
+    skills.updateSettings(req.params.setID, req.body.name, 
+        req.body.hulls, req.body.filter, req.body.isPublic, (cb) => {
+            
+    });
+    
+}
+
 module.getSkillLists = (user, managmentView, filter, cb) => {
     var showDisabled = (managmentView && users.isRoleNumeric(user, 4)) ? true : false;
     

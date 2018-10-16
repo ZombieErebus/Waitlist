@@ -1,16 +1,17 @@
 const ObjectId = require('mongodb').ObjectID;
 const db = require('../dbHandler.js').db.collection('skills');
+const esi = require('eve-swagger');
 const log = require('../logger.js')(module);
 
 module.exports = function (setup) {
 	var module = {};
     
     //Save new skills
-    module.newSkillSet = (name, type, enabled, cb) => {
+    module.newSkillSet = (name, filter, enabled, cb) => {
         try {
             db.insert({
                 name: name,
-                type: type,
+                filter: filter,
                 enabled: enabled,
                 ships: [],
                 skills: []
@@ -46,6 +47,25 @@ module.exports = function (setup) {
             cb(skills);
         })
     
+    }
+
+    module.updateSettings = (id, name, hulls, filter, isPublic, cb) => {
+        const hullsArray = hulls.split(',');
+
+        //> To Do -- Get object for each ship {id, name}
+
+        db.updateOne({_id: ObjectId(id)},  {$set: {
+            "name": name,
+            "filter": filter,
+            "ships": null,
+            "enabled": isPublic
+        }}, (error, doc) => {
+            if(error) {
+                log.error("Models/Skills.updateSettings - ", error);
+                cb(error);
+                return;
+            }
+        });
     }
 
     return module;

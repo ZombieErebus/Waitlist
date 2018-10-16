@@ -42,8 +42,6 @@ class SkillsManagment extends React.Component {
 
     addNewSkillSet(e) {
         e.preventDefault();
-        console.log(this.SkillSetName.current.value)
-        console.log(this.SkillSetType.current.value)
         $.ajax({
             url: skillManagmentEndpoint,
             type: "POST",
@@ -66,6 +64,8 @@ class SkillsManagment extends React.Component {
         let index = this.state.selectedSkillSet
         if(index != undefined && !!this.state.skillsData) {
             return this.state.skillsData.list[index];
+        } else if(!!this.state.skillsData.list) {
+            return this.state.skillsData.list[0];
         }
 
         return undefined;
@@ -99,6 +99,7 @@ class SkillsManagment extends React.Component {
                                 <option value="DPS">DPS</option>
                                 <option value="Logistics &amp; Support">Logistics and Support</option>
                                 <option value="Snipers">Snipers</option>
+                                <option value="Supers">Super Capitals</option>
                                 <option value="Other">Other</option>
                             </select>
                             <small className="text-muted">Categories that can be used to view similiar skill types</small>
