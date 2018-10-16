@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Skill from 'components/Skills/Skill'
 import OpenMarket from 'components/OpenMarket';
 
 
