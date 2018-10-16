@@ -36,6 +36,12 @@ class SkillSettings extends Component {
         }
     }
 
+    getSkills() {
+        if(!!this.props.set) {
+            return this.props.set.skills
+        }
+    }
+
     getSetHulls() {
         if(!!this.props.set && !!this.props.set.ships) {
             return this.props.set.ships;
@@ -98,7 +104,7 @@ class SkillSettings extends Component {
                 <div className="row">
                     <div className="col-lg-8 col-md-6 col-sm-12">
                         <button className="btn bg-primary float-right" data-toggle="modal" data-target="#newSingleSkill">Add New Skill</button>
-                        <SkillsTable />
+                        <SkillsTable skills={this.getSkills()}/>
                     </div>
                     <div className="col-lg-4 col-md-6 col-sm-12">
                         <Panel title={this.getSetName() + " - settings"} bgclass="danger">

@@ -81,7 +81,7 @@ const skills_controller = require('./controllers/skillsController.js');
 	//Interacts with the users client via ESI.
 	router.post('/esi/ui/waypoint/:systemID', api_controller.waypoint);
 	router.post('/esi/ui/info/:targetID', api_controller.showInfo);
-	router.post('/esi/ui/market/:targetID', api_controller.openMarket);
+	router.post('/internal-api/v2/esi-ui/market', api_controller.openMarket);
 
 	//App API endpoints
 	router.post('/internal-api/fleetcomp/:fleetid/:filter', api_controller.fleetAtAGlance);
