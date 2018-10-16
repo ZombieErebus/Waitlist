@@ -32,11 +32,7 @@ module.exports = function (setup) {
             for(let i = 0; i < docs.length; i++) {
                 try {
                     if((docs.published || showDisabled) && (!filter || filter == docs.type)) {
-                        skills.push({
-                            "_id": docs[i]._id,
-                            "name": docs[i].name,
-                            "ships": docs[i].ships
-                        });
+                        skills.push(docs[i]);
                     }
                 } catch (error) {
                     log.error("Models/Skills.getSkillSetList - ", error);

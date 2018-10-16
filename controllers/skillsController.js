@@ -47,6 +47,7 @@ exports.getManagmentState = (req, res) => {
     var package = {}
     module.getSkillLists(req.user, true, req.body.filter, (skillList)=> {
         package.list = skillList;
+
         res.status(200).send(package);
     })
 }

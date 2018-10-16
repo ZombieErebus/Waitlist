@@ -68,7 +68,7 @@ class SkillSettings extends Component {
                 filter: this.setFilter.current.value,
                 isPublic: this.state.setPublic
             }
-        }).done((data) => {
+        }).done(() => {
             $('#skillSettings').modal('hide');
         }).fail((err) => {
             console.log(err);
@@ -77,7 +77,6 @@ class SkillSettings extends Component {
 
     saveNewSkill(e) {
         e.preventDefault();
-        console.log("A")
         $.ajax({
             type: "post",
             url: `/internal-api/v2/skills-managment/${this.props.set._id}`,
@@ -86,8 +85,8 @@ class SkillSettings extends Component {
                 required: this.newSkillRequired.current.value,
                 recommended: this.newSkillRecommended.current.value
             }
-        }).done((data) => {
-            console.log("YEAAAAAAAAAA")
+        }).done(() => {
+            $('#newSingleSkill').modal('hide');
         }).fail((error) => {
             console.log(error);
         })
