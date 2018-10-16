@@ -26,7 +26,7 @@ class SkillsTable extends Component {
                             <td>3</td>
                             <td>5</td>
                             <td></td>
-                            <td><button className="btn btn-sm btn-info"><i className="fas fa-edit"></i></button></td>
+                            <td><button className="btn btn-sm btn-primary"><i className="fas fa-edit"></i></button></td>
                         </tr>
                     </tbody>
                 </table>

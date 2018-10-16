@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Panel from 'components/Panel';
+import Dialog from 'components/Dialog';
 import SkillsTable from 'components/Skills/SkillsTable';
 
 class SkillSettings extends Component {
@@ -9,6 +10,10 @@ class SkillSettings extends Component {
         this.setHulls = React.createRef();
         this.setFilter = React.createRef();
         this.isPublic = React.createRef();
+        this.newSkillName = React.createRef();
+        this.newSkillRequired = React.createRef();
+        this.newSkillRecommended = React.createRef();
+
         this.state = {
             setPublic: false
         }
@@ -55,7 +60,7 @@ class SkillSettings extends Component {
     updateSettings(e) {
         e.preventDefault();
         $.ajax({
-            type: "POST",
+            type: "put",
             url: `/internal-api/v2/skills-managment/${this.props.set._id}`,
             data: {
                 name: this.setName.current.value,
@@ -70,11 +75,30 @@ class SkillSettings extends Component {
         });
     }
 
+    saveNewSkill(e) {
+        e.preventDefault();
+        console.log("A")
+        $.ajax({
+            type: "post",
+            url: `/internal-api/v2/skills-managment/${this.props.set._id}`,
+            data: {
+                name: this.newSkillName.current.value,
+                required: this.newSkillRequired.current.value,
+                recommended: this.newSkillRecommended.current.value
+            }
+        }).done((data) => {
+            console.log("YEAAAAAAAAAA")
+        }).fail((error) => {
+            console.log(error);
+        })
+    }
+
     render() {
         return(
             <div className="statistic-block block">   
                 <div className="row">
                     <div className="col-lg-8 col-md-6 col-sm-12">
+                        <button className="btn bg-primary float-right" data-toggle="modal" data-target="#newSingleSkill">Add New Skill</button>
                         <SkillsTable />
                     </div>
                     <div className="col-lg-4 col-md-6 col-sm-12">
@@ -115,6 +139,29 @@ class SkillSettings extends Component {
                         </Panel>
                     </div>
                 </div>
+
+                <Dialog id="newSingleSkill" title="Skill Management">
+                    <span className="font-italic">Add a new skill.</span>
+
+                    <form className="mt-2" onSubmit={this.saveNewSkill.bind(this)}>
+                        <div className="form-group">
+                          <label htmlFor="sName">Skill Name</label>
+                          <input type="text" id="sName" ref={this.newSkillName} className="form-control" required/>
+                          <small id="helpId" className="text-muted">Exact match required.</small>
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="reqSkillLevel">Required Skill Level</label>
+                          <input type="number" id="reqSkillLevel" ref={this.newSkillRequired}className="form-control" min="0" max="5" required/>
+                          <small id="helpId" className="text-muted">If the pilot does not meet this level they will fail the skill.</small>
+                        </div>
+                        <div className="form-group">
+                          <label htmlFor="recSkillLevel">Recommended Skill Level</label>
+                          <input type="number" id="reqSkillLevel" ref={this.newSkillRecommended} className="form-control" min="0" max="5" required/>
+                          <small id="helpId" className="text-muted">This is a suggested train and is not required to pass the skill set.</small>
+                        </div>
+                        <button className="btn btn-success d-block mx-auto">Save</button>
+                    </form>
+                </Dialog>
             </div>
         )
     }

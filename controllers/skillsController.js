@@ -85,6 +85,24 @@ exports.deleteSet = (req, res) => {
     })
 }
 
+exports.updateSkills = (req, res) => {
+    if(!users.isRoleNumeric(req.user, 4)){
+        res.status(403).send("Not Authorised");
+        return;
+    }
+    
+    skills.updateSkill(req.params.setID, req.body.name, req.body.required, req.body.recommended, (err) => {
+        if(err) {
+            log.error("SkillsController - updateSkill: ",err);
+            res.status(400).send(err);
+            return;
+        }
+
+        res.status(200).send();
+    });
+    
+}
+
 module.getSkillLists = (user, managmentView, filter, cb) => {
     var showDisabled = (managmentView && users.isRoleNumeric(user, 4)) ? true : false;
     

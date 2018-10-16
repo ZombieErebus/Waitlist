@@ -99,7 +99,8 @@ const skills_controller = require('./controllers/skillsController.js');
 	router.get('/admin/skills', skills_controller.managementIndex);
 	router.post('/internal-api/v2/skills-managment', skills_controller.newSkillSet);
 	router.get('/internal-api/v2/skills-managment', skills_controller.getManagmentState);
-	router.post('/internal-api/v2/skills-managment/:setID', skills_controller.updateSettings);
+	router.post('/internal-api/v2/skills-managment/:setID', skills_controller.updateSkills);
+	router.put('/internal-api/v2/skills-managment/:setID', skills_controller.updateSettings);
 	router.delete('/internal-api/v2/skills-managment/:setID', skills_controller.deleteSet);
 	
 	//External - APIs

@@ -93,6 +93,52 @@ module.exports = function (setup) {
 		})
     }
 
+    module.updateSkill = (id, skillName, skillRequired, skillRecommended, cb) => {
+        db.findOne({_id: ObjectId(id)}, (error, doc) => {
+            if(error) {
+                log.error("Models/Skills.updateSkill - ", error);
+                cb(error);
+                return;
+            }
+
+            var skills = doc.skills;
+            //If the skill is present, let's update it!
+            for(let i = 0; i < skills.length; i++) {
+                if(skills[i].name == skillName) {
+                    skills[i].required = skillRequired;
+                    skills[i].recommended = skillRecommended;
+                    
+                    cb();
+                    return;
+                }
+            }
+
+            //If not let's create it and add it
+            module.lookupID(skillName, (skill) => {
+                let newSkill = {
+                    id: skill.id,
+                    name: skill.name,
+                    required: skillRequired,
+                    recommended: skillRecommended
+                }
+                skills.push(newSkill);
+                
+                db.updateOne({_id: ObjectId(id)},  {$set: {
+
+                    "skills": skills
+                }}, (error) => {
+                    if(error) {
+                        log.error("Models/Skills.updateSkill - ", error);
+                        cb(error);
+                        return;
+                    }
+    
+                    cb();
+                });
+            })	
+        })      
+    }
+
     module.lookupID = (searchWord, id) => {
         esi.types.search.strict(searchWord).then((results) => {
             id({id: results[0], name: searchWord});            
