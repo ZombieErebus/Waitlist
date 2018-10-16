@@ -28,8 +28,6 @@ class SkillsManagment extends React.Component {
             url: skillManagmentEndpoint,
             type: "GET"
         }).done((data) => {
-            
-            console.log(data)
             this.setState({skillsData: data});
         }).fail((error) => {
             console.log(error);

@@ -59,9 +59,30 @@ exports.updateSettings = (req, res) => {
 
     skills.updateSettings(req.params.setID, req.body.name, 
         req.body.hulls, req.body.filter, req.body.isPublic, (cb) => {
-            
+            if(cb){
+                res.status(400).send(cb);
+                return;
+            }
+        res.status(200).send();
     });
     
+}
+
+exports.deleteSet = (req, res) => {
+    if(!users.isRoleNumeric(req.user, 4)){
+        res.status(403).send("Not Authorised");
+        return;
+    }
+
+    skills.deleteSet(req.params.setID, (err) => {
+        if(err) {
+            log.error("SkillsController - deleteSkillSet: ", err);
+            res.status(400).send();
+            return;
+        }
+
+        res.status(200).send();
+    })
 }
 
 module.getSkillLists = (user, managmentView, filter, cb) => {

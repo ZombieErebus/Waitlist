@@ -14,6 +14,17 @@ class SkillSettings extends Component {
         }
     }
 
+    deleteSkillSet() {
+        $.ajax({
+            type: "delete",
+            url: `/internal-api/v2/skills-managment/${this.props.set._id}`
+        }).done(() => {
+            location.reload();
+        }).fail((error) => {
+            console.log(error);
+        });
+    }
+
     getSetName() {
         if(!!this.props.set) {
             return this.props.set.name;
@@ -26,17 +37,23 @@ class SkillSettings extends Component {
         }
     }
 
+    getSetHullsAsString() {
+        if(!!this.props.set && !!this.props.set.ships) {
+            let shipNames = "";
+            for(let i = 0; i < this.props.set.ships.length; i++){
+                shipNames = shipNames + `${this.props.set.ships[i].name},`;
+            }
+
+            return shipNames.slice(0, -1);
+        } 
+    }
+
     updateSetPublic() {
         this.setState({setPublic: !this.state.setPublic});
     }
 
     updateSettings(e) {
         e.preventDefault();
-        console.log(this.setName.current.value);
-        console.log(this.setHulls.current.value);
-        console.log(this.setFilter.current.value);
-        console.log(this.state.setPublic);
-
         $.ajax({
             type: "POST",
             url: `/internal-api/v2/skills-managment/${this.props.set._id}`,
@@ -47,7 +64,7 @@ class SkillSettings extends Component {
                 isPublic: this.state.setPublic
             }
         }).done((data) => {
-            $('#skillSettings').modal('hide')
+            $('#skillSettings').modal('hide');
         }).fail((err) => {
             console.log(err);
         });
@@ -56,8 +73,11 @@ class SkillSettings extends Component {
     render() {
         return(
             <div className="statistic-block block">
-                <h1>{this.getSetName()}</h1>
-                <button className="btn btn-danger d-inline" data-toggle="modal" data-target="#skillSettings">Settings</button>
+                <div>
+                    <h1 className="d-inline">{this.getSetName()}</h1>
+                    <button className="btn btn-danger d-block" data-toggle="modal" data-target="#skillSettings">Settings</button>
+                </div>                
+                
 
                 <Dialog title={this.getSetName() + " - settings"} id="skillSettings">
                     <form onSubmit={this.updateSettings.bind(this)}>
@@ -67,7 +87,7 @@ class SkillSettings extends Component {
                         </div>
                         <div className="form-group">
                             <label htmlFor="hulls">Hulls for this skill set</label>
-                            <input type="text" id="hulls" className="form-control" ref={this.setHulls} defaultValue={this.getSetHulls()} />
+                            <input type="text" id="hulls" className="form-control" ref={this.setHulls} defaultValue={this.getSetHullsAsString()} />
                             <p className="form-text text-muted">Comma seperated for multiple hulls: Vindicator,Nightmare</p>
                         </div>
                         <div className="form-group">
@@ -92,7 +112,7 @@ class SkillSettings extends Component {
 
                     <hr />
                     <span className="text-danger text-center">DANGER ZONE - THIS CANNOT BE UNDONE</span>
-                    <button className="btn btn-danger d-block mx-auto mt-2">Delete this Skill Set</button>
+                    <button className="btn btn-danger d-block mx-auto mt-2" onClick={this.deleteSkillSet.bind(this)}>Delete this Skill Set</button>
                 </Dialog>
             </div>
         )

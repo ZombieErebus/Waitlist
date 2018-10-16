@@ -41,7 +41,6 @@ module.exports = function (setup) {
                 } catch (error) {
                     log.error("Models/Skills.getSkillSetList - ", error);
                 }
-                console.log(skills)
             }
 
             cb(skills);
@@ -51,22 +50,54 @@ module.exports = function (setup) {
 
     module.updateSettings = (id, name, hulls, filter, isPublic, cb) => {
         const hullsArray = hulls.split(',');
+        hulls = [];
 
-        //> To Do -- Get object for each ship {id, name}
 
-        db.updateOne({_id: ObjectId(id)},  {$set: {
-            "name": name,
-            "filter": filter,
-            "ships": null,
-            "enabled": isPublic
-        }}, (error, doc) => {
+        for(let i = 0; i < hullsArray.length; i++){
+            let hull = new Promise((resolve, reject) =>{
+                module.lookupID(hullsArray[i], (data) => {
+                    resolve(data);
+                });
+            })
+
+            hulls.push(hull);
+        }
+
+        Promise.all(hulls).then((hulls) => {
+            db.updateOne({_id: ObjectId(id)},  {$set: {
+                "name": name,
+                "filter": filter,
+                "ships": hulls,
+                "enabled": isPublic
+            }}, (error) => {
+                if(error) {
+                    log.error("Models/Skills.updateSettings - ", error);
+                    cb(error);
+                    return;
+                }
+
+                cb();
+            });
+        })
+    }
+
+    module.deleteSet = (id, cb) => {
+        db.remove({_id: ObjectId(id)}, function (error) {
             if(error) {
-                log.error("Models/Skills.updateSettings - ", error);
+                log.error("Models/Skills.deleteSet - ", error);
                 cb(error);
                 return;
             }
-        });
+
+            cb();
+		})
     }
+
+    module.lookupID = (searchWord, id) => {
+        esi.types.search.strict(searchWord).then((results) => {
+            id({id: results[0], name: searchWord});            
+        })       
+    };
 
     return module;
 }
