@@ -47,7 +47,8 @@ class SkillsManagment extends React.Component {
                 type: this.SkillSetType.current.value
             }
         }).done(() => {
-            location.reload();
+            $("#newSkillSet").modal('hide');
+            this.updateData();
         }).fail((err) => {
             console.log(err);
         });
@@ -77,7 +78,7 @@ class SkillsManagment extends React.Component {
                             <SkillCategoryMenu skillList={this.state.skillsData.list} onSetSelected={this.updateSelectedSkillSet.bind(this)} />
                         </div>
                         <div className="col-lg-8 col-md-6 col-sm-12">
-                            <SkillSettings set={this.getSelectedSkillSet()} />
+                            <SkillSettings set={this.getSelectedSkillSet()} onChange={this.updateData.bind(this)} />
                         </div>
                     </div>
                 </section>

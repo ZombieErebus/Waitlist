@@ -24,7 +24,7 @@ class SkillSettings extends Component {
             type: "delete",
             url: `/internal-api/v2/skills-managment/${this.props.set._id}`
         }).done(() => {
-            location.reload();
+            this.props.onChange(this);
         }).fail((error) => {
             console.log(error);
         });
@@ -76,6 +76,7 @@ class SkillSettings extends Component {
             }
         }).done(() => {
             $('#skillSettings').modal('hide');
+            this.props.onChange(this);
         }).fail((err) => {
             console.log(err);
         });
@@ -93,6 +94,7 @@ class SkillSettings extends Component {
             }
         }).done(() => {
             $('#newSingleSkill').modal('hide');
+            this.props.onChange(this);
         }).fail((error) => {
             console.log(error);
         })
@@ -104,7 +106,7 @@ class SkillSettings extends Component {
                 <div className="row">
                     <div className="col-lg-8 col-md-6 col-sm-12">
                         <button className="btn bg-primary float-right" data-toggle="modal" data-target="#newSingleSkill">Add New Skill</button>
-                        <SkillsTable skills={this.getSkills()}/>
+                        <SkillsTable skills={this.getSkills()} />
                     </div>
                     <div className="col-lg-4 col-md-6 col-sm-12">
                         <Panel title={this.getSetName() + " - settings"} bgclass="danger">
