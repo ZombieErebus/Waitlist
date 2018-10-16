@@ -111,26 +111,30 @@ module.exports = function (setup) {
 
             //If not let's create it and add it
             module.lookupID(skillName, (skill) => {
-                let newSkill = {
-                    id: skill.id,
-                    name: skill.name,
-                    required: skillRequired,
-                    recommended: skillRecommended
-                }
-                skills.push(newSkill);
-                
-                db.updateOne({_id: ObjectId(id)},  {$set: {
-
-                    "skills": skills
-                }}, (error) => {
-                    if(error) {
-                        log.error("Models/Skills.updateSkill - ", error);
-                        cb(error);
-                        return;
+                if(!!skill) {
+                    let newSkill = {
+                        id: skill.id,
+                        name: skill.name,
+                        required: skillRequired,
+                        recommended: skillRecommended
                     }
+                    skills.push(newSkill);
+                    
+                    db.updateOne({_id: ObjectId(id)},  {$set: {
     
-                    cb();
-                });
+                        "skills": skills
+                    }}, (error) => {
+                        if(error) {
+                            log.error("Models/Skills.updateSkill - ", error);
+                            cb(error);
+                            return;
+                        }
+        
+                        cb();
+                    });
+                }
+                    
+                cb("No skill found");
             })	
         })      
     }
@@ -138,7 +142,10 @@ module.exports = function (setup) {
     module.lookupID = (searchWord, id) => {
         esi.types.search.strict(searchWord).then((results) => {
             id({id: results[0], name: searchWord});            
-        })       
+        }).catch((error) => {
+            log.error("Models/Skills.lookupID - ", error);
+            id(null);
+        });
     };
 
     return module;
