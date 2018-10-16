@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import Dialog from 'components/Dialog';
+import Panel from 'components/Panel';
+import SkillsTable from 'components/SkillsTable';
 
 class SkillSettings extends Component {
     constructor(props) {
@@ -72,48 +73,49 @@ class SkillSettings extends Component {
 
     render() {
         return(
-            <div className="statistic-block block">
-                <div>
-                    <h1 className="d-inline">{this.getSetName()}</h1>
-                    <button className="btn btn-danger d-block" data-toggle="modal" data-target="#skillSettings">Settings</button>
-                </div>                
-                
+            <div className="statistic-block block">   
+                <div className="row">
+                    <div className="col-lg-8 col-md-6 col-sm-12">
+                        <SkillsTable />
+                    </div>
+                    <div className="col-lg-4 col-md-6 col-sm-12">
+                        <Panel title={this.getSetName() + " - settings"} bgclass="danger">
+                            <form onSubmit={this.updateSettings.bind(this)}>
+                                <div className="form-group">
+                                    <label htmlFor="name">Skill Set Name</label>
+                                    <input type="text" id="name" className="form-control" ref={this.setName} defaultValue={this.getSetName()} />
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="hulls">Hulls for this skill set</label>
+                                    <input type="text" id="hulls" className="form-control" ref={this.setHulls} defaultValue={this.getSetHullsAsString()} required/>
+                                    <p className="form-text text-muted">Comma separated for multiple hulls: Vindicator,Nightmare</p>
+                                </div>
+                                <div className="form-group">
+                                    <label htmlFor="filter">Select the filter type for this skill set.</label>
+                                    <select id="filter" className="form-control" ref={this.setFilter}>
+                                        <option value="Capitals">Capitals</option>
+                                        <option value="DPS">DPS</option>
+                                        <option value="Logistics &amp; Support">Logistics and Support</option>
+                                        <option value="Snipers">Snipers</option>
+                                        <option value="Supers">Super Capitals</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                                <div className="form-check">
+                                    <label className="form-check-label">
+                                        <input type="checkbox" className="form-check-input" defaultChecked={this.state.setPublic} onChange={this.updateSetPublic.bind(this)} />
+                                        &nbsp; Make this skill set visible for FCs/Pilots
+                                    </label>
+                                </div>
+                                <button className="btn btn-success d-block mx-auto">Update</button>
+                            </form>
 
-                <Dialog title={this.getSetName() + " - settings"} id="skillSettings">
-                    <form onSubmit={this.updateSettings.bind(this)}>
-                        <div className="form-group">
-                            <label htmlFor="name">Skill Set Name</label>
-                            <input type="text" id="name" className="form-control" ref={this.setName} defaultValue={this.getSetName()} />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="hulls">Hulls for this skill set</label>
-                            <input type="text" id="hulls" className="form-control" ref={this.setHulls} defaultValue={this.getSetHullsAsString()} />
-                            <p className="form-text text-muted">Comma seperated for multiple hulls: Vindicator,Nightmare</p>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="filter">Select the filter type for this skill set.</label>
-                            <select id="filter" className="form-control" ref={this.setFilter}>
-                                <option value="Capitals">Capitals</option>
-                                <option value="DPS">DPS</option>
-                                <option value="Logistics &amp; Support">Logistics and Support</option>
-                                <option value="Snipers">Snipers</option>
-                                <option value="Supers">Super Capitals</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-                        <div className="form-check">
-                            <label className="form-check-label">
-                                <input type="checkbox" className="form-check-input" defaultChecked={this.state.setPublic} onChange={this.updateSetPublic.bind(this)} />
-                                &nbsp; Make this skill set visible for FCs/Pilots
-                            </label>
-                        </div>
-                        <button className="btn btn-success d-block mx-auto">Update</button>
-                    </form>
-
-                    <hr />
-                    <span className="text-danger text-center">DANGER ZONE - THIS CANNOT BE UNDONE</span>
-                    <button className="btn btn-danger d-block mx-auto mt-2" onClick={this.deleteSkillSet.bind(this)}>Delete this Skill Set</button>
-                </Dialog>
+                                <hr />
+                            <span className="text-danger text-center">DANGER ZONE - THIS CANNOT BE UNDONE</span>
+                            <button className="btn btn-danger d-block mx-auto mt-2" onClick={this.deleteSkillSet.bind(this)}>Delete this Skill Set</button>                            
+                        </Panel>
+                    </div>
+                </div>
             </div>
         )
     }
