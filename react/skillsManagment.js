@@ -1,11 +1,10 @@
 import React from 'react';
-import SkillCategoryMenu from './components/SkillCategoryMenu';
-import SkillSettings from './components/skillSettings';
+import SkillCategoryMenu from './components/Skills/SkillCategoryMenu';
+import SkillSettings from './components/Skills/SkillSettings';
 import ReactDOM from 'react-dom';
 import Dialog from 'components/Dialog';
 
 const skillManagmentEndpoint = "/internal-api/v2/skills-managment"
-const MaxFailures = 10;
 
 class SkillsManagment extends React.Component {
     constructor(props) {

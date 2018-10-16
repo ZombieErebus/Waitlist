@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import classNames from 'classnames';
 import Panel from 'components/Panel';
-import SkillsTable from 'components/SkillsTable';
+import SkillsTable from 'components/Skills/SkillsTable';
 
 class SkillSettings extends Component {
     constructor(props) {

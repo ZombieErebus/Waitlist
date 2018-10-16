@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SkillCategory from 'components/skillCategory';
+import SkillCategory from 'components/Skills/SkillCategory';
 
 class SkillCategoryMenu extends Component {
     constructor(props) { 
