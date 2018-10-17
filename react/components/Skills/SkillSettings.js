@@ -100,13 +100,18 @@ class SkillSettings extends Component {
         })
     }
 
+    updateSetPublic() {
+        console.log("!")
+        this.props.onChange(this);
+    }
+
     render() {
         return(
             <div className="statistic-block block">   
                 <div className="row">
                     <div className="col-lg-8 col-md-6 col-sm-12">
                         <button className="btn bg-primary float-right" data-toggle="modal" data-target="#newSingleSkill">Add New Skill</button>
-                        <SkillsTable skills={this.getSkills()} />
+                        <SkillsTable skills={this.getSkills()} onChange={this.updateSetPublic.bind(this)}/>
                     </div>
                     <div className="col-lg-4 col-md-6 col-sm-12">
                         <Panel title={this.getSetName() + " - settings"} bgclass="danger">
