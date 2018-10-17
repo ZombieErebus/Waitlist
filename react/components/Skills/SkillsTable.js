@@ -14,7 +14,7 @@ class SkillsTable extends Component {
         let skillTable;
         if(!!this.getSkills()) {
             skillTable = this.getSkills().map((skillData, index) => {
-                return <Skills skill={skillData} key={index} />
+                return <Skills skill={skillData} key={index} updateSkillHandler={this.props.updateSkillHandler}/>
             });
         }
 
