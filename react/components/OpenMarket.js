@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
 
 class OpenMarket extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     esiOpenMarket(){
         $.ajax({
             type: "POST",

@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import Skills from 'components/Skills/Skill'
 
 class SkillsTable extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     getSkills() {
         return this.props.skills;
     }

@@ -111,6 +111,5 @@ class SkillsManagment extends React.Component {
 
 }
 
-console.log("Attaching to dom!");
 const reactAttach = document.querySelector('#react-skillsManagement-attach')
 ReactDOM.render(<SkillsManagment />, reactAttach);
