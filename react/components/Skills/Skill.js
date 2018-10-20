@@ -3,10 +3,6 @@ import OpenMarket from 'components/OpenMarket';
 
 
 class Skills extends Component {
-    constructor(props) {
-        super(props)
-    }
-
     render() {
         return(
             <tr>
