@@ -29,6 +29,20 @@ class UpdateSkillsDialog extends Component {
 
     }
 
+    deleteSkill() {
+        $.ajax({
+            method: "patch",
+            url: `/internal-api/v2/skills-managment/${this.props.setID._id}`,
+            data: {
+                skillName: this.state.skillName
+            }
+        }).done((data) => {
+
+        }).fail((error) => {
+
+        });
+    }
+
     //delete when done
     getSkillInfo() {
         return this.props.skill;
@@ -68,7 +82,7 @@ class UpdateSkillsDialog extends Component {
         e.preventDefault();
         $.ajax({
             type: "post",
-            url: `/internal-api/v2/skills-managment/${this.props.set._id}`,
+            url: `/internal-api/v2/skills-managment/${this.props.setID._id}`,
             data: {
                 name: this.state.skillName,
                 required: this.state.required,
@@ -76,7 +90,7 @@ class UpdateSkillsDialog extends Component {
             }
         }).done(() => {
             $('#updateSkill').modal('hide');
-            this.props.onChange(this);
+            // this.props.onChange(this);
         }).fail((error) => {
             console.log(error);
         })
@@ -109,6 +123,9 @@ class UpdateSkillsDialog extends Component {
                             <small className="text-muted">This is a suggested train and is not required to pass the skill set.</small>
                         </div>
                         <button className="btn btn-success d-block mx-auto">Save</button>
+                            <hr />
+                        <span className="text-danger text-center">DANGER ZONE - THIS CANNOT BE UNDONE</span>
+                        <button className="btn btn-danger d-block mx-auto mt-2" onClick={this.deleteSkill.bind(this)}>Delete this Skill Set</button>          
                     </form>
                 </Dialog>  
             </div>

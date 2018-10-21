@@ -125,7 +125,6 @@ module.exports = function (setup) {
                 skills.push(newSkill);
                 
                 db.updateOne({_id: ObjectId(id)},  {$set: {
-
                     "skills": skills
                 }}, (error) => {
                     if(error) {
@@ -138,6 +137,37 @@ module.exports = function (setup) {
                 });
             })	
         })      
+    }
+
+    module.removeSkill = (setID, skillName, cb) => {
+        db.findOne({_id: ObjectId(setID)}, (error, doc) => {
+            if(error) {
+                log.error("Models/Skills.updateSkill - ", error);
+                cb(error);
+                return;
+            }
+
+            var skills = doc.skills;
+            var newSkills = [];
+            //If the skill is present, let's update it!
+            for(let i = 0; i < skills.length; i++) {
+                if(skills[i].name != skillName) {
+                    newSkills.push(skills[i]);                  
+                }
+            }
+
+            db.updateOne({_id: ObjectId(setID)},  {$set: {
+                "skills": newSkills
+            }}, (error) => {
+                if(error) {
+                    log.error("Models/Skills.removeSkill - ", error);
+                    cb(error);
+                    return;
+                }
+
+                cb();
+            });
+        })         
     }
 
     module.lookupID = (searchWord, id) => {

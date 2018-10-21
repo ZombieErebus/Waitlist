@@ -27,7 +27,7 @@ exports.newSkillSet = (req, res) => {
 
     skills.newSkillSet(req.body.name, req.body.type, false, (err) => {
         if(err) {
-            log.error("SkillsController - newSkillSet: ", err);
+            log.error("controler/Skills - newSkillSet: ", err);
             res.status(400).send();
             return;
         }
@@ -76,7 +76,7 @@ exports.deleteSet = (req, res) => {
 
     skills.deleteSet(req.params.setID, (err) => {
         if(err) {
-            log.error("SkillsController - deleteSkillSet: ", err);
+            log.error("controler/Skills - deleteSkillSet: ", err);
             res.status(400).send();
             return;
         }
@@ -93,7 +93,7 @@ exports.updateSkills = (req, res) => {
     
     skills.updateSkill(req.params.setID, req.body.name, req.body.required, req.body.recommended, (err) => {
         if(err) {
-            log.error("SkillsController - updateSkills: ", err);
+            log.error("controler/Skills - updateSkills: ", err);
             res.status(400).send(err);
             return;
         }
@@ -101,6 +101,24 @@ exports.updateSkills = (req, res) => {
         res.status(200).send();
     });
     
+}
+
+exports.removeSkill = (req, res) => {
+    if(!users.isRoleNumeric(req.user, 4)){
+        res.status(403).send("Not Authorised");
+        return;
+    }
+    
+    skills.removeSkill(req.params.setID, req.body.skillName, (err) => {
+        if(err){
+            log.error("controler/Skills - removeSkill: ", err);
+            res.status(400).send(err);
+            return;
+        }
+        
+        res.status(200).send();
+    })
+    res.status(200).send();
 }
 
 module.getSkillLists = (user, managmentView, filter, cb) => {
