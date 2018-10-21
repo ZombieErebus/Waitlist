@@ -111,30 +111,31 @@ module.exports = function (setup) {
 
             //If not let's create it and add it
             module.lookupID(skillName, (skill) => {
-                if(!!skill) {
-                    let newSkill = {
-                        id: skill.id,
-                        name: skill.name,
-                        required: skillRequired,
-                        recommended: skillRecommended
-                    }
-                    skills.push(newSkill);
-                    
-                    db.updateOne({_id: ObjectId(id)},  {$set: {
-    
-                        "skills": skills
-                    }}, (error) => {
-                        if(error) {
-                            log.error("Models/Skills.updateSkill - ", error);
-                            cb(error);
-                            return;
-                        }
-        
-                        cb();
-                    });
+                if(!skill) {
+                    cb("No skill found");
+                    return;
                 }
-                    
-                cb("No skill found");
+
+                let newSkill = {
+                    id: skill.id,
+                    name: skill.name,
+                    required: skillRequired,
+                    recommended: skillRecommended
+                }
+                skills.push(newSkill);
+                
+                db.updateOne({_id: ObjectId(id)},  {$set: {
+
+                    "skills": skills
+                }}, (error) => {
+                    if(error) {
+                        log.error("Models/Skills.updateSkill - ", error);
+                        cb(error);
+                        return;
+                    }
+    
+                    cb();
+                });
             })	
         })      
     }

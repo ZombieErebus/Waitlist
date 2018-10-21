@@ -93,7 +93,7 @@ exports.updateSkills = (req, res) => {
     
     skills.updateSkill(req.params.setID, req.body.name, req.body.required, req.body.recommended, (err) => {
         if(err) {
-            log.error("SkillsController - updateSkill: ",err);
+            log.error("SkillsController - updateSkills: ", err);
             res.status(400).send(err);
             return;
         }
