@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Panel from 'components/Panel';
 import Dialog from 'components/Dialog';
 import SkillsTable from 'components/Skills/SkillsTable';
+import UpdateSkillsDialog from 'components/Skills/UpdateSkillsDialog';
 
 class SkillSettings extends Component {
     constructor(props) {
@@ -15,7 +16,8 @@ class SkillSettings extends Component {
         this.newSkillRecommended = React.createRef();
 
         this.state = {
-            setPublic: false
+            setPublic: false,
+            skillToEdit: null
         }
     }
 
@@ -82,7 +84,7 @@ class SkillSettings extends Component {
         });
     }
 
-    saveNewSkill(e) {
+    saveSkill(e) {
         e.preventDefault();
         $.ajax({
             type: "post",
@@ -100,10 +102,10 @@ class SkillSettings extends Component {
         })
     }
 
-    updateSkill(updateSkill) {
-        this.setState({updateSkill: updateSkill})
-        $("#updateCurrentSkill").modal('show');
+    updateSkill(skill) {
+        this.setState({skillToEdit: skill})
         this.props.onChange(this);
+        $('#updateSkill').modal('show');
     }
 
     render() {
@@ -115,7 +117,7 @@ class SkillSettings extends Component {
                         <SkillsTable skills={this.getSkills()} onChange={this.updateSetPublic.bind(this)} updateSkillHandler={this.updateSkill.bind(this)}/>
                     </div>
                     <div className="col-lg-4 col-md-6 col-sm-12">
-                        <Panel title={this.getSetName() + " - settings"} bgclass="danger">
+                        <Panel title={this.getSetName() + " - settings"} bgclass="bg-danger" borderclass="border-danger">
                             <form onSubmit={this.updateSettings.bind(this)}>
                                 <div className="form-group">
                                     <label htmlFor="name">Skill Set Name</label>
@@ -156,25 +158,27 @@ class SkillSettings extends Component {
                 <Dialog id="newSingleSkill" title="Skill Management">
                     <span className="font-italic">Add a new skill.</span>
 
-                    <form className="mt-2" onSubmit={this.saveNewSkill.bind(this)}>
+                    <form className="mt-2" onSubmit={this.saveSkill.bind(this)}>
                         <div className="form-group">
                           <label htmlFor="sName">Skill Name</label>
                           <input type="text" id="sName" ref={this.newSkillName} className="form-control" required/>
-                          <small id="helpId" className="text-muted">Exact match required.</small>
+                          <small className="text-muted">Exact match required.</small>
                         </div>
                         <div className="form-group">
                           <label htmlFor="reqSkillLevel">Required Skill Level</label>
                           <input type="number" id="reqSkillLevel" ref={this.newSkillRequired}className="form-control" min="0" max="5" required/>
-                          <small id="helpId" className="text-muted">If the pilot does not meet this level they will fail the skill.</small>
+                          <small className="text-muted">If the pilot does not meet this level they will fail the skill.</small>
                         </div>
                         <div className="form-group">
                           <label htmlFor="recSkillLevel">Recommended Skill Level</label>
                           <input type="number" id="reqSkillLevel" ref={this.newSkillRecommended} className="form-control" min="0" max="5" required/>
-                          <small id="helpId" className="text-muted">This is a suggested train and is not required to pass the skill set.</small>
+                          <small className="text-muted">This is a suggested train and is not required to pass the skill set.</small>
                         </div>
                         <button className="btn btn-success d-block mx-auto">Save</button>
                     </form>
                 </Dialog>
+
+                <UpdateSkillsDialog skill={this.state.skillToEdit} id={this.props.set}/>
             </div>
         )
     }

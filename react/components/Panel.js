@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
+import classNames from 'classnames'
 
 class Panel extends Component {
-    colorClass(){
+    backgroundColorClass(){
         return this.props.bgclass;
+    }
+
+    borderColorClass() {
+        return this.props.borderclass;
     }
 
     render() {
 
-        let bgColor;
-        let borderColor;
-        let bgTextColor;
-        if(!!this.colorClass()) {
-            bgColor = ` bg-${this.colorClass()}`
-            borderColor = ` border-${this.colorClass()}`
-            bgTextColor = ` text-white`
-        }
+        let titleClass = classNames("card-header", "text-white", this.backgroundColorClass(), this.borderColorClass());
+        let cardClass = classNames("card-body", "text-white", "bg-dark", this.borderColorClass());
 
         return(
             <div className="card border-danger">
-                <div className={"card-header " + bgColor + bgTextColor}>
+                <div className={titleClass}>
                     <h5 className="mb-0">{this.props.title}</h5>
                 </div>
-                <div className={"card-body " + borderColor + " bg-dark"}>
+                <div className={cardClass}>
                     {this.props.children}
                 </div>
             </div>
