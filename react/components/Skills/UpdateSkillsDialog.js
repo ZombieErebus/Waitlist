@@ -83,41 +83,34 @@ class UpdateSkillsDialog extends Component {
     }
     
     render() {
+        let skillName;
         if(!!this.getSkillName()) {
             skillName = this.getSkillName();
-        }
-
-        let updateSkillsDialog;
-        if(!!this.props.skill) {
-            updateSkillsDialog =
-            <Dialog id="updateSkill" title="Skill Management">
-                <span className="font-italic">Update skill.</span>
-                <form className="mt-2" onSubmit={this.saveSkill.bind(this)}>
-                    <div className="form-group">
-                        <label htmlFor="sName">Skill Name</label>
-                        <TextBox id="sName" changeFunction={this.onSkillNameChanged.bind(this)} value={this.state.skillName} placeholder="Amarr Carrier" />
-                        <small id="helpId" className="text-muted">Exact match required.</small>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="sRequired">Required Skill Level</label>
-                        <NumberBox id="sRequired" changeFunction={this.onSkillRequiredChanged.bind(this)} value={this.state.required} min={0} max={5} />
-                        <small className="text-muted">If the pilot does not meet this level they will fail the skill.</small>
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="sRecommended">Recommended Skill Level</label>
-                        <NumberBox id="sRecommended" changeFunction={this.onSkillRecommendedChanged.bind(this)} value={this.state.recommended} min={0} max={5} />
-                        <small className="text-muted">This is a suggested train and is not required to pass the skill set.</small>
-                    </div>
-                    <button className="btn btn-success d-block mx-auto">Save</button>
-                </form>
-            </Dialog>
-
-           
         }
         
         return(
             <div>
-                {updateSkillsDialog}
+                <Dialog id="updateSkill" title="Skill Management">
+                    <span className="font-italic">Update skill.</span>
+                    <form className="mt-2" onSubmit={this.saveSkill.bind(this)}>
+                        <div className="form-group">
+                            <label htmlFor="sName">Skill Name</label>
+                            <TextBox id="sName" changeFunction={this.onSkillNameChanged.bind(this)} value={this.state.skillName} placeholder="Amarr Carrier" />
+                            <small className="text-muted">Exact match required.</small>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="sRequired">Required Skill Level</label>
+                            <NumberBox id="sRequired" changeFunction={this.onSkillRequiredChanged.bind(this)} value={this.state.required} min={0} max={5} />
+                            <small className="text-muted">If the pilot does not meet this level they will fail the skill.</small>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="sRecommended">Recommended Skill Level</label>
+                            <NumberBox id="sRecommended" changeFunction={this.onSkillRecommendedChanged.bind(this)} value={this.state.recommended} min={0} max={5} />
+                            <small className="text-muted">This is a suggested train and is not required to pass the skill set.</small>
+                        </div>
+                        <button className="btn btn-success d-block mx-auto">Save</button>
+                    </form>
+                </Dialog>  
             </div>
         )
     }
