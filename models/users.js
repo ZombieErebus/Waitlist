@@ -53,7 +53,7 @@ module.exports = function (setup) {
 			var allianceID = data.alliance_id || 0;
 	
 			//Get Corporation Info
-			cache.get(data.corporation_id, day, function(corporation){
+			cache.get(data.corporation_id, day * 7 , function(corporation){
 				var corporation = {"corporationID": corporation.id, "name": corporation.name};
 				
 				//Return null if pilot isn't in an alliance
@@ -63,8 +63,8 @@ module.exports = function (setup) {
 				}
 				
 				//Get Alliance Info
-				cache.get(allianceID, day, function(alliance){
-					var alliance = {"allianceID": alliance.id, "name": alliance.name};
+				cache.get(allianceID, day * 7, function(alliance){
+					var alliance = {"allianceID": allianceID, "name": alliance.name};
 					cb(alliance, corporation);
 				})
 			})
