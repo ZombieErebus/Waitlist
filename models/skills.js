@@ -104,7 +104,18 @@ module.exports = function (setup) {
                     skills[i].required = skillRequired;
                     skills[i].recommended = skillRecommended;
                     
-                    cb();
+
+                    db.updateOne({_id: ObjectId(id)}, { $set: {
+                        "skills": skills
+                    }}, (error) => {
+                        if(error) {
+                            log.error("Models/Skills.updateSkill - ", error);
+                            cb(error);
+                            return;
+                        }
+
+                        cb();
+                    });
                     return;
                 }
             }

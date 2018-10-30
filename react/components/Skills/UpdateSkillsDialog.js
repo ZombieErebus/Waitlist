@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Dialog from 'components/Dialog';
 import TextBox  from 'components/inputs/TextBox';
 import NumberBox from 'components/inputs/NumberBox';
+import classNames from 'classnames';
 
 class UpdateSkillsDialog extends Component {
     constructor(props) {
@@ -9,24 +10,20 @@ class UpdateSkillsDialog extends Component {
         this.state = {
             skillName: this.getSkillName(),
             required: this.getSkillRequired(),
-            recommended: this.getSkillRecommended()
+            recommended: this.getSkillRecommended(),
+            saveEnabled: true
         };
     }
 
     componentDidUpdate(previousProps) {
-        if(this.state.skillName != this.getSkillName()) {
-            this.setState({skillName: this.getSkillName()});
+        if(previousProps != this.props) {
+            this.setState({
+                skillName: this.getSkillName(),
+                required: this.getSkillRequired(),
+                recommended: this.getSkillRecommended(),
+                saveEnabled: true
+            });
         }
-
-        if(this.state.required != this.getSkillRequired()) {
-            this.setState({required: this.getSkillRequired()});
-        }
-
-        
-        if(this.state.recommended != this.getSkillRecommended()) {
-            this.setState({recommended: this.getSkillRecommended()});
-        }
-
     }
 
     deleteSkill() {
@@ -79,6 +76,11 @@ class UpdateSkillsDialog extends Component {
     }
 
     saveSkill(e) {
+        if(!this.state.saveEnabled) {
+            return;
+        }
+
+        this.setState({ saveEnabled: false });
         e.preventDefault();
         $.ajax({
             type: "post",
@@ -90,18 +92,17 @@ class UpdateSkillsDialog extends Component {
             }
         }).done(() => {
             $('#updateSkill').modal('hide');
-            // this.props.onChange(this);
+            this.props.onChange();
         }).fail((error) => {
             console.log(error);
         })
     }
     
     render() {
-        let skillName;
-        if(!!this.getSkillName()) {
-            skillName = this.getSkillName();
-        }
+        let skillName = this.getSkillName();
         
+        let saveButtonClasses = classNames("btn", "btn-success", "d-block", "mx-auto", { "disabled": !this.state.saveEnabled });
+
         return(
             <div>
                 <Dialog id="updateSkill" title="Skill Management">
@@ -122,7 +123,7 @@ class UpdateSkillsDialog extends Component {
                             <NumberBox id="sRecommended" changeFunction={this.onSkillRecommendedChanged.bind(this)} value={this.state.recommended} min={0} max={5} />
                             <small className="text-muted">This is a suggested train and is not required to pass the skill set.</small>
                         </div>
-                        <button className="btn btn-success d-block mx-auto">Save</button>
+                        <button className={saveButtonClasses}>Save</button>
                             <hr />
                         <span className="text-danger text-center">DANGER ZONE - THIS CANNOT BE UNDONE</span>
                         <button className="btn btn-danger d-block mx-auto mt-2" onClick={this.deleteSkill.bind(this)}>Delete this Skill Set</button>          

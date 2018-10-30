@@ -178,7 +178,7 @@ class SkillSettings extends Component {
                     </form>
                 </Dialog>
 
-                <UpdateSkillsDialog skill={this.state.skillToEdit} setID={this.props.set}/>
+                <UpdateSkillsDialog skill={this.state.skillToEdit} setID={this.props.set} onChange={this.props.onChange}/>
             </div>
         )
     }
