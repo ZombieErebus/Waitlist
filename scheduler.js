@@ -53,7 +53,7 @@ database.connect(() => {
      * 
      * @time 10:30GMT
      */
-    scheduler.scheduled(10, 30, "Test", () => {
+    scheduler.every("Update Pilot Affiliation", 3600, () => {
         let collection = db.collection('users');
         
         collection.find({}).forEach((pilot)=>{
@@ -62,7 +62,6 @@ database.connect(() => {
                     collection.updateOne({"_id": pilot._id}, {$set:{"alliance": alliance, "corporation":corporation}});
                 } catch (err) {
                     console.log("Scheduler - Updating " + pilot.name + "s affiliation: ", err);
-                    //log.error("Scheduler - Updating " + pilot.name + "s affiliation: ", err);
                 }
             });
         })
