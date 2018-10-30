@@ -15,13 +15,13 @@ module.exports = function (setup) {
 				}
 			}
 
-			res.render("statics/login.html");
+			res.redirect('/auth/provider');
 			return;
 		}
 		users.findAndReturnUser(req.session.passport.user.characterID, function (userData) {
 			if (!userData) {
 				req.logout();
-				res.render("statics/login.html");
+				res.redirect('/');
 				return;
 			} else {
 				

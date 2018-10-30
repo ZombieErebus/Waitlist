@@ -50,6 +50,28 @@ nav#sidebar.shrinked > ul > li > a > .svg-inline--fa, nav#sidebar.shrinked > ul 
 	color: white;
 }
 
+.btn-primary:active:focus, .btn-primary:active:hover{
+	color: #fff;
+	background-color: #204d74;
+	border-color: #122b40;
+}
+
+.btn.active.focus, .btn.active:focus, .btn.focus, .btn:active.focus, .btn:active:focus, .btn:focus {
+	outline-offset: -2px;
+}
+  
+.btn-primary.active, .btn-primary:active {
+	background-color: #265a88;
+	border-color: #245580;
+}
+  
+.btn-primary:focus, .btn-primary:hover {
+	background-color: #265a88;
+	background-position: 0 -15px;
+}
+  
+  
+
 /* Alarm Button Highlight */
 .btn-alert{
 	background-color: black;
@@ -302,4 +324,10 @@ nav#sidebar.shrinked > ul > li > a > .svg-inline--fa, nav#sidebar.shrinked > ul 
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }

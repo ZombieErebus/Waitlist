@@ -14,7 +14,7 @@ const wlog = require('../models/wlog.js');
 */
 exports.index = function(req, res){
     if(!req.isAuthenticated()){
-        res.render('statics/login.html');
+        res.redirect('/');
         return;
     }
 
@@ -34,7 +34,7 @@ exports.index = function(req, res){
 */
 exports.signup = function(req, res){
     if(!req.isAuthenticated()){
-        res.render('statics/login.html');
+        res.redirect('/');
         return;
     }
 
@@ -79,7 +79,7 @@ exports.signup = function(req, res){
 */
 exports.selfRemove = function(req, res){
     if(!req.isAuthenticated()){
-        res.render('statics/login.html');
+        res.redirect('/');
         return;
     }
 
