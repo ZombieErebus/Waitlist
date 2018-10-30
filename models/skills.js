@@ -44,9 +44,9 @@ module.exports = function (setup) {
     
     }
 
-    module.updateSettings = (id, name, hulls, filter, isPublic, cb) => {
-        const hullsArray = hulls.split(',');
-        hulls = [];
+    module.updateSettings = (id, name, hullNames, filter, isPublic, cb) => {
+        const hullsArray = hullNames.split(',');
+        let hulls = [];
 
 
         for(let i = 0; i < hullsArray.length; i++){
