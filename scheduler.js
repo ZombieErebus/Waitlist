@@ -53,7 +53,7 @@ database.connect(() => {
      * 
      * @time 10:30GMT
      */
-    scheduler.every("Update Pilot Affiliation", 3600*1000, () => {
+    scheduler.every("Update Pilot Affiliation", 3600, () => {
         let collection = db.collection('users');
         
         collection.find({}).forEach((pilot)=>{
