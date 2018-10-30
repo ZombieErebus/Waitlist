@@ -26,8 +26,8 @@ exports.showInfo = function(req, res) {
 }
 
 exports.openMarket = function(req, res) {
-    if(req.isAuthenticated() && typeof req.params.targetID !== "undefined") {
-        user.openMarketWindow(req.user, req.params.targetID, function(response) {
+    if(req.isAuthenticated() && !!req.body.itemID) {
+        user.openMarketWindow(req.user, req.body.itemID, function(response) {
             res.send(response);
         });
     } else {

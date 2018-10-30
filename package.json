@@ -12,7 +12,7 @@
     "start:dockercmp": "docker-compose up",
     "test": "jest",
     "webpack": "cross-env NODE_ENV=development webpack --config webpack.config.js",
-    "webpack-watch": "cross-env NODE_ENV=development webpack --config webpack.config.js --watch"
+    "webpack-watch": "cross-env NODE_ENV=development webpack --config webpack.config.js --watch --mode=development"
   },
   "keywords": [
     "eve",

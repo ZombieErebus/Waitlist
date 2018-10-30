@@ -109,6 +109,5 @@ class Notification extends React.Component {
   }
 }
 
-console.log("Attaching to dom!");
 const reactAttach = document.querySelector('#react-alert-attach');
 ReactDOM.render(<Notification />, reactAttach);

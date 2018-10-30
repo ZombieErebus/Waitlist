@@ -10,6 +10,7 @@ const fc_tools_controller = require('./controllers/fcToolsController.js');
 const statsController = require('./controllers/statisticsController.js');
 const waitlistController = require('./controllers/waitlistController.js');
 const fleetsController = require('./controllers/fleetController.js');
+const skills_controller = require('./controllers/skillsController.js');
 
 	//Public Pages
 	router.get('/', waitlistController.index);
@@ -69,6 +70,7 @@ const fleetsController = require('./controllers/fleetController.js');
 	//Admin - FC Management
 	router.get('/admin/commanders', admin_fcs_controller.index);
 	router.post('/admin/commanders/update', admin_fcs_controller.updateUser);
+	
 
 	//Admin - Whitelist Management
 	router.get('/admin/whitelist', admin_whitelist_controller.index);
@@ -79,7 +81,7 @@ const fleetsController = require('./controllers/fleetController.js');
 	//Interacts with the users client via ESI.
 	router.post('/esi/ui/waypoint/:systemID', api_controller.waypoint);
 	router.post('/esi/ui/info/:targetID', api_controller.showInfo);
-	router.post('/esi/ui/market/:targetID', api_controller.openMarket);
+	router.post('/internal-api/v2/esi-ui/market', api_controller.openMarket);
 
 	//App API endpoints
 	router.post('/internal-api/fleetcomp/:fleetid/:filter', api_controller.fleetAtAGlance);
@@ -92,6 +94,15 @@ const fleetsController = require('./controllers/fleetController.js');
 	router.get('/internal-api/fleet/:fleetID/members', fleetsController.getMembersJson);
 
 	router.get('/internal-api/v2/waitlist', waitlistController.pilotWaitlistState);
+
+	//Admin Skills
+	router.get('/admin/skills', skills_controller.managementIndex);
+	router.post('/internal-api/v2/skills-managment', skills_controller.newSkillSet);
+	router.get('/internal-api/v2/skills-managment', skills_controller.getManagmentState);
+	router.post('/internal-api/v2/skills-managment/:setID', skills_controller.updateSkills);
+	router.put('/internal-api/v2/skills-managment/:setID', skills_controller.updateSettings);
+	router.delete('/internal-api/v2/skills-managment/:setID', skills_controller.deleteSet);
+	router.patch('/internal-api/v2/skills-managment/:setID', skills_controller.removeSkill);
 	
 	//External - APIs
 	router.get('/api/sstats/members', statsController.getMemberList);

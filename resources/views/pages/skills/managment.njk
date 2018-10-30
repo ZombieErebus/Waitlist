@@ -1,0 +1,13 @@
+{% include "partials/header.njk" -%}
+{% include "partials/nav.njk" %}
+<div class="page-content {{ "active" if userProfile.settings.smSideNav == true }}">
+	<div class="page-header">
+		<div class="container-fluid">
+			<h2 class="h5 no-margin-bottom d-inline">Skills Management</h2>
+            <button class="btn btn-dark ml-2 d-inline" data-toggle="modal" data-target="#newSkillSet"><i class="fas fa-plus"></i> New Skill Set</button>
+		</div>
+	</div>
+                
+    <div id="react-skillsManagement-attach"></div>
+    <script src="/compiled-react/skillsManagment.js"></script>
+{% include "partials/footer.njk" %}
