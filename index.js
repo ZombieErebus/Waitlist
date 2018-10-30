@@ -26,14 +26,17 @@ database.connect(function () {
 	const mongoStore = require('connect-mongo')(session);
 	const cookieParser = require('cookie-parser');
 	const flash = require('req-flash');
-
+    
 	//Custom imports
 	require('./oauth/provider');
-
+    
     /* Force HTTPS On Production */
     const sslRedirect = require('heroku-ssl-redirect');
     app.use(sslRedirect());
-
+    
+    const morgan = require('morgan');
+    app.use(morgan('tiny'));
+    
 	app.use(session({
 		store: new mongoStore({ db: database.db }),
 		secret: setup.data.sessionSecret,
