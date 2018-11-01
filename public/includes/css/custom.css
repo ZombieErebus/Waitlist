@@ -41,6 +41,23 @@ nav#sidebar.shrinked > ul > li > a > .svg-inline--fa, nav#sidebar.shrinked > ul 
     line-height: 13px;
 }
 
+.page-item.active.page-link {
+	color: #fff;
+	background-color: #204d74;
+	border-color: #122b40;
+}
+/* Datatable Dropdown Button */
+.custom-select.custom-select-sm.form-control.form-control-sm{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+/* Datatable Pagination Button */
+.page-item.active .page-link {
+	color: #fff;
+	background-color: #204d74;
+	border-color: #122b40;
+}
+
 /* White text on info buttons */
 .btn-info{
 	color: white;
@@ -315,6 +332,7 @@ nav#sidebar.shrinked > ul > li > a > .svg-inline--fa, nav#sidebar.shrinked > ul 
 	color: #DC3545;
 	text-decoration: italic;
   }
+
 /* No Select */
 .noselect, .global-banner, img, footer, nav{
   -webkit-touch-callout: none; /* iOS Safari */
