@@ -58,6 +58,10 @@ nav#sidebar.shrinked > ul > li > a > .svg-inline--fa, nav#sidebar.shrinked > ul 
 	border-color: #122b40;
 }
 
+.page-link{
+	color: black;
+}
+
 /* White text on info buttons */
 .btn-info{
 	color: white;
