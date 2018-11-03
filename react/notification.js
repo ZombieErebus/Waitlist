@@ -4,6 +4,7 @@ import ReactNotifications from 'react-browser-notifications';
 
 let url = '/poll/'
 let title = "Imperium Incursions";
+const MaxFailures = 10;
 
 class Notification extends React.Component {
     constructor() {
@@ -11,7 +12,7 @@ class Notification extends React.Component {
         this.showNotifications = this.showNotifications.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-            fc: this.setFC(),
+            fc: this.getFC(),
             id: $('meta[name=id]').attr("content"),
             failures: 0,    
             backingOff: false,
@@ -21,9 +22,29 @@ class Notification extends React.Component {
 
     componentDidMount() {
         this.poll();
+        //Prompts people for notification access.
+        if(window.Notification &&  Notification.permission !== "denied"){
+            window.Notification.requestPermission().then(() => {});
+        }
     }
 
     poll() {
+        if(this.state.backingOff) {
+            let failures = this.state.failures - 1;
+            let backingOff = true;
+
+            if(failures <= 0) {
+                backingOff = false;
+            }
+
+            this.setState({failures: failures, backingOff: backingOff});
+
+            if(backingOff) {
+                setTimeout(this.poll.bind(this), 6000);
+                return;
+            }
+        }
+        
         $.ajax({
             url: url + this.state.id,
             success: (data) => {
@@ -40,23 +61,24 @@ class Notification extends React.Component {
                 this.setState({failures: 0});
                 this.poll();
             },
-            error: () => {
-                if(this.state.failures >= 100){
+            error: (xhr, status, error) => {
+                if(this.state.failures >= 10){
+                    this.setState({backingOff: true});
+                    this.poll();
                     return;
                 }
 
                 this.setState({failures: this.state.failures + 1});
-                setTimeout(this.poll(), this.state.failures * (5*1000));
+                setTimeout(this.poll.bind(this), (this.state.failures) * (5*1000));
             }
-
         })
     }
 
-    setFC() {
+    getFC() {
         if(this.props) {
-            this.setState({fc: this.props.fc});    
+            return this.props.fc;
         } else {
-            this.setState({fc: "One of our FCs "});
+            return "One of our FCs ";
         }
     }
 
