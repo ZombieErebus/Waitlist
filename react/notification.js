@@ -12,7 +12,7 @@ class Notification extends React.Component {
         this.showNotifications = this.showNotifications.bind(this);
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-            fc: this.setFC(),
+            fc: this.getFC(),
             id: $('meta[name=id]').attr("content"),
             failures: 0,    
             backingOff: false,
@@ -40,7 +40,7 @@ class Notification extends React.Component {
             this.setState({failures: failures, backingOff: backingOff});
 
             if(backingOff) {
-                setTimeout(this.poll(), 6000);
+                setTimeout(this.poll.bind(this), 6000);
                 return;
             }
         }
@@ -61,23 +61,24 @@ class Notification extends React.Component {
                 this.setState({failures: 0});
                 this.poll();
             },
-            error: () => {
+            error: (xhr, status, error) => {
                 if(this.state.failures >= 10){
                     this.setState({backingOff: true});
+                    this.poll();
                     return;
                 }
 
                 this.setState({failures: this.state.failures + 1});
-                setTimeout(this.poll(), (this.state.failures) * (5*1000));
+                setTimeout(this.poll.bind(this), (this.state.failures) * (5*1000));
             }
         })
     }
 
-    setFC() {
+    getFC() {
         if(this.props) {
-            this.setState({fc: this.props.fc});    
+            return this.props.fc;
         } else {
-            this.setState({fc: "One of our FCs "});
+            return "One of our FCs ";
         }
     }
 
