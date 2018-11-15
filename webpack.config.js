@@ -1,12 +1,11 @@
 const path = require('path');
 
 const createSrcPath = (pathname) => path.resolve(__dirname, 'react', pathname);
-
+//notification: './react/notification.js'
 module.exports = {
     entry: {
         waitlist: './react/waitlist.js',
         skillsManagment: './react/skillsManagment.js',
-        notification: './react/notification.js'
     },
     output: {    
         path: path.resolve(__dirname, 'compiled-react'),
