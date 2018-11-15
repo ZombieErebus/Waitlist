@@ -27,25 +27,25 @@ database.connect(() => {
      * 
      * @time 11:00GMT -- Downtime 
      */
-    scheduler.scheduled(11, 0, "Waitlist Cleanup", () => {
-        const collections = ['waitlist', 'fleets'];
+    // scheduler.scheduled(11, 0, "Waitlist Cleanup", () => {
+    //     const collections = ['waitlist', 'fleets'];
 
-        for(let i = 0; i < collections.length; i++) {
-            let collection = db.collection(collections[i]);
+    //     for(let i = 0; i < collections.length; i++) {
+    //         let collection = db.collection(collections[i]);
 
-            collection.remove({}, (err, docCount) => {
-                if(!!err) {
-                    console.log("scheduler.WaitlistCleanup: ", err);
-                    return;
-                    // log.debug("scheduler.WaitlistCleanup: ", err);
-                }
+    //         collection.remove({}, (err, docCount) => {
+    //             if(!!err) {
+    //                 console.log("scheduler.WaitlistCleanup: ", err);
+    //                 return;
+    //                 // log.debug("scheduler.WaitlistCleanup: ", err);
+    //             }
 
-                console.log("Waitlist and Fleet Table was cleaned.");
-            });
-        }
+    //             console.log("Waitlist and Fleet Table was cleaned.");
+    //         });
+    //     }
 
-        wlog.clean();
-    });
+    //     wlog.clean();
+    // });
 
    
     /**
