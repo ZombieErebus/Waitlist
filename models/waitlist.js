@@ -8,7 +8,7 @@ module.exports = function (setup) {
     var module = {};
     
     module.get = function (cb) {
-		db.find({}).sort({ "signupTime": 1 }).toArray(function (err, docs) {
+		db.find({}).sort({ "signup": 1 }).toArray(function (err, docs) {
 			if (err) log.error("get: Error for db.find", { err });
             
             for(let i = 0; i < docs.length; i++){
