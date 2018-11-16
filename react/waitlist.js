@@ -55,7 +55,7 @@ class Waitlist extends React.Component {
     
     componentDidMount() {
         this.waitlistUpdate();
-        setInterval(this.waitlistUpdate.bind(this), 5 * 1000);
+        setInterval(this.waitlistUpdate.bind(this), 20 * 1000);
     }
 
     getBanner() {
