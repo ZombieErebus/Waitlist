@@ -262,6 +262,6 @@ function pollPilotsInFleet(fleetID){
 
 //Updates the Waitlist/Alt Waitlist counter
 function updateWlCounters(){
-    $("#mainsWaitingCount").text($("#waitlist tr").length);
-    $("#altsWaitingCount").text($("#altWaitlist tr").length);
+    $("#mainsWaitingCount").text($("#waitlistTable tr").length);
+    $("#altsWaitingCount").text($("#altWaitlistTable tr").length);
 }
