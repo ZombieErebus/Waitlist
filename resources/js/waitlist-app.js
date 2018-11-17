@@ -164,16 +164,12 @@ function pollFleetInfo(fleetID){
 }
 /* Waitlist functions */
 function invitePilot(characterID, fleetID) {
-    var count = Number($("#fleetWaitlistCount").text());
-
-    $("#row-"+characterID).removeClass().addClass("invite-pending");
-
     $.ajax({
         type: "POST",
         url: "/commander/admin/invite/" + characterID + "/" + fleetID
     }).done(function() {
-        $("#row-"+characterID).removeClass().addClass("invite-sent");
-        $("#fleetWaitlistCount").text(Number($("#fleetWaitlistCount").text()) - 1);
+        $("#row-"+characterID).removeClass().addClass("invite-sent");        
+        updateWlCounters();
     }).fail(function(text) {
         $("#row-"+characterID).removeClass().addClass("invite-failed");
         $("#" + characterID + "-status").text(text.responseText);
@@ -188,8 +184,8 @@ function removePilot(characterID) {
         //Colour and remove row. Then subtract the waitlist count by 1
         $("#row-"+characterID).removeClass().addClass("invite-failed");
         setTimeout(function() {
-            $("#fleetWaitlistCount").text(Number($("#fleetWaitlistCount").text()) - 1);
             $("#row-"+characterID).remove();
+            updateWlCounters();
         }, 5000)
     });
 
@@ -262,4 +258,10 @@ function pollPilotsInFleet(fleetID){
     }).fail(function(err){
         console.log(err);
     })
+}
+
+//Updates the Waitlist/Alt Waitlist counter
+function updateWlCounters(){
+    $("#mainsWaitingCount").text($("#waitlistTable tr").length);
+    $("#altsWaitingCount").text($("#altWaitlistTable tr").length);
 }
