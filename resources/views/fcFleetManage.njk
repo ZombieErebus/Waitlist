@@ -123,8 +123,8 @@
 				<ul class="nav nav-pills nav-justified">
 					<li class="nav-item">
 						<a role="tab" data-toggle="pill" href="#waitlist" class="nav-link active">
-							<div id="fleetWaitlistCount" class="badge badge-dark strike">1</div> // 
-							<div id="fleetWaitlistCount" class="badge badge-dark strike">2</div>
+							<div id="mainsWaitingCount" class="badge badge-dark"></div> // 
+							<div id="altsWaitingCount" class="badge badge-dark"></div>
 							Fleet Waitlist
 						</a>
 					</li>
@@ -163,7 +163,7 @@
 						<!-- End Fleet Waitlist -->
 						<hr />
 						<!-- Alt Waitlist -->
-						<table class="table table-striped table-hover table-sm">
+						<table class="table table-striped table-hover table-sm" id="altWaitlist">
 							<thead>
 								<tr>
 									<th class="tw30 text-right">Alt</th>
@@ -239,6 +239,7 @@
         updateFleetGlance();
 		pollFleetInfo({{fleet.id}});
 		pollPilotsInFleet({{fleet.id}});
+		updateWlCounters();
     
 	    //Start Timer
 		setInterval(function() {
