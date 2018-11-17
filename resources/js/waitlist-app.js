@@ -184,8 +184,8 @@ function removePilot(characterID) {
         //Colour and remove row. Then subtract the waitlist count by 1
         $("#row-"+characterID).removeClass().addClass("invite-failed");
         setTimeout(function() {
-            updateWlCounters();
             $("#row-"+characterID).remove();
+            updateWlCounters();
         }, 5000)
     });
 
