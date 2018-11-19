@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import classNames from 'classnames'; 
 import ShowInfo from 'components/showInfo';
 import Comms from 'components/comms';
 import SetWaypoint from 'components/setWaypoint';
@@ -12,13 +11,13 @@ class FleetInfo extends Component {
 
     render(){
         return (
-            <div class="col-lg-6 col-md-12">
-                <div class="statistic-block block">
-                    <div class="title"><strong>Fleet Info</strong></div>
-                    <table class="table table-striped table-sm">
+            <div classMame="col-lg-6 col-md-12">
+                <div className="statistic-block block">
+                    <div className="title"><strong>Fleet Info</strong></div>
+                    <table className="table table-striped table-sm">
                         <tbody>
                             <tr>
-                                <td class="tw60per">Fleet Commander:</td>
+                                <td className="tw60per">Fleet Commander:</td>
                                 <td><ShowInfo entity={this.props.fleet.fc}/></td>
                             </tr>
                             <tr>

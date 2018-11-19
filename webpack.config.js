@@ -6,6 +6,7 @@ module.exports = {
     entry: {
         waitlist: './react/waitlist.js',
         skillsManagment: './react/skillsManagment.js',
+        FcWaitlist: './react/fcWaitlist.js',
     },
     output: {    
         path: path.resolve(__dirname, 'compiled-react'),
