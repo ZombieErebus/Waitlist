@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import classNames from 'classnames'; 
 
 class Comms extends Component {
     constructor(props) {

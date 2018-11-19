@@ -346,3 +346,43 @@ exports.updateType = function(req, res){
         res.status(result).send();
     })
 }
+
+exports.getState = (req, res) => {
+    if(!users.isRoleNumeric(req.user, 1)){
+        res.status(403).send("Not Authorised");
+        return;
+    }
+
+    //lookupFleet
+    fleets.get(req.params.fleetID, function(fleet){
+        //No Fleet Found
+        if(!fleet){
+            res.status(404).send("Fleet not Found");
+            return;
+        }
+
+        let fleetState = {};
+
+        fleetState.info = {
+            fc: {
+                characterID: fleet.fc.characterID,
+                name: fleet.fc.name
+            },
+            backseat: {
+                characterID: fleet.backseat.characterID,
+                name: fleet.backseat.name
+            },
+            status: fleet.status,
+            type: fleet.type,
+            comms: {
+                resource: fleet.comms.url,
+                link: fleet.comms.name
+            },
+            system: fleet.location
+        }
+        // var comms = setup.fleet.comms;?What does this get used for
+
+        res.status(200).send(fleetState);
+    })
+
+}

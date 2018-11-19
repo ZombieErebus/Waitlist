@@ -42,14 +42,6 @@ const skills_controller = require('./controllers/skillsController.js');
 	router.post('/commander/admin/invite/:characterID/:fleetID', fleetsController.invite);
 	router.post('/commander/admin/remove/:characterID', waitlistController.removePilot);
 
-	//Commander - Fleet Updates
-	router.post('/commander/:fleetID/update/backseat', fleetsController.updateBackseat);
-	router.post('/commander/:fleetID/update/commander', fleetsController.updateCommander);
-	router.post('/commander/:fleetID/update/comms', fleetsController.updateComms);
-	router.post('/commander/:fleetID/update/type', fleetsController.updateType);
-	router.post('/commander/:fleetID/update/status', fleetsController.updateStatus);
-	
-
 	//Commander - FC Tools
 	router.get('/commander/tools/fits-scan', fc_tools_controller.fitTool);
 	router.get('/commander/tools/waitlist-logs', fc_tools_controller.waitlistLog);
@@ -94,6 +86,20 @@ const skills_controller = require('./controllers/skillsController.js');
 	router.get('/internal-api/fleet/:fleetID/members', fleetsController.getMembersJson);
 
 	router.get('/internal-api/v2/waitlist', waitlistController.pilotWaitlistState);
+
+	//FC Fleet Managment
+	router.get('/internal-api/v2/fleet/:fleetID', fleetsController.getState);
+	router.post('/internal-api/v2/fleet/:fleetID/backseat', fleetsController.updateBackseat);
+	router.post('/internal-api/v2/fleet/:fleetID/commander', fleetsController.updateCommander);
+	router.post('/internal-api/v2/fleet/:fleetID/comms', fleetsController.updateComms);
+	router.post('/internal-api/v2/fleet/:fleetID/status', fleetsController.updateStatus);
+	router.post('/internal-api/v2/fleet/:fleetID/type', fleetsController.updateType);
+	
+	//invite
+	//remove
+	//alarm
+	//closeTheFleet
+	//clearTheWaitlist
 
 	//Admin Skills
 	router.get('/admin/skills', skills_controller.managementIndex);
