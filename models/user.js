@@ -39,20 +39,25 @@ module.exports = function() {
 	* @return bool
 	*/
 	module.isOnline = function(characterID, cb){
-		log.warn("Models/User.isOnline - Disabled due to bug");
-		cb(true);
-		// module.getRefreshToken(characterID, function(accessToken){
-		// 	esi.characters(characterID, accessToken).online().then(function(online){
-		// 		if(online == true) {
-		// 			cb(true);
-		// 		} else {
-		// 			cb(false);
-		// 		}
-		// 	}).catch(function(err){
-		// 		console.error("user.isOnline: error getting refresh token", {characterID: characterID, err});
-		// 		cb(null);
-		// 	})
-		// })
+		// log.warn("Models/User.isOnline - Disabled due to bug");
+		// cb(true);
+		module.getRefreshToken(characterID, function(accessToken) {
+            if (!accessToken) {
+                // TODO: Flag their account to relogin or something to get a proper access token
+                cb(false);
+                return;
+            }
+			esi.characters(characterID, accessToken).online().then(function(online){
+				if(online == true) {
+					cb(true);
+				} else {
+					cb(false);
+				}
+			}).catch(function(err){
+				console.error("user.isOnline: error getting refresh token", {characterID: characterID, err});
+				cb(null);
+			})
+		})
 	}
 
 	/*
