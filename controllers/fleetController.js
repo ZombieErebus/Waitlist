@@ -363,6 +363,32 @@ exports.getState = (req, res) => {
 
         let fleetState = {};
 
+        let fleetGlance = fleet.members.reduce((acc, member) => {
+            for(let i = 0; i < acc.length; i++) {
+                // Check to make sure a ship doesn't already exist in here
+                if(acc[i].id == member.ship_type_id) {
+                    // Add this character to the ship array
+                    acc[i].pilots.push(member.character_name);
+                    acc[i].pilots = acc[i].pilots.sort();
+                    return acc;
+                }
+            }
+
+            // If no ship exists, lets generate a new section
+
+            acc.push({
+                id: member.ship_type_id,
+                name: member.ship_name,
+                pilots: [member.character_name]
+            })
+
+            return acc;
+        }, []);
+
+        fleetGlance.sort((shipOne, shipTwo) => {
+            return shipOne.pilots.length < shipTwo.pilots.length;
+        });
+
         fleetState.info = {
             fc: {
                 characterID: fleet.fc.characterID,
@@ -378,7 +404,8 @@ exports.getState = (req, res) => {
                 resource: fleet.comms.url,
                 link: fleet.comms.name
             },
-            system: fleet.location
+            system: fleet.location,
+            glance: fleetGlance,
         }
         // var comms = setup.fleet.comms;?What does this get used for
 

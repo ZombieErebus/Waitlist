@@ -247,7 +247,6 @@ module.checkForDuplicates = function () {
 }
 
 module.timer = function lookup() {
-    var checkCache = [];
     db.find().forEach(function (doc) {
         /*
         * Check to see if we have an FC object.
@@ -260,23 +259,53 @@ module.timer = function lookup() {
                 if (members == null) {
                     fleetHasErrored();
                 } else {
-                    db.updateOne({ 'id': fleetid }, { $set: { "members": members, "errors": 0 } }, function (err, result) {
-                        if (err) log.error("fleet.timers: Error for db.updateOne", { err, fleetid });
-                        module.checkForDuplicates();
-                    });
-                    //Won't work because we can't hit the endpoint anymore, oops
-                    members.forEach(function (member, i) {
-                        checkCache.push(member.ship_type_id);
-                        if (i == members.length - 1) {
-                            cache.massQuery(checkCache);
-                        }
+                    // Members have their ship type returned, so we'll use the background process to gather up the names of the ship
+                    // before we update the fleet
+                    let shipIds = members.map((member) => {
+                        return member.ship_type_id;
+                    }).filter((id) => {
+                        return !!id;
                     });
 
-                    user.getLocation(doc.fc.characterID, doc.fc.name, function(location) {
-                        db.updateOne({ 'id': doc.id }, { $set: { "location": location } }, function (err, result) {//{$set: {backseat: user}}
-                            if (err) log.error("fleet.getLocation: Error for db.updateOne", { err });
+                    // Mass query might need to get reworked since it doesn't obey expiration
+                    cache.massQuery(shipIds, (results) => {
+                        for(let i = 0; i < results.length; i++) {
+                            let currentShip = results[i];
+                            // Lets make sure that the ship is valid
+                            if(!!currentShip) {
+                                for(let x = 0; x < members.length; x++) {
+                                    if(currentShip.id == members[x].ship_type_id)
+                                    {
+                                        members[x].ship_name = currentShip.name;
+                                    }
+                                }
+                            }
+                        }
+
+                        let characterPromises = members.map(member => {
+                            return new Promise( (resolve, reject) => {
+                                cache.get(member.character_id, 86400, (doc) => {
+                                    member.character_name = doc.name || "Unknown (ESI Miss)";
+
+                                    resolve(member);
+                                });
+                            });
                         });
-                    })
+
+                        Promise.all(characterPromises).then((members) => {  
+                            db.updateOne({ 'id': fleetid }, { $set: { "members": members, "errors": 0 } }, function (err, result) {
+                                if (err) log.error("fleet.timers: Error for db.updateOne", { err, fleetid });
+                                module.checkForDuplicates();
+                            });
+                            
+                            user.getLocation(doc.fc.characterID, doc.fc.name, function(location) {
+                                db.updateOne({ 'id': doc.id }, { $set: { "location": location } }, function (err, result) {//{$set: {backseat: user}}
+                                    if (err) log.error("fleet.getLocation: Error for db.updateOne", { err });
+                                });
+                            });
+                        });
+                    });
+
                 }
 
                 function fleetHasErrored() {
