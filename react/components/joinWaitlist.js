@@ -132,7 +132,7 @@ class JoinWaitlist extends Component {
                 </div>
                 <div class="form-group">
                     <label for="selectShip">What ships can you bring?</label>
-                    <input id="selectShip" ref={this.ship} className="form-control mb-0" name="ship" />
+                    <input id="selectShip" ref={this.ship} className="form-control mb-0" name="ship" maxLength="50" required/>
                     <small className="text-muted">Temporary system, list hull names separated by a comma.</small>
                 </div>
 
