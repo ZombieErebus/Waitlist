@@ -362,29 +362,33 @@ exports.getState = (req, res) => {
         }
 
         let fleetState = {};
+        let fleetGlance = [];
 
-        let fleetGlance = fleet.members.reduce((acc, member) => {
-            for(let i = 0; i < acc.length; i++) {
-                // Check to make sure a ship doesn't already exist in here
-                if(acc[i].id == member.ship_type_id) {
-                    // Add this character to the ship array
-                    acc[i].pilots.push(member.character_name);
-                    acc[i].pilots = acc[i].pilots.sort();
-                    return acc;
+        // ESI likes to return an empty object for the members if non exist
+        if(Object.keys(fleet.members).length > 0) {
+            fleetGlance = fleet.members.reduce((acc, member) => {
+                for(let i = 0; i < acc.length; i++) {
+                    // Check to make sure a ship doesn't already exist in here
+                    if(acc[i].id == member.ship_type_id) {
+                        // Add this character to the ship array
+                        acc[i].pilots.push(member.character_name);
+                        acc[i].pilots = acc[i].pilots.sort();
+                        return acc;
+                    }
                 }
-            }
+                
+                // If no ship exists, lets generate a new section
+                
+                acc.push({
+                    id: member.ship_type_id,
+                    name: member.ship_name,
+                    pilots: [member.character_name]
+                });
 
-            // If no ship exists, lets generate a new section
-
-            acc.push({
-                id: member.ship_type_id,
-                name: member.ship_name,
-                pilots: [member.character_name]
-            })
-
-            return acc;
-        }, []);
-
+                return acc;
+            }, []);
+        }
+        
         fleetGlance.sort((shipOne, shipTwo) => {
             return shipOne.pilots.length < shipTwo.pilots.length;
         });

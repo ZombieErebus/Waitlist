@@ -106,13 +106,13 @@ nav#sidebar.shrinked > ul > li > a > .svg-inline--fa, nav#sidebar.shrinked > ul 
 
 /* Fleet at a Glance */
 .nav-link.comp{
-	background: none;
-	color: #DC3545;
+    background: none;
+    color: #DC3545 !important;
 	margin-top: -10px;
   }
   .nav-link.comp.active{
 	background: none;
-	color: white;
+	color: white !important;
   }
   
 /* Inline radio button spacing */
@@ -352,4 +352,9 @@ input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+.fleet-glance-loading {
+    margin-left: auto;
+    margin-right: auto;
 }

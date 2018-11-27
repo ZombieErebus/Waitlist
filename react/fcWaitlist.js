@@ -3,7 +3,6 @@ import FleetInfo from 'components/fcFleetInfo';
 import FleetGlance from 'components/fcFleetGlance';
 import ReactDOM from 'react-dom';
 
-
 const FleetEndpoint = "/internal-api/v2/fleet/"
 const MaxFailures = 10;
 
@@ -73,6 +72,13 @@ class FcWaitlist extends React.Component {
         setInterval(this.fleetUpdate.bind(this), 10 * 1000);
     }
 
+    getFleetGlance() {
+        if(!!this.state.fleetData.info) {
+            return this.state.fleetData.info.glance;
+        }
+
+        return null;
+    }
 
     render() {
 
@@ -112,7 +118,7 @@ class FcWaitlist extends React.Component {
                             </div>
                             
                             <div className="col-lg-6 col-md-12 col-sm-12">
-                                {/* <FleetGlance /> */}
+                                <FleetGlance glance={this.getFleetGlance()} />
                             </div>
                         </div>
                     </div>
