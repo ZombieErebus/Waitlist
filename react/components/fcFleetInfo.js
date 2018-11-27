@@ -65,7 +65,7 @@ class FcFleetInfo extends Component {
         let commsOptions;
         if(fleet.comms){
             commsOptions = fleet.comms.map((value, key) =>
-                <a className="dropdown-item" id={key} onClick={this.setComms.bind(this, value)}>{value.name}</a>
+                <a className="dropdown-item" key={key} id={key} onClick={this.setComms.bind(this, value)}>{value.name}</a>
             )
         }
         
