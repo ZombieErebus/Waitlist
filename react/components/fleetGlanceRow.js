@@ -6,7 +6,9 @@ class FleetGlanceRow extends Component {
             return(
                 <React.Fragment key={index}>
                     <td className="tw35"><img src={`https://image.eveonline.com/Render/${ship.id}_32.png`} alt="Ship Icon" /></td>
-                    <td className="tw20per"><a href="#">{ship.name}</a></td>
+                    <td className="tw20per">
+                        <a href="#" data-toggle="tooltip" data-html="true" title={ship.pilots.join("<br/>")}>{ship.name}</a>
+                    </td>
                     <td>{ship.pilots.length}</td>
                 </React.Fragment>
             );
