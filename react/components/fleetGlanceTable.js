@@ -4,60 +4,13 @@ import FleetGlanceRow from 'components/fleetGlanceRow';
 
 const ShipsPerRow = 3;
 
-const TestData = [{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-},{
-    "id": 23911,
-    "name": "Thanatos",
-    "pilots": ["thebinaryhood Crendraven"]
-}];
-
 class FleetGlanceTable extends Component {
     render() {
         if(!this.props.ships || this.props.ships.length == 0) {
             return <NoFleetIndicator />;
         }
 
-        
-        let splicedShips = TestData.reduce((acc, ship, index) => {
+        let splicedShips = this.props.ships.reduce((acc, ship, index) => {
             let row = Math.ceil((index + 1) / ShipsPerRow) - 1;
             
             // Should we create a row?

@@ -3,7 +3,6 @@ import FleetInfo from 'components/fcFleetInfo';
 import FleetGlance from 'components/fcFleetGlance';
 import ReactDOM from 'react-dom';
 
-
 const FleetEndpoint = "/internal-api/v2/fleet/"
 const MaxFailures = 10;
 
