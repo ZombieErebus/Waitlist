@@ -81,7 +81,6 @@ class FcWaitlist extends React.Component {
         return null;
     }
 
-
     render() {
 
         let fleetInfo;
