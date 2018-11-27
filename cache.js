@@ -14,7 +14,8 @@ module.exports = function (setup) {
 			cb(item[0]);
 			module.removeFromCacheTemp(id);
 		}).catch(err => {
-			log.error("cache.query: Error for esi.names", { err, id });
+            log.error("cache.query: Error for esi.names", { err, id });
+            cb(null);
 		});
 	}
 
@@ -106,14 +107,6 @@ module.exports = function (setup) {
 
 	module.massQuery = function (ids, cb) {
 		ids = uniq(ids);
-		newids = [];
-		for (var i = 0; i < ids.length; i++) {
-			if (!cachetemp.includes(ids[i])) {
-				newids.push(ids[i]);
-				cachetemp.push(ids[i]);
-			}
-		}
-		ids = newids;
 		db.find({ 'id': { $in: ids } }).toArray(function (err, docs) {
 			if (err) log.error("massQuery: Error for db.find", { err, ids });
 			var fullquery = [];
@@ -121,7 +114,10 @@ module.exports = function (setup) {
 				fullquery.push(docs[i].id);
 			}
 			var newBulkSearch = uniq(diffArray(fullquery, uniq(ids)));
-			if (newBulkSearch.length == 0) return;
+			if (newBulkSearch.length == 0) {
+                // Everything was in the cache, so lets return it
+                cb(docs);
+            }
 
 			esi.names(newBulkSearch).then(function (items) {
 				db.insertMany(items, function (err, result) {
@@ -134,7 +130,10 @@ module.exports = function (setup) {
 					}
 				});
 			}).catch(err => {
-				log.error("cache.query: Error for esi.names", { err, newBulkSearch });
+                log.error("cache.query: Error for esi.names", { err, newBulkSearch });
+
+                // Return no results on a failure
+                cb([]);
 			});
 		});
 	}
