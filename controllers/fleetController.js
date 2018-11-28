@@ -390,7 +390,7 @@ exports.getState = (req, res) => {
         }
         
         fleetGlance.sort((shipOne, shipTwo) => {
-            return shipOne.pilots.length < shipTwo.pilots.length;
+            return shipTwo.pilots.length - shipOne.pilots.length;
         });
 
         fleetState.info = {
