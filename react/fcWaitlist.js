@@ -81,10 +81,9 @@ class FcWaitlist extends React.Component {
     }
 
     render() {
-
         let fleetInfo;
         if(!!this.state.fleetData.info){
-            fleetInfo = <FleetInfo info={this.state.fleetData.info} fleetID={this.state.fleetID}/>
+            fleetInfo = <FleetInfo info={this.state.fleetData.info} fleetID={this.state.fleetID} updateFunc={this.fleetUpdate.bind(this)} />
         }
 
         let offlineBanner;

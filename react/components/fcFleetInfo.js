@@ -7,24 +7,31 @@ import {fleet} from '../../setup';
 class FcFleetInfo extends Component {
     
     updateFC(){
+        let self = this;
         $.ajax({
             type: `POST`,
             url: `/internal-api/v2/fleet/${this.props.fleetID}/commander`
+        }).done(() => {
+            self.props.updateFunc();
         }).fail(function(err) {
             console.warn("Error updating the commander: ", err);
         })
     }
 
     updateBackseat(){
+        let self = this;
         $.ajax({
             type: "POST",
             url: `/internal-api/v2/fleet/${this.props.fleetID}/backseat`
+        }).done(() => {
+            self.props.updateFunc();
         }).fail(function(err) {
             console.warn("Error updating the backseat: ", err);
         })
     }
 
     setComms(comms){
+        let self = this;
         $.ajax({
             type: "POST",
             url: `/internal-api/v2/fleet/${this.props.fleetID}/comms`,
@@ -32,30 +39,38 @@ class FcFleetInfo extends Component {
                 name: comms.name,
                 url: comms.url
             }
+        }).done(() => {
+            self.props.updateFunc();
         }).fail(function(err) {
             console.warn("Error updating the fleet comms: ", err);
         });
     }
 
     setStatus(fleetStatus){
+        let self = this;
         $.ajax({
             type: "POST",
             url: `/internal-api/v2/fleet/${this.props.fleetID}/status`,
             data: {
                 status: fleetStatus
             }
+        }).done(() => {
+            self.props.updateFunc();
         }).fail(function(err) {
             console.warn("Error updating the fleet status: ", err);
         });
     }
 
     setType(fleetType){
+        let self = this;
         $.ajax({
             type: "POST",
             url: `/internal-api/v2/fleet/${this.props.fleetID}/type`,
             data: {
                 type: fleetType
             }
+        }).done(() => {
+            self.props.updateFunc();
         }).fail(function(err) {
             console.warn("Error updating the fleet type: ", err);
         });
