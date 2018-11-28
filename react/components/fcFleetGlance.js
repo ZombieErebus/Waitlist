@@ -20,6 +20,8 @@ const TabFilters = {
     }
 }
 
+const EmptyFilterResponse = [];
+
 class FcFleetGlance extends Component {
     constructor(props) {
         super(props);
@@ -29,15 +31,19 @@ class FcFleetGlance extends Component {
         };
     }
 
-    getFilteredShips() {
+    getFilteredShips(filter) {
         // Do we have a filter at all or any ships?
-        if(!this.state.selectedFilter || !this.state.selectedFilter.ships) {
+        if(!filter || !filter.ships) {
             // If not, just return all ships
-            return this.props.glance;
+            return this.props.glance || EmptyFilterResponse;
+        }
+
+        if(!this.props.glance) {
+            return EmptyFilterResponse;
         }
 
         return this.props.glance.filter((ship) => {
-            let included = this.state.selectedFilter.ships.includes(ship.id);
+            let included = filter.ships.includes(ship.id);
             return included;
         });
     }
@@ -50,8 +56,19 @@ class FcFleetGlance extends Component {
         let tabs = Object.keys(TabFilters).map((key, index) => {
             let filter = TabFilters[key];
             let classes = classNames('nav-link', 'comp', { 'active': this.state.selectedFilter == filter});
+            let filteredShips = this.getFilteredShips(filter);
+            let shipCount = 0;
+            if(!!filteredShips) {
+                shipCount = filteredShips.length;
+            }
 
-            return <li className="nav-item" key={index}><a role="tab" data-toggle="pill" className={classes} onClick={this.selectTab.bind(this, filter)}>{filter.name}</a></li>;
+            return (
+                <li className="nav-item" key={index}>
+                    <a role="tab" data-toggle="pill" className={classes} onClick={this.selectTab.bind(this, filter)}>
+                        {filter.name} <span className="badge badge-secondary">{shipCount}</span>
+                    </a>
+                </li>
+            );
         }, this);
 
         return(
@@ -62,7 +79,7 @@ class FcFleetGlance extends Component {
                     </ul>
                     <div className="tab-content">
                         <div role="tabpanel" className="tab-pane active">
-                            <FleetGlanceTable ships={this.getFilteredShips()} />
+                            <FleetGlanceTable ships={this.getFilteredShips(this.state.selectedFilter)} />
                         </div>
                     </div>
                 </div>
