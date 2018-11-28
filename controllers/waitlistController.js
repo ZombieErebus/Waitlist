@@ -341,7 +341,7 @@ module.getQueuePos = function(characterID, cb){
                 // Is this a main character?
                 if(characterID == docs[i].waitlistMain.characterID) {
                     // Main queue
-                    data.mainPos = data.totalMains + 1;
+                    data.mainPos = data.totalMains;
                 } else {
                     // Alt queue
                     data.mainPos = i + 1;

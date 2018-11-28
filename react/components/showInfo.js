@@ -9,7 +9,7 @@ class ShowInfo extends Component {
         $.ajax({
             type: "POST",
             url: "/esi/ui/info/" + this.props.entity.characterID
-          });
+        });
     }
 
     render(){
