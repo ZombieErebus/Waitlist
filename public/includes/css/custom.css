@@ -358,3 +358,8 @@ input[type=number]::-webkit-outer-spin-button {
     margin-left: auto;
     margin-right: auto;
 }
+
+.nav-link .badge {
+    display: inline;
+    margin-left: 10px;
+}
