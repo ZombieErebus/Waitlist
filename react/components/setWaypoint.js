@@ -14,8 +14,13 @@ class SetWaypoint extends Component {
     }
 
     render(){
+
+        let systemName;
+        if(this.props.system && this.props.system.name)
+            systemName = this.props.system.name;
+
         return(
-            <a href="javascript:void()" onClick={this.esiSetWapoint.bind(this)}>{this.props.system.name}</a>
+            <a href="javascript:void()" onClick={this.esiSetWapoint.bind(this)}>{systemName}</a>
         );
     }
 }
