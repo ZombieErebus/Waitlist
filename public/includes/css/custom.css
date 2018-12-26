@@ -91,6 +91,11 @@ nav#sidebar.shrinked > ul > li > a > .svg-inline--fa, nav#sidebar.shrinked > ul 
 	background-position: 0 -15px;
 }
   
+.badge-primary {
+	color: #fff;
+    background-color: #204d74;
+    border-color: #122b40;
+}
   
 
 /* Alarm Button Highlight */

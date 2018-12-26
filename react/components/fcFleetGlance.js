@@ -65,7 +65,7 @@ class FcFleetGlance extends Component {
             return (
                 <li className="nav-item" key={index}>
                     <a role="tab" data-toggle="pill" className={classes} onClick={this.selectTab.bind(this, filter)}>
-                        {filter.name} <span className="badge badge-secondary">{shipCount}</span>
+                        <span className="badge badge-primary">{shipCount}</span> {filter.name}
                     </a>
                 </li>
             );
