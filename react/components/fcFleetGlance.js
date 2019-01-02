@@ -48,6 +48,19 @@ class FcFleetGlance extends Component {
         });
     }
 
+    getPilotCountForFilteredShips(ships) {
+        if(!ships || ships == EmptyFilterResponse) {
+            return 0;
+        }
+
+        return ships.reduce((acc, ship) => {
+            if(!ship || !ship.pilots) {
+                return acc;
+            }
+            return acc + ship.pilots.length;
+        }, 0);
+    }
+
     selectTab(filter) {
         this.setState({selectedFilter: filter});
     }
@@ -59,7 +72,7 @@ class FcFleetGlance extends Component {
             let filteredShips = this.getFilteredShips(filter);
             let shipCount = 0;
             if(!!filteredShips) {
-                shipCount = filteredShips.length;
+                shipCount = this.getPilotCountForFilteredShips(filteredShips);
             }
 
             return (
