@@ -1,6 +1,6 @@
 const ObjectId = require('mongodb').ObjectID;
 const db = require('../dbHandler.js').db.collection('skills');
-const esi = require('eve-swagger');
+const esi = require('eve-swagger').makeAPI();
 const log = require('../logger.js')(module);
 
 module.exports = function (setup) {
