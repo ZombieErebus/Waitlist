@@ -32,7 +32,7 @@
     "cookie-parser": "^1.4.3",
     "cross-env": "^5.2.0",
     "dotenv": "^6.2.0",
-    "eve-swagger": "github:lhkbob/eve-swagger-js",
+    "eve-swagger": "github:CodesignDev/eve-swagger-js",
     "express": "^4.16.4",
     "express-longpoll": "0.0.4",
     "express-session": "^1.15.6",
