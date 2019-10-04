@@ -321,7 +321,7 @@ exports.updateComms = function(req, res){
 * @res res{}
 */
 exports.updateStatus = function(req, res){
-    if(!users.isRoleNumeric(req.user, 1)){
+    if(!users.isRoleNumeric(req.user, 3)){
         res.status(403).send("Not Authorised");
         return;
     }

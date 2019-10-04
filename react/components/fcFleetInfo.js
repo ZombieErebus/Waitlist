@@ -83,6 +83,18 @@ class FcFleetInfo extends Component {
                 <a className="dropdown-item" key={key} id={key} onClick={this.setComms.bind(this, value)}>{value.name}</a>
             )
         }
+
+        let { role_numeric } = window.__USER__ || {}
+
+        let updateStatusExtraAttrs = {
+            className: 'btn btn-sm btn-block'
+        }
+        if (role_numeric > 1) {
+            updateStatusExtraAttrs = {
+                ['data-toggle']: 'dropdown',
+                className: 'btn btn-primary btn-sm btn-block dropdown-toggle'
+            }
+        }
         
         return(
             <div className="statistic-block block">
@@ -108,7 +120,7 @@ class FcFleetInfo extends Component {
 							<td>{this.props.info.status}</td>
 							<td>
 								<div className="dropdown">
-									<button className="btn btn-primary btn-sm btn-block dropdown-toggle" data-toggle="dropdown" aria-expanded="false" type="button">Update Status <i className="fas fa-sort-down float-right"></i></button>
+									<button aria-expanded="false" type="button" {...updateStatusExtraAttrs}>Update Status <i className="fas fa-sort-down float-right"></i></button>
 									<div className="dropdown-menu" role="menu">
 										<a className="dropdown-item" onClick={this.setStatus.bind(this, 'Forming')}>Forming</a>
                                         <a className="dropdown-item" onClick={this.setStatus.bind(this, 'Running')}>Running</a>
