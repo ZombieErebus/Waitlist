@@ -46,8 +46,11 @@
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/dataTables.responsive.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/responsive/2.2.3/js/responsive.bootstrap4.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.8.4/moment.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/plug-ins/1.10.20/sorting/datetime-moment.js"></script>
 <script>
 $(document).ready(function() {
+    $.fn.datatable.moment('HH:mm MM/DD');
     $('#waitlistLog').DataTable({
         "lengthMenu":   [[25, 50, 100, 250, 500, -1], [25, 50, 100, 250, 500, "All"]],
         "order": [[ 3, "desc" ]],
