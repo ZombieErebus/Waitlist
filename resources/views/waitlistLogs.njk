@@ -53,6 +53,7 @@ $(document).ready(function() {
     $.fn.dataTable.moment('HH:mm MM/DD');
     $('#waitlistLog').DataTable({
         "lengthMenu":   [[25, 50, 100, 250, 500, -1], [25, 50, 100, 250, 500, "All"]],
+        "pageLength": 50,
         "order": [[ 3, "desc" ]],
         columnDefs: [ { 
             "targets": [0, 1, 2],
