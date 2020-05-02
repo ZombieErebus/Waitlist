@@ -164,11 +164,16 @@ class JoinWaitlist extends Component {
                 <a href="/my-settings">You can add some here</a>.</p>
         }
 
+        let missingAlts = 
+            <p>Do you have alts registered that aren't listed here?
+            <a href="/my-settings">You can update your alts here</a>.</p>
+
         return (
             <div>
                 <div id="queueInfo" class="statistic-block block noselect">
                     <div class="title"><strong>Waitlist for Fleet</strong></div>
                     {noAlts}
+                    {missingAlts}
                     {selectMain}
                     {selectAlts}
                     

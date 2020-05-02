@@ -13,7 +13,7 @@ module.exports = function (setup) {
 	module.findOrCreateUser = function (users, refreshToken, characterDetails, cb) {
 		//Update the users refresh token
 		if(refreshToken){
-			db.updateOne({characterID: characterDetails.CharacterID}, {$set: {refreshToken: refreshToken}}, function(err, result){
+			db.updateOne({characterID: characterDetails.CharacterID}, {$set: {refreshToken: refreshToken, invalidToken: false}}, function(err, result){
 				console.info("users.findOrCreateUser: Updating refreshToken for " + characterDetails.CharacterName);
 			})
 		}//Check if the user exists
@@ -89,6 +89,7 @@ module.exports = function (setup) {
 				account: { main: true, linkedCharIDs: []},
 				settings: {smSideNav: false},
 				refreshToken: refreshToken,
+				invalidToken: false,
 				registrationDate: new Date(),
 				userVersion: 2
 			}
@@ -214,11 +215,38 @@ module.exports = function (setup) {
 				{
 					characterID: {
 						$in: mainObject.account.linkedCharIDs
-					}
+					},
+					invalidToken: false
 				}
 			).toArray(function(err, altObjects) {
 				var xformed = altObjects.map( item => {
 					return { "characterID": item.characterID, "name": item.name };
+				});
+				knownPilots = knownPilots.concat(xformed);
+				returnCharacters(knownPilots);
+			});
+		})
+	}
+
+	module.getAltsWithInvalid = function(userID, returnCharacters){
+		let knownPilots = [];
+		module.getMain(userID, function(mainObject){
+            if(!mainObject) {
+                returnCharacters([]);
+                return;
+            } 
+
+			knownPilots.push({"characterID": mainObject.characterID, "name": mainObject.name});
+			
+			db.find(
+				{
+					characterID: {
+						$in: mainObject.account.linkedCharIDs
+					}
+				}
+			).toArray(function(err, altObjects) {
+				var xformed = altObjects.map( item => {
+					return { "characterID": item.characterID, "name": item.name , "invalid": item.invalidToken != null ? item.invalidToken : true };
 				});
 				knownPilots = knownPilots.concat(xformed);
 				returnCharacters(knownPilots);
@@ -239,6 +267,12 @@ module.exports = function (setup) {
 	//TODO: Skill System: move out of this file and make it clean check issue: 120
 	module.checkSkills = function(user, skillsPackage, cb) {
 		userO.getRefreshToken(user.characterID, function(accessToken){
+			console.log(skillsPackage);
+			if (!accessToken) {
+				skillsPackage.totalSP = 0;
+				cb(skillsPackage);
+				return;
+			}
 			esi.characters(user.characterID, accessToken).skills().then(result => {
 				//Create ESI Skills Array
 				var esiSkills = [];

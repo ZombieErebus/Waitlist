@@ -33,13 +33,22 @@
 					</div>
 					<!-- Alts -->
 					<hr />
+					<div class="form-row align-items-center">
+						<div class="col-12">
+							Do you have alts listed below that are showing as Invalid Characters? Click Add an Alt below and re-add them to the waitlist.
+						</div>
+					</div>
 					<button class="btn btn-success btn-sm d-block mb-3 mx-auto" data-toggle="modal" data-target="#addAlt"><i class="fas fa-user-plus"></i> Add an Alt</button>
 					<table class="table table-sm">
 						<tbody>
 							{% for pilot in userProfile.account.pilots %}
 							<tr>
 								<td class="tr35"><img src="https://image.eveonline.com/Character/{{ pilot.characterID }}_32.jpg" alt="pilot avatar" height="28px"></td>
-								<td><a href="javascript:void();" onclick="showInfo({{ pilot.characterID }}">{{ pilot.name }}</a></td>
+								<td><a href="javascript:void();" onclick="showInfo({{ pilot.characterID }}">{{ pilot.name }}</a>
+								{% if pilot.invalid %}
+									<br><small><i>Invalid Character</i></small>
+								{% endif %}
+								</td>
 							</tr>
 							{% endfor %}
 						</tbody>

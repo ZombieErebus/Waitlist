@@ -26,7 +26,7 @@ module.exports = function (setup) {
 			} else {
 				
 				users.getMain(userData.characterID, function(mainUserData){
-					users.getAlts(mainUserData.characterID, function(pilotArray){
+					users.getAltsWithInvalid(mainUserData.characterID, function(pilotArray){
 						userData.role = mainUserData.role;
 						userData.account.pilots = pilotArray.sort(function(a,b) {
 							if(a.name > b.name) return 1;
