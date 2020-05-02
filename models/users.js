@@ -131,6 +131,12 @@ module.exports = function (setup) {
 	*/
 	module.linkPilots = function(user, alt, status){
 		module.findOrCreateUser(null, alt.refreshToken, alt, function(AltUser){
+			//If the alt belongs to this main - push an updated message
+			var mainID = (user.account.main)? user.characterID: user.account.mainID;
+			if (AltUser.account != null && !AltUser.account.main && AltUser.account.mainID == mainID) {
+				status({"type": "success", "message": alt.CharacterName + " has been updated."});
+				return;
+			}
 			//If the alt belongs to someone - abort.
 			if(AltUser.account != null && !AltUser.account.main) {
 				status({"type": "error", "message": "This alt already belongs to someone, think this is an error? Contact leadership."});
