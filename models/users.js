@@ -267,7 +267,6 @@ module.exports = function (setup) {
 	//TODO: Skill System: move out of this file and make it clean check issue: 120
 	module.checkSkills = function(user, skillsPackage, cb) {
 		userO.getRefreshToken(user.characterID, function(accessToken){
-			console.log(skillsPackage);
 			if (!accessToken) {
 				skillsPackage.totalSP = 0;
 				cb(skillsPackage);
