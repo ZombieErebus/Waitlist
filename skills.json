@@ -258,8 +258,8 @@
             "category": "Mainline Ships - Drone Bunny - Drekavac",
             "Skills": [
                 {
-                    "name": "Precursor Battleship",
-                    "id": 47869,
+                    "name": "Precursor Battlecruiser",
+                    "id": 49743,
                     "required": 4,
                     "failable": true
                 },
