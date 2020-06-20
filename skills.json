@@ -558,15 +558,21 @@
                     "failable": true
                 },
                 {
+                    "name": "Fighters",
+                    "id": 23069,
+                    "required": 4,
+                    "failable": true
+                },
+                {
                     "name": "Light Fighters",
                     "id": 40572,
                     "required": 3,
                     "failable": true
                 },
                 {
-                    "name": "Fighters",
-                    "id": 23069,
-                    "required": 4,
+                    "name": "Support Fighters",
+                    "id": 40573,
+                    "required": 3,
                     "failable": true
                 },
                 {
@@ -611,15 +617,21 @@
                     "failable": true
                 },
                 {
+                    "name": "Fighters",
+                    "id": 23069,
+                    "required": 4,
+                    "failable": true
+                },
+                {
                     "name": "Light Fighters",
                     "id": 40572,
                     "required": 3,
                     "failable": true
                 },
                 {
-                    "name": "Fighters",
-                    "id": 23069,
-                    "required": 4,
+                    "name": "Support Fighters",
+                    "id": 40573,
+                    "required": 3,
                     "failable": true
                 },
                 {
@@ -664,15 +676,21 @@
                     "failable": true
                 },
                 {
+                    "name": "Fighters",
+                    "id": 23069,
+                    "required": 4,
+                    "failable": true
+                },
+                {
                     "name": "Light Fighters",
                     "id": 40572,
                     "required": 3,
                     "failable": true
                 },
                 {
-                    "name": "Fighters",
-                    "id": 23069,
-                    "required": 4,
+                    "name": "Support Fighters",
+                    "id": 40573,
+                    "required": 3,
                     "failable": true
                 },
                 {
@@ -717,14 +735,20 @@
                     "failable": true
                 },
                 {
-                    "name": "Light Fighters",
-                    "id": 40572,
-                    "required": 3,
+                    "name": "Fighters",
+                    "id": 23069,
+                    "required": 4,
                     "failable": true
                 },
                 {
-                    "name": "Fighters",
-                    "id": 23069,
+                    "name": "Light Fighters",
+                    "id": 40572,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Support Fighters",
+                    "id": 40573,
                     "required": 4,
                     "failable": true
                 },
