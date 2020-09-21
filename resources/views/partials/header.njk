@@ -12,6 +12,18 @@
     <meta name="id" content="{{userProfile.characterID}}">
     <meta name="google" content="notranslate" />
 
+    <!-- Sentry -->
+    <script src="https://browser.sentry-cdn.com/5.24.2/bundle.tracing.min.js" integrity="sha384-Epltozh7S1cJM2hcIRDJBbqiiVpZsNlFCciHxKIAfKN8mSTa+gMivtz7glp/30Mz" crossorigin="anonymous"></script>
+    <script language="text/javascript">
+Sentry.init({
+  dsn: '{{ sentry.publicDsn }}',
+  integrations: [
+    new Sentry.Integrations.BrowserTracing(),
+  ],
+  tracesSampleRate: 1.0,
+});
+    </script>
+
     <!-- Tether -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.3/js/tether.min.js"></script>
     <!-- Bootstrap CSS-->

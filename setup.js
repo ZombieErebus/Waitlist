@@ -34,6 +34,11 @@ exports.settings = {
 	port: process.env.PORT || 8113
 }
 
+exports.sentry = {
+	publicDsn: 'https://48046af2ba3141948133b6a6f9519edf@o450870.ingest.sentry.io/5435943',
+	privateDsn: 'https://f4e6c9c64b9e4798bfab4d84f13ec0e2@o450870.ingest.sentry.io/5435994',
+}
+
 //roleNumeric titles, use null to disable. Leave index0 as member
 exports.userPermissions =  ["Member", "Trainee", null, "Fleet Commander", "Senior FC", "Leadership"];
 
