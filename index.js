@@ -21,16 +21,8 @@ const cookieParser = require('cookie-parser');
 const flash = require('req-flash');
 
 const Sentry = require('@sentry/node');
-const Tracing = require('@sentry/tracing');
 
-Sentry.init({
-	dsn: setup.sentry.privateDsn,
-	integrations: [
-		new Sentry.Integrations.Http({ tracing: true }),
-		new Tracing.Integrations.Express({ app }),
-	],
-	tracesSampleRate: 1.0,
-});
+Sentry.init({ dsn: setup.sentry.privateDsn });
 
 //Apparently JS has a shit fit when it can't throw errors properly so uh, we need to make it throw errors properly
 process.on('uncaughtException', function(exception) {
@@ -44,7 +36,6 @@ database.connect(function () {
 	require('./oauth/provider');
 
 	app.use(Sentry.Handlers.requestHandler());
-	app.use(Sentry.Handlers.tracingHandler());
     
     /* Force HTTPS On Production */
     const sslRedirect = require('heroku-ssl-redirect');
