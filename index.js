@@ -76,7 +76,7 @@ database.connect(function () {
 	app.use(/\/((?!auth).)*/, require('./middleware/whitelist.js')(setup).check);
 	app.use(/\/((?!auth).)*/, require('./middleware/logout.js')(setup).check);
 
-	const nunkucksApi = nunjucks.configure('resources/views', {
+	const nunjucksApi = nunjucks.configure('resources/views', {
 		autoescape: true,
 		express: app
 	});
