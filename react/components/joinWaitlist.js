@@ -168,6 +168,15 @@ class JoinWaitlist extends Component {
             <p>Do you have alts registered that aren't listed here?
             <a href="/my-settings">You can update your alts here</a>.</p>
 
+        let helpText = 
+            <React.Fragment>
+                <p>Please ensure that you are not in a fleet so that the FC can invite you to the Incursion fleet.</p>
+                <p>
+                    Also please ensure that you don't have a CSPA charge set, as we are unable to invite you to fleet if this is set.
+                    To change this, <a href="https://imgur.com/a/oGom0PG" target="_blank">view this image.</a>
+                </p>
+            </React.Fragment>
+
         return (
             <div>
                 <div id="queueInfo" class="statistic-block block noselect">
@@ -176,7 +185,7 @@ class JoinWaitlist extends Component {
                     {missingAlts}
                     {selectMain}
                     {selectAlts}
-                    
+                    {helpText}
                 </div>
             </div>
         );
