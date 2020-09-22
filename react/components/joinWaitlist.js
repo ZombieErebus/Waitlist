@@ -183,9 +183,9 @@ class JoinWaitlist extends Component {
                     <div class="title"><strong>Waitlist for Fleet</strong></div>
                     {noAlts}
                     {missingAlts}
+                    {helpText}
                     {selectMain}
                     {selectAlts}
-                    {helpText}
                 </div>
             </div>
         );
