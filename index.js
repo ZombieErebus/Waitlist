@@ -12,6 +12,7 @@ const log = require('./logger.js')(module);
 const database = require('./dbHandler.js');
 
 const express = require('express');
+const favicon = require('serve-favicon');
 const passport = require('passport');
 const app = express();
 const bodyParser = require('body-parser');
@@ -60,6 +61,7 @@ database.connect(function () {
 	app.use(bodyParser.urlencoded({ extended: true }));
 			
 	/* Middleware Checks */
+	app.use(favicon(path.join(__dirname, 'public', 'includes', 'img', 'favicon.ico')));
     app.use('/includes', express.static('public/includes'));//Exempt
     app.use('/compiled-react', express.static('compiled-react'));//Exempt
 	app.use(/\/((?!auth).)*/, require('./middleware/userSession.js')(setup).refresh);
