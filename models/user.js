@@ -38,9 +38,7 @@ module.exports = function() {
 	* @params characterID
 	* @return bool
 	*/
-	module.isOnline = function(characterID, cb){
-		// log.warn("Models/User.isOnline - Disabled due to bug");
-		// cb(true);
+	module.isOnline = function(characterID, name, cb){
 		module.getRefreshToken(characterID, function(accessToken) {
             if (!accessToken) {
                 // TODO: Flag their account to relogin or something to get a proper access token
@@ -54,7 +52,7 @@ module.exports = function() {
 					cb(false);
 				}
 			}).catch(function(err){
-				console.error("user.isOnline: error getting refresh token", {characterID: characterID, err});
+				console.error("user.isOnline: error getting online status", {characterID: characterID, pilot: name, err});
 				cb(null);
 			})
 		})

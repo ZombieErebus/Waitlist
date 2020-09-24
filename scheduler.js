@@ -11,7 +11,7 @@ const momenttz = require('moment-timezone');
 
 const Sentry = require('@sentry/node');
 
-Sentry.init({ dsn: sentry.privateDsn });
+// Sentry.init({ dsn: sentry.privateDsn });
 
 // Set global timezone for application
 momenttz.tz.setDefault("Etc/UTC");
@@ -81,7 +81,7 @@ database.connect(() => {
 
         collection.find({}).forEach((waitingPilot)=> {
             //Updates online/offline
-            user.isOnline(Number(waitingPilot.characterID), (online)=>{
+            user.isOnline(waitingPilot.characterID, waitingPilot.name, (online)=>{
                 if(online){
 
                     try{
