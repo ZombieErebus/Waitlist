@@ -11,14 +11,15 @@ module.exports = function() {
     * @params: {user}
     * @return: location{system_id, system_name}
     */
-    module.getLocation = function (charID, name, cb) {
-		module.getRefreshToken(Number(charID), function(accessToken){
+    module.getLocation = function (characterID, name, cb) {
+		characterID = Number(characterID)
+		module.getRefreshToken(characterID, function(accessToken){
 			if(!!!accessToken){
-				log.warn("user.getLocation: Could not get an accessToken", {pilot: name})
-				cb({id: 0, name: "unknown", lastcheck: Date.now()});
+				log.warn("user.getLocation: Could not get an accessToken", {characterID: characterID, pilot: name})
+				cb({systemID: 0, name: "unknown", lastcheck: Date.now()});
 				return;
 			}
-			esi.characters(Number(charID), accessToken).location().then(function (locationResult) {
+			esi.characters(characterID, accessToken).location().then(function (locationResult) {
 				cache.get(locationResult.solar_system_id, null, function(systemObject){
 					var location = {
 						systemID: systemObject.id,
@@ -27,8 +28,8 @@ module.exports = function() {
 					cb(location);
 				})
 			}).catch(function(err) {
-				log.error("user.getLocation: Error GET /characters/{character_id}/location/", {pilot: name, err});
-				cb({id: 0, name: "unknown", lastcheck: Date.now()});
+				log.error("user.getLocation: Error GET /characters/{character_id}/location/", {characterID: characterID, pilot: name, err});
+				cb({systemID: 0, name: "unknown", lastcheck: Date.now()});
 			})
 		}) 
 	}
@@ -39,9 +40,10 @@ module.exports = function() {
 	* @return bool
 	*/
 	module.isOnline = function(characterID, name, cb){
+		characterID = Number(characterID)
 		module.getRefreshToken(characterID, function(accessToken) {
-            if (!accessToken) {
-                // TODO: Flag their account to relogin or something to get a proper access token
+            if (!!!accessToken) {
+				log.warn("user.isOnline: Could not get an accessToken", {characterID: characterID, pilot: name})
                 cb(false);
                 return;
             }
