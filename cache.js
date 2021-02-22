@@ -69,7 +69,9 @@ module.exports = function (setup) {
 		if (!cachetemp.includes(id)) {
 			cachetemp.push(id);
 			module.query(id, function (item) {
-				module.addToDb(item, expiresIn);
+				if (item) {
+					module.addToDb(item, expiresIn);
+				}
 				cb(item);
 				module.removeFromCacheTemp(id);
 			})
