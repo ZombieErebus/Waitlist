@@ -304,7 +304,7 @@ module.exports = function (setup) {
 					skillsPackage.categories[c].txticon = `<i class="fa fa-check-circle"></i>`;
 					var cSkillSet = skillsPackage.categories[c].Skills;			
 					for(var i = 0; i < cSkillSet.length; i++) {
-						cSkillSet[i].actual = (esiSkills[cSkillSet[i].id])? esiSkills[cSkillSet[i].id].current_skill_level : 0;
+						cSkillSet[i].actual = (esiSkills[cSkillSet[i].id])? esiSkills[cSkillSet[i].id].active_skill_level : 0;
 						//did skill fail?
 						if(cSkillSet[i].actual < cSkillSet[i].required && cSkillSet[i].failable == true) {
 							cSkillSet[i].class = "skills-failed";
