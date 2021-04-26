@@ -12,8 +12,12 @@
     <meta name="id" content="{{userProfile.characterID}}">
     <meta name="google" content="notranslate" />
 
+    <!-- Sentry -->
+    <script src="https://browser.sentry-cdn.com/5.24.2/bundle.tracing.min.js" integrity="sha384-Epltozh7S1cJM2hcIRDJBbqiiVpZsNlFCciHxKIAfKN8mSTa+gMivtz7glp/30Mz" crossorigin="anonymous"></script>
+    <script>Sentry.init({ dsn: '{{ sentry.publicDsn }}' });</script>
+
     <!-- Tether -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.3/js/tether.min.js"></script>
+    <script src="/includes/vendor/tether/tether.min.js"></script>
     <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="/includes/vendor/bootstrap/css/bootstrap.min.css">
     <!-- Custom Font Icons CSS-->
@@ -30,14 +34,14 @@
     <!-- Favicon-->
     <link rel="shortcut icon" href="/includes/img/favicon.ico">
     <!-- Tweaks for older IEs--><!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script><![endif]-->
+    <script src="/includes/vendor/html5shiv/html5shiv.min.js"></script>
+    <script src="/includes/vendor/respond/respond.min.js"></script><![endif]-->
     <!-- Font Awesome 5 -->
     <script src="/includes/vendor/fontawesome/js/all.js"></script>
     <!-- Charts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+    <script src="/includes/vendor/chart.js/Chart.min.js"></script>
     <!-- JQuery Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="/includes/vendor/jquery/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
     <script src="/includes/vendor/bootstrap/js/bootstrap.min.js"></script>
     

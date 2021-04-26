@@ -5,9 +5,13 @@ require('dotenv').config();
 
 const Scheduler = require('./scheduler/scheduler');
 const database = require('./dbHandler');
-const { data } = require('./setup');
+const { data, sentry } = require('./setup');
 const log = require('./logger');
 const momenttz = require('moment-timezone');
+
+const Sentry = require('@sentry/node');
+
+// Sentry.init({ dsn: sentry.privateDsn });
 
 // Set global timezone for application
 momenttz.tz.setDefault("Etc/UTC");
@@ -61,6 +65,7 @@ database.connect(() => {
                 try{
                     collection.updateOne({"_id": pilot._id}, {$set:{"alliance": alliance, "corporation":corporation}});
                 } catch (err) {
+                    Sentry.captureException(err);
                     console.log("Scheduler - Updating " + pilot.name + "s affiliation: ", err);
                 }
             });
@@ -76,12 +81,13 @@ database.connect(() => {
 
         collection.find({}).forEach((waitingPilot)=> {
             //Updates online/offline
-            user.isOnline(Number(waitingPilot.characterID), (online)=>{
+            user.isOnline(waitingPilot.characterID, waitingPilot.name, (online)=>{
                 if(online){
 
                     try{
                         collection.updateOne({ '_id': waitingPilot._id }, { $unset: {"offline": 0} });
                     } catch (error) {
+                        Sentry.captureException(err);
                         console.log("Scheduler - Updating " + waitingPilot.name + "s online state: ", err)
                     }                       
                 } else {
@@ -91,6 +97,7 @@ database.connect(() => {
                             "offline": (waitingPilot.offline > -1) ? waitingPilot.offline + 1 : 0
                         } });
                     } catch (error) {
+                        Sentry.captureException(err);
                         console.log("Scheduler - Updating " + waitingPilot.name + "s online state: ", err)
                     }  
                 }
@@ -101,6 +108,7 @@ database.connect(() => {
                 try{
                     collection.updateOne({"_id": waitingPilot._id}, {$set: {"location": location}});
                 } catch (err){
+                    Sentry.captureException(err);
                     console.log("Scheduler - Updating " + waitingPilot.name + "s location: ", err)
                 }
             });

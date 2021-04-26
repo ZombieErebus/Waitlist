@@ -11,6 +11,20 @@ const setup = require('./setup.js');
 const log = require('./logger.js')(module);
 const database = require('./dbHandler.js');
 
+const express = require('express');
+const favicon = require('serve-favicon');
+const passport = require('passport');
+const app = express();
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const mongoStore = require('connect-mongo')(session);
+const cookieParser = require('cookie-parser');
+const flash = require('req-flash');
+
+const Sentry = require('@sentry/node');
+
+Sentry.init({ dsn: setup.sentry.privateDsn });
+
 //Apparently JS has a shit fit when it can't throw errors properly so uh, we need to make it throw errors properly
 process.on('uncaughtException', function(exception) {
 	console.log(exception);
@@ -18,17 +32,11 @@ process.on('uncaughtException', function(exception) {
 process.setMaxListeners(0);
 
 database.connect(function () {
-	const express = require('express');
-	const passport = require('passport');
-	const app = express();
-	const bodyParser = require('body-parser');
-	const session = require('express-session');
-	const mongoStore = require('connect-mongo')(session);
-	const cookieParser = require('cookie-parser');
-	const flash = require('req-flash');
     
 	//Custom imports
 	require('./oauth/provider');
+
+	app.use(Sentry.Handlers.requestHandler());
     
     /* Force HTTPS On Production */
     const sslRedirect = require('heroku-ssl-redirect');
@@ -53,6 +61,7 @@ database.connect(function () {
 	app.use(bodyParser.urlencoded({ extended: true }));
 			
 	/* Middleware Checks */
+	app.use(favicon(path.join(__dirname, 'public', 'includes', 'img', 'favicon.ico')));
     app.use('/includes', express.static('public/includes'));//Exempt
     app.use('/compiled-react', express.static('compiled-react'));//Exempt
 	app.use(/\/((?!auth).)*/, require('./middleware/userSession.js')(setup).refresh);
@@ -60,10 +69,12 @@ database.connect(function () {
 	app.use(/\/((?!auth).)*/, require('./middleware/whitelist.js')(setup).check);
 	app.use(/\/((?!auth).)*/, require('./middleware/logout.js')(setup).check);
 
-	nunjucks.configure('resources/views', {
+	const nunjucksApi = nunjucks.configure('resources/views', {
 		autoescape: true,
 		express: app
 	});
+
+	nunjucksApi.addGlobal('sentry', setup.sentry);
 
 	//Routes
 	require('./oauth/oAuthRoutes.js')(app, passport, setup);
@@ -84,7 +95,9 @@ database.connect(function () {
     if (!!process.env.USE_INLINE_SCHEDULER) {
         log.info("Running Scheduler inline with web process!");
         const scheduler = require('./scheduler');
-    }
+	}
+	
+	app.use(Sentry.Handlers.errorHandler());
 
 	//Configure Express webserver
 	app.listen(setup.settings.port, function listening() {
