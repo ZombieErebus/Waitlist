@@ -117,7 +117,7 @@ class Waitlist extends React.Component {
                 <Header />
                 {banner}
                 
-                <section className="no-padding-top padding-bottom noselect">
+                <section className="no-padding-top padding-bottom">
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-lg-4 col-md-6 col-sm-12">
