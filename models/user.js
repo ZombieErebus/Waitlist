@@ -70,10 +70,13 @@ module.exports = function() {
 			refresh.requestNewAccessToken('provider', doc.refreshToken, function(error, accessToken, newRefreshToken){
 				if(error){
 					log.error("user.getRefreshToken - requestNewAccessToken: ", {pilot: characterID, error});
-					if (error.data && error.data.error && error.data.error == "invalid_token") {
-						db.updateOne({ 'characterID': characterID }, { $set: { invalidToken: true } }, function (err, result) {
-							if (err) log.error("user.getRefreshToken: Error for updateOne", { err, 'characterID': characterID });
-						});
+					if (error.data) {
+						var errorData = JSON.parse(error.data);
+						if (errorData.error && errorData.error == "invalid_token") {
+							db.updateOne({ 'characterID': characterID }, { $set: { invalidToken: true } }, function (err, result) {
+								if (err) log.error("user.getRefreshToken: Error for updateOne", { err, 'characterID': characterID });
+							});
+						}
 					}
 					tokenCallback(null);
 					return;
