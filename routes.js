@@ -19,7 +19,7 @@ const skills_controller = require('./controllers/skillsController.js');
 		res.status(401).redirect(`/`);
 	});
 
-	router.get('/squad-statistics', statsController.index);
+	// router.get('/squad-statistics', statsController.index);
 
 	//Waitlist Routes
 	router.post('/join/:type', waitlistController.signup);
@@ -111,8 +111,8 @@ const skills_controller = require('./controllers/skillsController.js');
 	router.patch('/internal-api/v2/skills-managment/:setID', skills_controller.removeSkill);
 	
 	//External - APIs
-	router.get('/api/sstats/members', statsController.getMemberList);
-	router.get('/api/sstats/corporations', statsController.getCorporationList);
-	router.get('/api/sstats/member-registration', statsController.getMontlySignups);//Todo make object array with monthName and count.
+	// router.get('/api/sstats/members', statsController.getMemberList);
+	// router.get('/api/sstats/corporations', statsController.getCorporationList);
+	// router.get('/api/sstats/member-registration', statsController.getMontlySignups);//Todo make object array with monthName and count.
 
 	module.exports = router;
