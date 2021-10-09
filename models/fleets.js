@@ -336,6 +336,8 @@ module.timer = function lookup() {
                     return;
                 })
             }
+            log.error("fleets.getMembers: No access token provided");
+            console.log(accessToken);
             cb(null, fleetID, fleetObject);
             return;
         })
