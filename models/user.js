@@ -67,27 +67,31 @@ module.exports = function() {
     */
 	module.getRefreshToken = function(characterID, tokenCallback){
 		db.findOne({characterID: characterID}, function(err, doc){
-			refresh.requestNewAccessToken('provider', doc.refreshToken, function(error, accessToken, newRefreshToken){
-				if(error){
-					log.error("user.getRefreshToken - requestNewAccessToken: ", {pilot: characterID, error});
-					if (error.data) {
-						var errorData = JSON.parse(error.data);
-						if (errorData.error && errorData.error == "invalid_token") {
-							db.updateOne({ 'characterID': characterID }, { $set: { invalidToken: true } }, function (err, result) {
-								if (err) log.error("user.getRefreshToken: Error for updateOne", { err, 'characterID': characterID });
-							});
+			if (!doc.invalidToken) {
+				refresh.requestNewAccessToken('provider', doc.refreshToken, function(error, accessToken, newRefreshToken){
+					if(error){
+						log.error("user.getRefreshToken - requestNewAccessToken: ", {pilot: characterID, error});
+						if (error.data) {
+							var errorData = JSON.parse(error.data);
+							if (errorData.error && errorData.error == "invalid_token") {
+								db.updateOne({ 'characterID': characterID }, { $set: { invalidToken: true } }, function (err, result) {
+									if (err) log.error("user.getRefreshToken: Error for updateOne", { err, 'characterID': characterID });
+								});
+							}
 						}
+						tokenCallback(null);
+						return;
 					}
-					tokenCallback(null);
-					return;
-				}
-
-				db.updateOne({ 'characterID': characterID }, { $set: { refreshToken: newRefreshToken, invalidToken: false } }, function (err, result) {
-					if (err) log.error("user.getRefreshToken: Error for updateOne", { err, 'characterID': characterID });
-					tokenCallback(accessToken);
-					return;
-				})
-			});
+	
+					db.updateOne({ 'characterID': characterID }, { $set: { refreshToken: newRefreshToken, invalidToken: false } }, function (err, result) {
+						if (err) log.error("user.getRefreshToken: Error for updateOne", { err, 'characterID': characterID });
+						tokenCallback(accessToken);
+						return;
+					})
+				});
+			}
+			tokenCallback(null);
+			return;
 		})
 	}
 
