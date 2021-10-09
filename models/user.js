@@ -89,9 +89,10 @@ module.exports = function() {
 						return;
 					})
 				});
+			} else {
+				tokenCallback(null);
+				return;
 			}
-			tokenCallback(null);
-			return;
 		})
 	}
 
