@@ -326,20 +326,20 @@ module.timer = function lookup() {
 
     module.getMembers = function(fcID, fleetID, fleetObject, cb){
         user.getRefreshToken(fcID, function(accessToken){
-            if (accessToken) {
-                esi.characters(fcID, accessToken).fleet(fleetID).members().then(function (members) {
-                    cb(members, fleetID, fleetObject);
-                    return;
-                }).catch(function (err) {
-                    log.error("fleets.getMembers: Error for esi.characters ", { err, fcID, fleetID });
-                    cb(null, fleetID, fleetObject);
-                    return;
-                })
+            if (!!!accessToken) {
+                log.error("fleets.getMembers: No access token provided");
+                console.log(accessToken);
+                cb(null, fleetID, fleetObject);
+                return;
             }
-            log.error("fleets.getMembers: No access token provided");
-            console.log(accessToken);
-            cb(null, fleetID, fleetObject);
-            return;
+            esi.characters(fcID, accessToken).fleet(fleetID).members().then(function (members) {
+                cb(members, fleetID, fleetObject);
+                return;
+            }).catch(function (err) {
+                log.error("fleets.getMembers: Error for esi.characters ", { err, fcID, fleetID });
+                cb(null, fleetID, fleetObject);
+                return;
+            })
         })
     }
 
