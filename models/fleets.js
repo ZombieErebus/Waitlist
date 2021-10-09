@@ -326,12 +326,15 @@ module.timer = function lookup() {
 
     module.getMembers = function(fcID, fleetID, fleetObject, cb){
         user.getRefreshToken(fcID, function(accessToken){
-            esi.characters(fcID, accessToken).fleet(fleetID).members().then(function (members) {
-                cb(members, fleetID, fleetObject);
-            }).catch(function (err) {
-                log.error("fleets.getMembers: Error for esi.characters ", { err, fcID, fleetID });
-				cb(null, fleetID, fleetObject);
-            })
+            if (accessToken) {
+                esi.characters(fcID, accessToken).fleet(fleetID).members().then(function (members) {
+                    cb(members, fleetID, fleetObject);
+                }).catch(function (err) {
+                    log.error("fleets.getMembers: Error for esi.characters ", { err, fcID, fleetID });
+                    cb(null, fleetID, fleetObject);
+                })
+            }
+            cb(null, fleetID, fleetObject);
         })
     }
 
