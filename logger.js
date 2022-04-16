@@ -2,7 +2,7 @@
 const { combine, timestamp, printf } = format;
 const path = require('path');
 const fs = require('fs');
-const colors = require('colors/safe');
+const colors = require('@colors/colors');
 
 const LOG_DIRECTORY = process.env.LOG_DIRECTORY || 'logs/';
 const MAX_LOG_LENGTH = process.env.MAX_LOG_LENGTH || 4000;
