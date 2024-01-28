@@ -11,4 +11,6 @@ COPY package.json package-lock.json ./
 RUN npm install -g npm@7.7.5
 RUN npm ci
 COPY . .
+RUN npm run webpack
+RUN npm run build:js
 CMD ["node", "index.js"]
