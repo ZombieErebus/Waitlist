@@ -49,11 +49,12 @@ module.exports = function (setup) {
 	* @return cb(alliance{}, corp{})
 	*/
 	module.getPilotAffiliation = function (id, cb) {
-		esi.characters(id).info().then(function (data) {
-			var allianceID = data.alliance_id || 0;
-	
+		esi.characters.affiliations([id]).then(function (data) {
+			var allianceID = data[0].alliance_id || 0;
+			var corporationID = data[0].corporation_id;
+			
 			//Get Corporation Info
-			cache.get(data.corporation_id, day * 2 , function(corporation){
+			cache.get(corporationID, day * 2 , function(corporation) {
 				var corporation = {"corporationID": corporation.id, "name": corporation.name};
 				
 				//Return null if pilot isn't in an alliance
@@ -69,7 +70,7 @@ module.exports = function (setup) {
 				})
 			})
 		}).catch(err => {
-			log.error("users.getPilotAffiliation: Error for esi.characters.info", { err, id });
+			log.error("users.getPilotAffiliation: Error for esi.characters.affiliations", { err, id });
 		});
 	}
 
