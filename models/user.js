@@ -1,6 +1,6 @@
 const setup = require('../setup.js');
 const refresh = require('passport-oauth2-refresh');
-const esi = require('eve-swagger').makeAPI();
+const esi = require('../esi.js').makeAPI();
 const cache = require('../cache.js')(setup);
 const db = require('../dbHandler.js').db.collection('users');
 const log = require('../logger.js')(module);

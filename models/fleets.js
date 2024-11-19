@@ -1,6 +1,6 @@
 const setup = require('../setup.js');
 const db = require('../dbHandler.js').db.collection('fleets');
-const esi = require('eve-swagger').makeAPI();
+const esi = require('../esi.js').makeAPI();
 const user = require('../models/user.js')(setup);
 const log = require('../logger.js')(module);
 const waitlist = require('./waitlist.js')(setup);

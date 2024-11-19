@@ -1,4 +1,4 @@
-const esi = require('eve-swagger').makeAPI();
+const esi = require('./esi.js').makeAPI();
 const db = require('./dbHandler.js').db.collection('cache');
 const log = require('./logger.js')(module);
 

@@ -1,6 +1,6 @@
 const setup = require('../setup.js');
 const cache = require('../cache.js')(setup);
-const esi = require('eve-swagger').makeAPI();
+const esi = require('../esi.js').makeAPI();
 const db = require('../dbHandler.js').db.collection('users');
 const log = require('../logger.js')(module);
 const userO = require('./user.js')(setup);

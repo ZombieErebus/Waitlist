@@ -1,4 +1,4 @@
-var esi = require('eve-swagger').makeAPI();
+var esi = require('../esi.js').makeAPI();
 var setup = require('../setup.js');
 const users = require('../models/users.js')(setup);
 const skills = require('../models/skills.js')(setup);

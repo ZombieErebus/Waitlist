@@ -1,6 +1,6 @@
 var setup = require('../setup.js');
 var bans = require('../models/bans.js')(setup);
-var esi = require('eve-swagger').makeAPI();
+var esi = require('../esi.js').makeAPI();
 const users = require('../models/users.js')(setup);
 const log = require('../logger.js')(module);
 
