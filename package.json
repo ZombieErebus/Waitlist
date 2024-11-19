@@ -34,7 +34,7 @@
     "cookie-parser": "^1.4.3",
     "cross-env": "^5.2.0",
     "dotenv": "^6.2.0",
-    "eve-swagger": "https://github.com/CodesignDev/eve-swagger-js.git",
+    "eve-swagger": "git+https://github.com/CodesignDev/eve-swagger-js.git",
     "express": "^4.16.4",
     "express-longpoll": "0.0.4",
     "express-session": "^1.15.6",
