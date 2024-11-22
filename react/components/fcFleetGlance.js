@@ -8,16 +8,20 @@ const TabFilters = {
     },
     logi: {
         name: "Logistics",
-        ships:  [11987, 11989,22474,22442,37458,37460,37482,37480],//Guardian, Oneiros, Damnation, Eos, Kirin, Scalpel, Stork, Bifrost
+        ships: [11987,11989,37458,37460], // Guardian, Oneiros, Kirin, Scalpel
+    },
+    boosters: {
+        name: "Boosters",
+        ships: [22442,22444,22470,22474,22468,22446,22448], // Damnation, Eos, Claymore, Sleipnir, Vulture, Absolution, Nighthawk
     },
     caps: {
         name: "Capitals",
-        ships: [23757,37604,23915,37605,23911,37607,24483,37606,42242,45645],//Archon, Apostle, Chimera, Minokawa, Thanatos, Ninazu, Nidhoggur, Lif, Dagon, Loggerhead
+        ships: [23757,37604,23915,37605,23911,37607,24483,37606,42242,45645,52907], // Archon, Apostle, Chimera, Minokawa, Thanatos, Ninazu, Nidhoggur, Lif, Dagon, Loggerhead, Zirnitra
     },
-    supers: {
-        name: "Supers",
-        ships: [23919,11567,23917,3764,23913,671,22852,23773,42241,3514,42125,42126,45649]//Aeon, Avatar, Wyvern, Leviathan, Nyx, Erebus, Hel, Ragnarok, Molok, Revenant, Vendetta, Vanquisher, Komodo
-    }
+    // supers: {
+    //     name: "Supers",
+    //     ships: [23919,11567,23917,3764,23913,671,22852,23773,42241,3514,42125,42126,45649], // Aeon, Avatar, Wyvern, Leviathan, Nyx, Erebus, Hel, Ragnarok, Molok, Revenant, Vendetta, Vanquisher, Komodo
+    // },
 }
 
 const EmptyFilterResponse = [];
