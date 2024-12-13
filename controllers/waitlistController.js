@@ -63,7 +63,7 @@ exports.signup = function(req, res){
 
         promise.then(function(waitlistMain) {
             waitlist.add(waitlistMain, pilot, req.body.ship, contact, req.user.newbee, function(result){
-                wlog.joinWl(pilot);
+                wlog.joinWl(pilot, req.params.type);
                 res.status(result).send();
             });
         }).catch(function(err){

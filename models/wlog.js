@@ -8,8 +8,9 @@ var wlog = exports.wlog = {};
 * @sortBy timestamp
 * @limit 28 days
 */
-wlog.getWeek = function(cb){
-    db.find({"time":{$gte: new Date((new Date().getTime() - (28 * 24 * 60 * 60 * 1000)))}}).sort({ "time": -1 }).toArray(function (err, docs) {
+wlog.getData = function(days, cb){
+    days = days || 7;
+    db.find({"time":{$gte: new Date((new Date().getTime() - (days * 24 * 60 * 60 * 1000)))}}).sort({ "time": -1 }).toArray(function (err, docs) {
         if (err) log.error("get: Error for db.find", { err });
         cb(docs);
     })
@@ -19,13 +20,13 @@ wlog.getWeek = function(cb){
 * Log: User joined waitlist.
 * @params: userObject
 */
-wlog.joinWl = function(user){
+wlog.joinWl = function(user, type = ''){
     var logObject = {
         "pilot": {
             "characterID": user.characterID,
             "name": user.name
         },
-        "action": "Joined",
+        "action": "Joined Waitlist" + type != '' ? " (" + type + ")" : "",
         "class": "info",
         "time": new Date()
     }
@@ -145,6 +146,30 @@ wlog.invited = function(userID, adminID){
             }
             db.insert(logObject);        
         })
+    })
+}
+
+/*
+* Log: Removed from Waitlist as in fleet
+* @params: userID
+* @function: get user objects from id
+*/
+wlog.removedAsInFleet = function(userID){
+    users.findAndReturnUser(Number(userID), function(userObject){ 
+        var logObject = {
+            "pilot": {
+                "characterID": userObject.characterID,
+                "name": userObject.name
+            },
+            "admin": {
+                "characterID": null,
+                "name": null
+            },
+            "action": "Removed: In Fleet",
+            "class": "warning",
+            "time": new Date()
+        }
+        db.insert(logObject);        
     })
 }
 

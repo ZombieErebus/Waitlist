@@ -4,6 +4,7 @@ const esi = require('../esi.js').makeAPI();
 const user = require('../models/user.js')(setup);
 const log = require('../logger.js')(module);
 const waitlist = require('./waitlist.js')(setup);
+const wlog = require('./wlog.js');
 const cache = require('../cache.js')(setup);
 
 module.exports = function (setup) {
@@ -238,8 +239,10 @@ module.checkForDuplicates = function () {
                 var charID = onWaitlist[i].characterID;
 
                 if (members.includes(charID)) {
-                   // waitlist.remove(charID, function(result){});
-                   waitlist.remove("character", charID, function(){});
+                    // waitlist.remove(charID, function(result){});
+                    waitlist.remove("character", charID, function() {
+                        wlog.removedAsInFleet(charID);
+                    });
                 }
             }
         })

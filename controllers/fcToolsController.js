@@ -140,8 +140,10 @@ exports.waitlistLog = function(req, res) {
         res.status(403).redirect("/");
         return;
     }
+
+    var days = req.query.days || 7;
     
-    wlog.getWeek(function(logData){
+    wlog.getData(days, function(logData){
         
         for(var i = 0; i < logData.length; i++){
             let timestamp = logData[i].time;                
