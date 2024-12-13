@@ -6,10 +6,10 @@ var wlog = exports.wlog = {};
 /*
 * Return all logs
 * @sortBy timestamp
-* @limit 7 days
+* @limit 28 days
 */
 wlog.getWeek = function(cb){
-    db.find({"time":{$gte: new Date((new Date().getTime() - (7 * 24 * 60 * 60 * 1000)))}}).sort({ "time": -1 }).toArray(function (err, docs) {
+    db.find({"time":{$gte: new Date((new Date().getTime() - (28 * 24 * 60 * 60 * 1000)))}}).sort({ "time": -1 }).toArray(function (err, docs) {
         if (err) log.error("get: Error for db.find", { err });
         cb(docs);
     })
