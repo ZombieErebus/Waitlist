@@ -21,12 +21,17 @@ wlog.getData = function(days, cb){
 * @params: userObject
 */
 wlog.joinWl = function(user, type = ''){
+    type = type.replace(
+        /\w\S*/g,
+        text => text.charAt(0).toUpperCase() + text.substring(1).toLowerCase()
+    );
+    
     var logObject = {
         "pilot": {
             "characterID": user.characterID,
             "name": user.name
         },
-        "action": "Joined Waitlist" + type != '' ? " (" + type + ")" : "",
+        "action": "Joined Waitlist" + (type != '' ? " (" + type + ")" : ""),
         "class": "info",
         "time": new Date()
     }
