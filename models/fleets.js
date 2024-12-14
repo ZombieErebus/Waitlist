@@ -240,9 +240,8 @@ module.checkForDuplicates = function () {
 
                 if (members.includes(charID)) {
                     // waitlist.remove(charID, function(result){});
-                    waitlist.remove("character", charID, function() {
-                        wlog.removedAsInFleet(charID);
-                    });
+                    waitlist.remove("character", charID, function() {});
+                    wlog.removedAsInFleet(charID);
                 }
             }
         })
