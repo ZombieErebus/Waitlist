@@ -1,72 +1,5 @@
 {
-    "generalSkills": [
-        {
-            "name": "EM Armor Compensation",
-            "id": 22806,
-            "required": 3,
-            "failable": true
-        },
-        {
-            "name": "Explosive Armor Compensation",
-            "id": 22807,
-            "required": 3,
-            "failable": true
-        },
-        {
-            "name": "Kinetic Armor Compensation",
-            "id": 22808,
-            "required": 3,
-            "failable": true
-        },
-        {
-            "name": "Thermal Armor Compensation",
-            "id": 22809,
-            "required": 3,
-            "failable": true
-        },
-        {
-            "name": "Target Management",
-            "id": 3429,
-            "required": 2,
-            "failable": false
-        }
-    ],
     "categories": [
-        {
-            "category": "Newbee Ships - Damage - Megathron",
-            "Skills": [
-                {
-                    "name": "Gallente Battleship",
-                    "id": 3336,
-                    "required": 3,
-                    "failable": true
-                },
-                {
-                    "name": "EM Armor Compensation",
-                    "id": 22806,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Explosive Armor Compensation",
-                    "id": 22807,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Kinetic Armor Compensation",
-                    "id": 22808,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Thermal Armor Compensation",
-                    "id": 22809,
-                    "required": 4,
-                    "failable": true
-                }
-            ]
-        },
         {
             "category": "Newbee Ships - Logistics - Augoror",
             "Skills": [
@@ -94,12 +27,6 @@
                     "required": 1,
                     "failable": true
                 },
-                {
-                    "name": "Light Drone Operation",
-                    "id": 24241,
-                    "required": 1,
-                    "failable": true
-                }
             ]
         },
         {
@@ -132,30 +59,48 @@
             ]
         },
         {
-            "category": "Newbee Ships - Support - Celestis",
+            "category": "Newbee Ships - Damage - Tempest Fleet Issue",
             "Skills": [
                 {
-                    "name": "Gallente Cruiser",
-                    "id": 3332,
-                    "required": 1,
+                    "name": "Minmatar Battleship",
+                    "id": 3336,
+                    "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "EM Armor Compensation",
+                    "id": 22806,
+                    "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "Explosive Armor Compensation",
+                    "id": 22807,
+                    "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "Kinetic Armor Compensation",
+                    "id": 22808,
+                    "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "Thermal Armor Compensation",
+                    "id": 22809,
+                    "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "Resistance Phasing IV",
+                    "id": 32797,
+                    "required": 4,
                     "failable": true
                 },
                 {
                     "name": "Hull Upgrades",
                     "id": 3394,
                     "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Sensor Linking",
-                    "id": 3433,
-                    "required": 1,
-                    "failable": true
-                },
-                {
-                    "name": "Medium Drone Operation",
-                    "id": 33699,
-                    "required": 1,
                     "failable": true
                 }
             ]
@@ -182,27 +127,21 @@
                     "failable": true
                 },
                 {
-                    "name": "EM Armor Compensation",
-                    "id": 22806,
+                    "name": "Resistance Phasing IV",
+                    "id": 32797,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Capacitor Emission Systems",
+                    "id": 3423,
                     "required": 3,
                     "failable": true
                 },
                 {
-                    "name": "Explosive Armor Compensation",
-                    "id": 22807,
-                    "required": 3,
-                    "failable": true
-                },
-                {
-                    "name": "Kinetic Armor Compensation",
-                    "id": 22808,
-                    "required": 3,
-                    "failable": true
-                },
-                {
-                    "name": "Thermal Armor Compensation",
-                    "id": 22809,
-                    "required": 3,
+                    "name": "Hull Upgrades",
+                    "id": 3394,
+                    "required": 4,
                     "failable": true
                 }
             ]
@@ -229,80 +168,50 @@
                     "failable": true
                 },
                 {
-                    "name": "EM Armor Compensation",
-                    "id": 22806,
-                    "required": 3,
+                    "name": "Resistance Phasing IV",
+                    "id": 32797,
+                    "required": 4,
                     "failable": true
                 },
                 {
-                    "name": "Explosive Armor Compensation",
-                    "id": 22807,
-                    "required": 3,
-                    "failable": true
-                },
-                {
-                    "name": "Kinetic Armor Compensation",
-                    "id": 22808,
-                    "required": 3,
-                    "failable": true
-                },
-                {
-                    "name": "Thermal Armor Compensation",
-                    "id": 22809,
-                    "required": 3,
+                    "name": "Hull Upgrades",
+                    "id": 3394,
+                    "required": 4,
                     "failable": true
                 }
             ]
         },
         {
-            "category": "Mainline Ships - Drone Bunny - Drekavac",
+            "category": "Mainline Ships - Damage - Leshak",
             "Skills": [
                 {
-                    "name": "Precursor Battlecruiser",
-                    "id": 49743,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Medium Precursor Weapon",
-                    "id": 47871,
-                    "required": 5,
-                    "failable": true
-                },
-                {
-                    "name": "Medium Disintegrator Specialization",
-                    "id": 47874,
+                    "name": "Precursor Battleship",
+                    "id": 47869,
                     "required": 3,
                     "failable": true
                 },
                 {
-                    "name": "EM Armor Compensation",
-                    "id": 22806,
+                    "name": "Large Precursor Weapon",
+                    "id": 47872,
+                    "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "Resistance Phasing IV",
+                    "id": 32797,
                     "required": 4,
                     "failable": true
                 },
                 {
-                    "name": "Explosive Armor Compensation",
-                    "id": 22807,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Kinetic Armor Compensation",
-                    "id": 22808,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Thermal Armor Compensation",
-                    "id": 22809,
+                    "name": "Hull Upgrades",
+                    "id": 3394,
                     "required": 4,
                     "failable": true
                 }
             ]
         },
         {
-            "category": "Mainline Ships - Drone Bunny - Rapier",
+            "category": "Mainline Ships - Drone Bunny - Huginn",
             "Skills": [
                 {
                     "name": "Recon Ships",
@@ -332,6 +241,12 @@
                     "name": "Thermal Armor Compensation",
                     "id": 22809,
                     "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Hull Upgrades",
+                    "id": 3394,
+                    "required": 3,
                     "failable": true
                 }
             ]
@@ -380,6 +295,18 @@
                     "id": 3430,
                     "required": 3,
                     "failable": true
+                },
+                {
+                    "name": "Remote Repair Systems",
+                    "id": 3430,
+                    "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "Capacitor Emission Systems",
+                    "id": 3430,
+                    "required": 1,
+                    "failable": true
                 }
             ]
         },
@@ -420,6 +347,12 @@
                     "name": "Thermal Armor Compensation",
                     "id": 22809,
                     "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Hull Upgrades",
+                    "id": 3394,
+                    "required": 3,
                     "failable": true
                 },
                 {
@@ -554,7 +487,13 @@
                 {
                     "name": "Gallente Carrier",
                     "id": 24313,
-                    "required": 3,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Capital Ships",
+                    "id": 28374,
+                    "required": 4,
                     "failable": true
                 },
                 {
@@ -566,17 +505,35 @@
                 {
                     "name": "Light Fighters",
                     "id": 40572,
-                    "required": 3,
+                    "required": 4,
                     "failable": true
                 },
                 {
                     "name": "Support Fighters",
                     "id": 40573,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Fighter Hangar Management",
+                    "id": 24613,
                     "required": 3,
                     "failable": true
                 },
                 {
+                    "name": "Drone Sharpshooting",
+                    "id": 23606,
+                    "required": 5,
+                    "failable": true
+                },
+                {
                     "name": "Jump Drive Calibration",
+                    "id": 21611,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Jump Fuel Conservation",
                     "id": 21611,
                     "required": 4,
                     "failable": true
@@ -584,25 +541,85 @@
                 {
                     "name": "EM Armor Compensation",
                     "id": 22806,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Explosive Armor Compensation",
                     "id": 22807,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Kinetic Armor Compensation",
                     "id": 22808,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Thermal Armor Compensation",
                     "id": 22809,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Hull Upgrades",
+                    "id": 3394,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Mechanics",
+                    "id": 3392,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Thermodynamics",
+                    "id": 28164,
                     "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Capacitor Management",
+                    "id": 3418,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Capacitor Systems Operation",
+                    "id": 3417,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Cybernetics",
+                    "id": 3411,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Evasive Manuevering",
+                    "id": 3453,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "High Speed Maneuvering",
+                    "id": 3454,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Armor Rigging",
+                    "id": 26253,
+                    "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "Navigation",
+                    "id": 3349,
+                    "required": 5,
                     "failable": true
                 }
             ]
@@ -613,7 +630,13 @@
                 {
                     "name": "Amarr Carrier",
                     "id": 24311,
-                    "required": 3,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Capital Ships",
+                    "id": 28374,
+                    "required": 4,
                     "failable": true
                 },
                 {
@@ -625,43 +648,121 @@
                 {
                     "name": "Light Fighters",
                     "id": 40572,
-                    "required": 3,
+                    "required": 4,
                     "failable": true
                 },
                 {
                     "name": "Support Fighters",
                     "id": 40573,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Fighter Hangar Management",
+                    "id": 24613,
                     "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "Drone Sharpshooting",
+                    "id": 23606,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Jump Drive Calibration",
                     "id": 21611,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Jump Fuel Conservation",
+                    "id": 21610,
                     "required": 4,
                     "failable": true
                 },
                 {
                     "name": "EM Armor Compensation",
                     "id": 22806,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Explosive Armor Compensation",
                     "id": 22807,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Kinetic Armor Compensation",
                     "id": 22808,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Thermal Armor Compensation",
                     "id": 22809,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Hull Upgrades",
+                    "id": 3394,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Mechanics",
+                    "id": 3392,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Thermodynamics",
+                    "id": 28164,
                     "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Capacitor Management",
+                    "id": 3418,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Capacitor Systems Operation",
+                    "id": 3417,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Cybernetics",
+                    "id": 3411,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Evasive Manuevering",
+                    "id": 3453,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "High Speed Maneuvering",
+                    "id": 3454,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Armor Rigging",
+                    "id": 26253,
+                    "required": 3,
+                    "failable": true
+                },
+                {
+                    "name": "Navigation",
+                    "id": 3349,
+                    "required": 5,
                     "failable": true
                 }
             ]
@@ -672,7 +773,13 @@
                 {
                     "name": "Minmitar Carrier",
                     "id": 24314,
-                    "required": 3,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Capital Ships",
+                    "id": 28374,
+                    "required": 4,
                     "failable": true
                 },
                 {
@@ -684,17 +791,35 @@
                 {
                     "name": "Light Fighters",
                     "id": 40572,
-                    "required": 3,
+                    "required": 4,
                     "failable": true
                 },
                 {
                     "name": "Support Fighters",
                     "id": 40573,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Fighter Hangar Management",
+                    "id": 24613,
                     "required": 3,
                     "failable": true
                 },
                 {
+                    "name": "Drone Sharpshooting",
+                    "id": 23606,
+                    "required": 5,
+                    "failable": true
+                },
+                {
                     "name": "Jump Drive Calibration",
+                    "id": 21610,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Jump Fuel Conservation",
                     "id": 21611,
                     "required": 4,
                     "failable": true
@@ -702,84 +827,85 @@
                 {
                     "name": "EM Armor Compensation",
                     "id": 22806,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Explosive Armor Compensation",
                     "id": 22807,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Kinetic Armor Compensation",
                     "id": 22808,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Thermal Armor Compensation",
                     "id": 22809,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Hull Upgrades",
+                    "id": 3394,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Mechanics",
+                    "id": 3392,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Thermodynamics",
+                    "id": 28164,
                     "required": 4,
                     "failable": true
-                }
-            ]
-        },
-        {
-            "category": "Capital Ships - Damage - Chimera",
-            "Skills": [
+                },
                 {
-                    "name": "Caldaria Carrier",
-                    "id": 24312,
+                    "name": "Capacitor Management",
+                    "id": 3418,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Capacitor Systems Operation",
+                    "id": 3417,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Cybernetics",
+                    "id": 3411,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Evasive Manuevering",
+                    "id": 3453,
+                    "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "High Speed Maneuvering",
+                    "id": 3454,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Armor Rigging",
+                    "id": 26253,
                     "required": 3,
                     "failable": true
                 },
                 {
-                    "name": "Fighters",
-                    "id": 23069,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Light Fighters",
-                    "id": 40572,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Support Fighters",
-                    "id": 40573,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Jump Drive Calibration",
-                    "id": 21611,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "EM Shield Compensation",
-                    "id": 12365,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Explosive Shield Compensation",
-                    "id": 12367,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Kinetic Shield Compensation",
-                    "id": 12366,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Thermal Shield Compensation",
-                    "id": 11566,
-                    "required": 4,
+                    "name": "Navigation",
+                    "id": 3349,
+                    "required": 5,
                     "failable": true
                 }
             ]
@@ -796,13 +922,19 @@
                 {
                     "name": "Tactical Logistics Reconfiguration",
                     "id": 27906,
-                    "required": 4,
+                    "required": 5,
                     "failable": true
                 },
                 {
                     "name": "Jump Drive Calibration",
                     "id": 21611,
                     "required": 5,
+                    "failable": true
+                },
+                {
+                    "name": "Jump Fuel Conservation",
+                    "id": 21610,
+                    "required": 4,
                     "failable": true
                 },
                 {
@@ -814,6 +946,12 @@
                 {
                     "name": "Capital Capacitor Emission Systems",
                     "id": 24572,
+                    "required": 4,
+                    "failable": true
+                },
+                {
+                    "name": "Capital Repair Systems",
+                    "id": 21803,
                     "required": 4,
                     "failable": true
                 },
@@ -840,63 +978,10 @@
                     "id": 22809,
                     "required": 4,
                     "failable": true
-                }
-            ]
-        },
-        {
-            "category": "Capital Ships - Fax - Minokawa",
-            "Skills": [
-                {
-                    "name": "Caldari Carrier",
-                    "id": 24311,
-                    "required": 4,
-                    "failable": true
                 },
                 {
-                    "name": "Tactical Logistics Reconfiguration",
-                    "id": 27906,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Jump Drive Calibration",
-                    "id": 21611,
-                    "required": 5,
-                    "failable": true
-                },
-                {
-                    "name": "Capital Shield Emission Systems",
-                    "id": 24571,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Capital Capacitor Emission Systems",
-                    "id": 24572,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "EM Shield Compensation",
-                    "id": 12365,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Explosive Shield Compensation",
-                    "id": 12367,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Kinetic Shield Compensation",
-                    "id": 12366,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Thermal Shield Compensation",
-                    "id": 11566,
+                    "name": "Resistance Phasing",
+                    "id": 32797,
                     "required": 4,
                     "failable": true
                 }
@@ -908,7 +993,7 @@
                 {
                     "name": "Minmitar Carrier",
                     "id": 24314,
-                    "required": 5,
+                    "required": 4,
                     "failable": true
                 },
                 {
@@ -924,38 +1009,14 @@
                     "failable": true
                 },
                 {
-                    "name": "Capital Shield Emission Systems",
-                    "id": 24571,
+                    "name": "Jump Fuel Conservation",
+                    "id": 21610,
                     "required": 4,
                     "failable": true
                 },
                 {
                     "name": "Capital Remote Armor Repair Systems",
                     "id": 24568,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "EM Shield Compensation",
-                    "id": 12365,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Explosive Shield Compensation",
-                    "id": 12367,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Kinetic Shield Compensation",
-                    "id": 12366,
-                    "required": 4,
-                    "failable": true
-                },
-                {
-                    "name": "Thermal Shield Compensation",
-                    "id": 11566,
                     "required": 4,
                     "failable": true
                 }
